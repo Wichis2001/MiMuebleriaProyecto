@@ -37,7 +37,7 @@
                         Piezas
                       </a>
                       <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <li><a class="dropdown-item" href="ServletPieza?accion=listar">Crear Pieza</a></li>
+                          <li><a class="dropdown-item" href="Servlet-Pieza?accion=listar">Crear Pieza</a></li>
                         <li><a class="dropdown-item" href="#">Eliminar Pieza</a></li>
                         <li><a class="dropdown-item" href="#">Modificar Pieza</a></li>
                       </ul>
