@@ -17,11 +17,11 @@
         <h1>Agregar Piezas</h1>
         <form>
             Tipo: <br>
-            <input type="text" name="txtTipo"><br>
+            <input type="text" name="txtTipo" required><br>
             Costo: <br>
-            <input type="text" name="txtCosto"><br>
+            <input type="text" name="txtCosto"required><br>
             Cantidad: <br>
-            <input type="number" name="txtCantidad"><br>
+            <input type="number" name="txtCantidad"required><br>
             <input type="submit" name="accion" value="Agregar"><br>
         </form>
     </body>

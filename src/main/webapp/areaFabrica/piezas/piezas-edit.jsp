@@ -4,6 +4,8 @@
     Author     : luis
 --%>
 
+<%@page import="Mueble.Pieza"%>
+<%@page import="Mysql.modelos.PiezaDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,6 +14,25 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        
+        <h1>Modificar Piezas</h1>
+        <div>
+            <% 
+            PiezaDAO dao=new PiezaDAO();
+            String tipo=(String)request.getAttribute("tipopieza");
+            Double precio=Double.parseDouble((String)request.getAttribute("costopieza"));
+            Pieza p=(Pieza)dao.list(tipo, precio);
+            %>
+            <form>
+            Tipo: <br>
+            <input type="text" name="txtTipo" value ="<%=p.getTipo()%>"required><br>
+            Costo: <br>
+            <input type="text" name="txtCosto" value ="<%=p.getCosto()%>"required><br>
+            Cantidad: <br>
+            <input type="number" name="txtCantidad" value ="<%=p.getCantidad()%>" required><br>
+            <input type="submit" name="accion" value="Actualizar"><br>
+            </form>
+        </div>
+        
     </body>
 </html>

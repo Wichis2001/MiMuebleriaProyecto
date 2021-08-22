@@ -19,7 +19,7 @@
     <body>
         <div>
             <h1>Piezas</h1>
-            <a href="ServletPieza?accion=add">Agregar nuevo</a>
+            <a href="Servlet-Pieza?accion=add">Agregar nuevo</a>
             <table border="1">
                 <thead>
                     <tr>
@@ -30,7 +30,7 @@
                     </tr>
                 </thead>
                 <%
-                    PiezaDAO dao=new PiezaDAO();
+                    PiezaDAO dao= new PiezaDAO();
                     List<Pieza>list=dao.listar();
                     Iterator<Pieza>iter=list.iterator();
                     Pieza pieza=null;
@@ -43,7 +43,7 @@
                         <td><%=pieza.getCosto()%></td>
                         <td><%=pieza.getCantidad()%></td>
                         <td>
-                            <a>Editar</a>
+                            <a href="Servlet-Pieza?accion=editar&tipo=<%=pieza.getTipo()%>&costo=<%=pieza.getCosto()%>">Editar</a>
                             <a>Eliminar</a>
                         </td>
                     </tr>

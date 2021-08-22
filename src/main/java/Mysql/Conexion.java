@@ -16,40 +16,45 @@ import javax.swing.JOptionPane;
  *
  * @author luis
  */
-public class Conexion {
-    static Connection Conexion = null;
+public final class Conexion {
+    static Connection conexion=null;
     
     public Conexion(){
         conectar();
     }
     
-    public void conectar() {
+    public void conectar(){
         try{
-
-            if (Conexion != null) {
+            if (conexion != null) {
                 System.err.print("Ya hay una conexion vigente con la base de datos");
+                return;
             }
-
+            Class.forName("com.mysql.jdbc.Driver");
             String url = "jdbc:mysql://localhost:3306/MiMuebleria";
             String user = "root";
             String password = "Wichis6661";
-
-            Conexion = DriverManager.getConnection(url, user, password);
+            conexion = DriverManager.getConnection(url, user, password);
+            System.out.print("Conexio exitosa");
         }catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
             System.err.print("Conexion Fallida"+ex);
 
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e){
+            System.err.print(e);
         }
     }
     
+    
     public void desconectar(){
-        Conexion = null;
-        if (Conexion!=null) {
+        conexion = null;
+        if (conexion!=null) {
             JOptionPane.showMessageDialog(null, "NO se pudo desconectar de la base de datos, ya que hay una conexion vigente");
         }
     }
     
     public static Connection getConnection(){
-        return Conexion;
+        return conexion;
     }
 }
