@@ -72,15 +72,18 @@
                         <input class="form-control" class="text-center" type="text" name="txtCosto"required><br>
                         Cantidad: <br>
                         <input class="form-control" class="text-center" type="number" name="txtCantidad"required><br>
-                        <input class="btn-primary" class="text-center" type="submit" name="accion" value="Agregar"><br>
+                        <input id="prueba" class="btn-primary" class="text-center" type="submit" name="accion" value="Agregar"><br>
+                        <a id="3" class="btn-secondary" href="Servlet-Pieza?accion=listar">Regresar</a>
+                        <button id="mañana"> Yaaaa </button>
                         </form>
                     </div>
                 </div>
             </section>
-        <script src="../../resources/libraries/bootstrap/js/jquery.js"></script>
-        <script src="../resources/libraries/bootstrap/js/bootstrap.min.js"></script>
-        <script src="../resources/libraries/aos/aos.js"></script>
-        <script src="../resources/js/index.js"></script>
-        
+        <script src="./../resources/libraries/bootstrap/js/jquery.js"></script>
+        <script src="./../resources/libraries/bootstrap/js/bootstrap.min.js"></script>
+        <script src="./../resources/libraries/aos/aos.js"></script>
+        <script src="./../resources/js/sweetalert.js"></script>
+        <script src="./../resources/js/botones.js"></script>
+        <script src="./../resources/js/index.js"></script>
     </body>
 </html>

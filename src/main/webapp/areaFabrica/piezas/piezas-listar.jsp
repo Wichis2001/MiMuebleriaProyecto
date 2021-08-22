@@ -19,6 +19,7 @@
         <link rel="stylesheet" href="./../resources/libraries/bootstrap/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="./../resources/css/banner-general.css"/>
         <link rel="stylesheet" href="./../resources/css/keyframes.css"/>
+        <link href="./../resources/libraries/sweetalert/sweetalert.css" rel="stylesheet" type="text/css"/>
         <link href="./../resources/libraries/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="./../resources/css/style-general.css"/>
         <title>Lista Piezas</title>
@@ -88,12 +89,14 @@
                     %>
                     <tbody>
                     <tr>
-                        <th class="text-center" class="text-black-50"><%=pieza.getTipo()%></th>
+                        <th class="text-center" class="text-black-50"><%=pieza.getTipo()%> </th>
                         <th class="text-center" class="text-black-50"><%=pieza.getCosto()%></th>
                         <th class="text-center" class="text-black-50"><%=pieza.getCantidad()%></th>
                         <td class="text-center">
-                            <a class="btn btn-warning" href="Servlet-Pieza?accion=editar&tipo=<%=pieza.getTipo()%>&costo=<%=pieza.getCosto()%>">Editar</a>
-                            <a class="btn btn-danger" href="Servlet-Pieza?accion=eliminar&tipo=<%=pieza.getTipo()%>&costo=<%=pieza.getCosto()%>">Eliminar</a>
+                            <input type="hidden" id="tipo" value="<%=pieza.getTipo()%>">
+                            <input type="hidden" id="costo" value="<%=pieza.getCosto()%>">
+                            <a id="updatePieza"class="btn btn-warning" href="Servlet-Pieza?accion=editar&tipo=<%=pieza.getTipo()%>&costo=<%=pieza.getCosto()%>">Editar</a>
+                            <a id="deletePieza" class="btn btn-danger">Eliminar</a>
                         </td>
                     </tr>
                     <%}%>
@@ -102,9 +105,11 @@
             </div>
         </div>
     </section>
-        <script src="../../resources/libraries/bootstrap/js/jquery.js"></script>
-        <script src="../resources/libraries/bootstrap/js/bootstrap.min.js"></script>
-        <script src="../resources/libraries/aos/aos.js"></script>
-        <script src="../resources/js/index.js"></script>
+        <script src="./../resources/libraries/bootstrap/js/jquery.js"></script>
+        <script src="./../resources/libraries/bootstrap/js/bootstrap.min.js"></script>
+        <script src="./../resources/libraries/aos/aos.js"></script>
+        <script src="./../resources/js/index.js"></script>
+        <script src="./../resources/libraries/sweetalert/sweetalert.js" type="text/javascript"></script>
+        <script src="./../resources/js/funcionesPieza.js"></script>
     </body>
 </html>

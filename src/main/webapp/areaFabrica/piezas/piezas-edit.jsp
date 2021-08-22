@@ -74,6 +74,7 @@
                                 <input type="hidden" name="txtTipo" value ="<%=p.getTipo()%>"required><br>
                                 <input type="hidden" name="txtCosto" value ="<%=p.getCosto()%>"required><br>
                                 <input class="btn btn-primary" class="align-bottom" type="submit" name="accion" value="Actualizar"><br>
+                                <a id="bt2" class="btn-secondary" href="Servlet-Pieza?accion=listar">Regresar</a>
                             </form>
                         <div class="col-lg-6">
 
