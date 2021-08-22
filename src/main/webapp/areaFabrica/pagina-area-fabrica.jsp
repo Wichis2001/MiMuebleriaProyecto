@@ -32,15 +32,8 @@
                     <li class="nav-item">
                       <a class="nav-link active" aria-current="pagina-area-fabrica.jsp" href="#">Home</a>
                     </li>
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Piezas
-                      </a>
-                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <li><a class="dropdown-item" href="Servlet-Pieza?accion=listar">Crear Pieza</a></li>
-                        <li><a class="dropdown-item" href="#">Eliminar Pieza</a></li>
-                        <li><a class="dropdown-item" href="#">Modificar Pieza</a></li>
-                      </ul>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="pagina-area-fabrica.jsp" href="Servlet-Pieza?accion=listar">Piezas</a>
                     </li>
                     <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

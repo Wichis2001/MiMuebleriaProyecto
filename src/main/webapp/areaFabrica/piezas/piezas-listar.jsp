@@ -14,20 +14,28 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="../../resources/libraries/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
-        <title>JSP Page</title>
+        <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond" rel="stylesheet">
+        <link rel="stylesheet" href="../../resources/libraries/aos/aos.css"/>
+        <link rel="stylesheet" href="../../resources/libraries/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="../../resources/css/banner-area-fabrica.css"/>
+        <link rel="stylesheet" href="../../resources/css/keyframes.css"/>
+        <link rel="stylesheet" href="../../resources/css/style-area-fabrica.css"/>
+        <link href="./../resources/libraries/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <title>Lista Piezas</title>
     </head>
     <body>
         <div class="container">
-            <h1>Piezas</h1>
+            <h1 class="text-center">Listado de Piezas Disponibles</h1>
             <a class="btn btn-success" href="Servlet-Pieza?accion=add">Agregar nuevo</a>
-            <table border="1">
+            <br>
+            <br>
+            <table class="table table-bordered"border="1">
                 <thead>
                     <tr>
-                        <th>TIPO</th>
-                        <th>COSTO</th>
-                        <th>CANTIDAD</th>
-                        <th>ACCIONES</th>
+                        <th class="text-center">TIPO</th>
+                        <th class="text-center">COSTO</th>
+                        <th class="text-center">CANTIDAD</th>
+                        <th class="text-center">ACCIONES</th>
                     </tr>
                 </thead>
                 <%
@@ -40,12 +48,12 @@
                 %>
                 <tbody>
                     <tr>
-                        <td><%=pieza.getTipo()%></td>
-                        <td><%=pieza.getCosto()%></td>
-                        <td><%=pieza.getCantidad()%></td>
-                        <td>
-                            <a href="Servlet-Pieza?accion=editar&tipo=<%=pieza.getTipo()%>&costo=<%=pieza.getCosto()%>">Editar</a>
-                            <a href="Servlet-Pieza?accion=eliminar&tipo=<%=pieza.getTipo()%>&costo=<%=pieza.getCosto()%>">Eliminar</a>
+                        <td class="text-center"><%=pieza.getTipo()%></td>
+                        <td class="text-center"><%=pieza.getCosto()%></td>
+                        <td class="text-center"><%=pieza.getCantidad()%></td>
+                        <td class="text-center">
+                            <a class="btn btn-warning" href="Servlet-Pieza?accion=editar&tipo=<%=pieza.getTipo()%>&costo=<%=pieza.getCosto()%>">Editar</a>
+                            <a class="btn btn-danger" href="Servlet-Pieza?accion=eliminar&tipo=<%=pieza.getTipo()%>&costo=<%=pieza.getCosto()%>">Eliminar</a>
                         </td>
                     </tr>
                     <%}%>
@@ -53,6 +61,9 @@
             </table>
 
         </div>
-        
+        <script src="../../resources/libraries/bootstrap/js/jquery.js"></script>
+        <script src="../resources/libraries/bootstrap/js/bootstrap.min.js"></script>
+        <script src="../resources/libraries/aos/aos.js"></script>
+        <script src="../resources/js/index.js"></script>
     </body>
 </html>
