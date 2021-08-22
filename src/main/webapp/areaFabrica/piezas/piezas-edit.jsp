@@ -24,12 +24,10 @@
             Pieza p=(Pieza)dao.list(tipo, precio);
             %>
             <form>
-            Tipo: <br>
-            <input type="text" name="txtTipo" value ="<%=p.getTipo()%>"required><br>
-            Costo: <br>
-            <input type="text" name="txtCosto" value ="<%=p.getCosto()%>"required><br>
             Cantidad: <br>
             <input type="number" name="txtCantidad" value ="<%=p.getCantidad()%>" required><br>
+            <input type="hidden" name="txtTipo" value ="<%=p.getTipo()%>"required><br>
+            <input type="hidden" name="txtCosto" value ="<%=p.getCosto()%>"required><br>
             <input type="submit" name="accion" value="Actualizar"><br>
             </form>
         </div>

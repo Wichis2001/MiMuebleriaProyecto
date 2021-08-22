@@ -59,7 +59,7 @@ public class ServletPieza extends HttpServlet {
         } else if(action.equalsIgnoreCase("editar")){
             request.setAttribute(("tipopieza"), request.getParameter(("tipo")));
             request.setAttribute(("costopieza"), request.getParameter(("costo")));
-            acceso=edit;
+            acceso=edit; 
         } else if(action.equalsIgnoreCase("Actualizar")){
             String tipo=request.getParameter("txtTipo");
             Double precio=Double.parseDouble(request.getParameter("txtCosto"));
@@ -68,6 +68,11 @@ public class ServletPieza extends HttpServlet {
             pieza.setCosto(precio);
             pieza.setCantidad(cantidad);
             dao.edit(pieza);
+            acceso=listar;
+        } else if(action.equalsIgnoreCase("eliminar")){
+            String tipo=request.getParameter("tipo");
+            Double precio=Double.parseDouble(request.getParameter("costo"));
+            dao.delete(tipo, precio);
             acceso=listar;
         }
         

@@ -14,12 +14,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="../../resources/libraries/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <title>JSP Page</title>
     </head>
     <body>
-        <div>
+        <div class="container">
             <h1>Piezas</h1>
-            <a href="Servlet-Pieza?accion=add">Agregar nuevo</a>
+            <a class="btn btn-success" href="Servlet-Pieza?accion=add">Agregar nuevo</a>
             <table border="1">
                 <thead>
                     <tr>
@@ -44,7 +45,7 @@
                         <td><%=pieza.getCantidad()%></td>
                         <td>
                             <a href="Servlet-Pieza?accion=editar&tipo=<%=pieza.getTipo()%>&costo=<%=pieza.getCosto()%>">Editar</a>
-                            <a>Eliminar</a>
+                            <a href="Servlet-Pieza?accion=eliminar&tipo=<%=pieza.getTipo()%>&costo=<%=pieza.getCosto()%>">Eliminar</a>
                         </td>
                     </tr>
                     <%}%>

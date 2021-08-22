@@ -56,7 +56,7 @@ public class PiezaDAO implements Interfaces.CRUDPieza{
         String sql = "SELECT * FROM pieza WHERE tipo='"+ tipo +"' AND costo='"+ costo +"'";
         try{
            con=conexion.getConnection();
-           ps =con.prepareStatement(Querys.queryPieza);
+           ps =con.prepareStatement(sql);
            rs =ps.executeQuery();
            while(rs.next()){
                piezas.setTipo(rs.getString("tipo"));
@@ -94,19 +94,28 @@ public class PiezaDAO implements Interfaces.CRUDPieza{
 
     @Override
     public boolean edit(Pieza pieza) {
-         String sql="UPDATE pieza SET tipo='"+ pieza.getTipo() + "', costo='"+ pieza.getCosto()+ "', cantidad='"+ pieza.getCantidad() + "' WHERE UPPER(tipo)=UPPER('"+ pieza.getTipo() +"') AND costo='"+ pieza.getCosto() +"'"; 
+         String sql="UPDATE pieza SET cantidad='"+ pieza.getCantidad() + "' WHERE (tipo)='"+ pieza.getTipo() +"' AND costo='"+ pieza.getCosto() +"'"; 
          try {
             con=conexion.getConnection();
             ps=con.prepareStatement(sql);
             ps.executeUpdate();
         } catch (Exception e) {
+            System.err.print(e);
         }
          return false;
     }
 
     @Override
     public boolean delete(String tipo, double costo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql="DELETE FROM pieza WHERE (tipo)='"+ tipo +"' AND costo='"+ costo +"'";
+        try {
+            con=conexion.getConnection();
+            ps=con.prepareStatement(sql);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.err.print(e);
+        }
+        return false;
     }
     
     public boolean verificar(String tipo, double costo, int cantidad){
