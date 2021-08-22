@@ -1,0 +1,60 @@
+.ewk_cont_banner{
+    height: 100vh;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url("../img/vecteezy_watercolor-texture-bright-blue-aqua-color-background_2254536.jpg");
+}
+
+.ewk_sombra{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    padding: 20px;
+    width: 80%;
+    text-align: center;
+    background-color: rgba(0,0,0,0.6);
+    color:#fff;
+    margin:auto;
+}
+
+.ewk_sombra hr{
+    border-top: 1px solid #fff;
+}
+
+.ewk_sombra h1{
+    font-size: 5vw;
+    margin-bottom: 10px;
+}
+
+.ewk_sombra p{
+    font-size: 4vw;
+    margin-bottom: 10px;
+}
+
+.ewk_cont_banner_link{
+    margin: 15px;
+    position:relative;
+}
+
+.ewk_cont_banner_link a{
+    position: relative;
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+    font-size: 30px;
+    border: 1px solid #fff;
+    padding: 1px;
+    margin-bottom: 5px;
+    width: 150px;
+}
+
+.ewk_cont_banner_link a:hover{
+    background-color: #fff;
+    color:#111;
+}
+
+
