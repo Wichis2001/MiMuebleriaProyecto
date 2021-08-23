@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="./../resources/libraries/bootstrap/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="./../resources/css/banner-general.css"/>
         <link rel="stylesheet" href="./../resources/css/keyframes.css"/>
+        <link href="./../resources/libraries/sweetalert/sweetalert.css" rel="stylesheet" type="text/css"/>
         <link href="./../resources/libraries/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="./../resources/css/style-general.css"/>
         <title>Lista Piezas</title>
@@ -74,17 +75,16 @@
                                 <input type="hidden" name="txtTipo" value ="<%=p.getTipo()%>"required><br>
                                 <input type="hidden" name="txtCosto" value ="<%=p.getCosto()%>"required><br>
                                 <input class="btn btn-primary" class="align-bottom" type="submit" name="accion" value="Actualizar"><br>
-                                <a id="bt2" class="btn-secondary" href="Servlet-Pieza?accion=listar">Regresar</a>
+                                <a id="regresarbutton" class="btn btn-secondary" href="Servlet-Pieza?accion=listar">Regresar</a>
                             </form>
-                        <div class="col-lg-6">
-
-                        </div>
                     </div>
                 </div>
             </section>
-        <script src="../../resources/libraries/bootstrap/js/jquery.js"></script>
-        <script src="../resources/libraries/bootstrap/js/bootstrap.min.js"></script>
-        <script src="../resources/libraries/aos/aos.js"></script>
-        <script src="../resources/js/index.js"></script>
+        <script src="./../resources/libraries/bootstrap/js/jquery.js"></script>
+        <script src="./../resources/libraries/bootstrap/js/bootstrap.min.js"></script>
+        <script src="./../resources/libraries/aos/aos.js"></script>
+        <script src="./../resources/js/index.js"></script>
+        <script src="./../resources/libraries/sweetalert/sweetalert.js" type="text/javascript"></script>
+        <script src="./../resources/js/piezasAgregar.js"></script>
     </body>
 </html>

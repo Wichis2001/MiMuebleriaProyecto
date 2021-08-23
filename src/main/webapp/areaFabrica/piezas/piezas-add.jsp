@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="./../resources/libraries/bootstrap/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="./../resources/css/banner-general.css"/>
         <link rel="stylesheet" href="./../resources/css/keyframes.css"/>
+        <link href="./../resources/libraries/sweetalert/sweetalert.css" rel="stylesheet" type="text/css"/>
         <link href="./../resources/libraries/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="./../resources/css/style-general.css"/>
         <title>Lista Piezas</title>
@@ -66,15 +67,14 @@
                     <div class="ewk_sombra">
                         <h1 class="text-center">Formulario de Asignacion de Piezas</h1>
                         <form>
-                        Tipo: <br>
-                        <input class="form-control" class="text-center" type="text" name="txtTipo" required><br>
-                        Costo: <br>
-                        <input class="form-control" class="text-center" type="text" name="txtCosto"required><br>
-                        Cantidad: <br>
-                        <input class="form-control" class="text-center" type="number" name="txtCantidad"required><br>
-                        <input id="prueba" class="btn-primary" class="text-center" type="submit" name="accion" value="Agregar"><br>
-                        <a id="3" class="btn-secondary" href="Servlet-Pieza?accion=listar">Regresar</a>
-                        <button id="mañana"> Yaaaa </button>
+                            Tipo: <br>
+                            <input class="form-control" class="text-center" type="text" name="txtTipo" required><br>
+                            Costo: <br>
+                            <input class="form-control" class="text-center" type="text" name="txtCosto"required><br>
+                            Cantidad: <br>
+                            <input class="form-control" class="text-center" type="number" name="txtCantidad"required><br>                 
+                            <input id="prueba" class="btn btn-primary" class="text-center" type="submit" name="accion" value="Agregar"><br>
+                            <a id="regresarbutton" class="btn btn-warning">Regresar</a>
                         </form>
                     </div>
                 </div>
@@ -82,8 +82,8 @@
         <script src="./../resources/libraries/bootstrap/js/jquery.js"></script>
         <script src="./../resources/libraries/bootstrap/js/bootstrap.min.js"></script>
         <script src="./../resources/libraries/aos/aos.js"></script>
-        <script src="./../resources/js/sweetalert.js"></script>
-        <script src="./../resources/js/botones.js"></script>
         <script src="./../resources/js/index.js"></script>
+        <script src="./../resources/libraries/sweetalert/sweetalert.js" type="text/javascript"></script>
+        <script src="./../resources/js/piezasAgregar.js"></script>
     </body>
 </html>

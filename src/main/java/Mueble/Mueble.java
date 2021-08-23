@@ -4,11 +4,12 @@
  * and open the template in the editor.
  */
 package Mueble;
+import java.io.Serializable;
 
 /**
  *
  * @author luis
  */
-public class Mueble {
+public class Mueble implements Serializable{
     
 }
