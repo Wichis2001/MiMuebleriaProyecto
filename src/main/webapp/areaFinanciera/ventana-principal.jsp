@@ -61,7 +61,7 @@
                 <div class="ewk_cont_banner">
                     <div class="ewk_sombra">
                         <h1>AREA FINANCIERA</h1>
-                        <p>Bienvenid@ al sistema!</p>
+                        <p>Bienvenid@ al sistema ${nom}!</p>
                         <hr/>
                         <div class="ewk_cont_banner_link">
                             <a class="ewk_banner_link" href="../index.html">Cerrar Sesión</a>

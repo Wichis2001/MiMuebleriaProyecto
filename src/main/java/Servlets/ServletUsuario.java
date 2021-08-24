@@ -50,6 +50,7 @@ public class ServletUsuario extends HttpServlet {
             usuario.setContraseña(contraseña);
             resultado=dao.validar(usuario);
             if(resultado==1){
+                request.getSession().setAttribute("nom", nom);
                 lugar=dao.correspondencia(usuario);
                 if(lugar==1){
                     response.sendRedirect(fabrica);
