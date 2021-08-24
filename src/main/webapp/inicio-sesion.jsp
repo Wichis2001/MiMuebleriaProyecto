@@ -4,6 +4,7 @@
     Author     : luis
 --%>
 
+<%@page import="Mysql.Conexion"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -28,18 +29,20 @@
                         <img src="resources/img/pngegg.png" height="80" width="80"/>
                         <hr/>
                         <div class="ewk_cont_banner_link">
-                            <div class="form-group text-center">
-                            <div class="form-group">
-                                <label>Usuario:</label>
-                                <input class="form-control"type="text" name="txtnom" placeholder="Ingrese Nombres:">
-                            </div>
-                            <div class="form-group">
-                                <label>Contraseña:</label>
-                                <input class="form-control"type="password" name="txtcontraseña" placeholder="Tu contraseña">
-                            </div>
-                            </br>
-                            <input class="btn btn-danger btn-block" type="submit" name="accion" value ="Ingresar">
-                        </div>
+                            <form action="ServletUsuario">
+                                <div class="form-group text-center">
+                                    <div class="form-group">
+                                        <label>Usuario:</label>
+                                        <input class="form-control"type="text" name="txtnom" placeholder="Ingrese Nombres:">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Contraseña:</label>
+                                        <input class="form-control"type="password" name="txtcontraseña" placeholder="Tu contraseña">
+                                    </div>
+                                    </br>
+                                    <input class="btn btn-danger btn-block" type="submit" name="accion" value ="Ingresar">
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -59,22 +62,7 @@
         </header>     
         
         <div class="container col-lg3">
-            <form action="Principal">
-                <div class="form-group text-center">
-                    <img src="resources/img/icons8-usuario-90.png" height="80" width="80"/>
-                    <p><strong>Bienvendido al Sistema de Mi Muebleria!</strong></p>
-                    <div class="form-group">
-                        <label>Usuario:</label>
-                        <input class="form-control"type="text" name="txtnom" placeholder="Ingrese Nombres:">
-                    </div>
-                    <div class="form-group">
-                        <label>Contraseña:</label>
-                        <input class="form-control"type="password" name="txtcontraseña" placeholder="Tu contraseña">
-                    </div>
-                    </br>
-                    <input class="btn btn-danger btn-block" type="submit" name="accion" value ="Ingresar">
-                </div>
-            </form>
+            
         </div>
         
         

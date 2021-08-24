@@ -4,11 +4,12 @@
  * and open the template in the editor.
  */
 package Interfaces;
+import Trabajadores.Usuario;
 
 /**
  *
  * @author luis
  */
 public interface Validar {
-    
+    public int validar(Usuario usuario);
 }

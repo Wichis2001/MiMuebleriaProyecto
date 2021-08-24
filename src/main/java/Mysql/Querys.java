@@ -11,4 +11,5 @@ package Mysql;
  */
 public class Querys {
     public static final String  queryPieza="SELECT * FROM pieza";
+    public static final String queryUsuarios="SELECT * FROM usuario WHERE nombre_usuario=? AND contraseña=?";
 }
