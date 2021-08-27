@@ -36,7 +36,7 @@ public class ConstruirMuebleDAO implements Interfaces.CRUDMUEBLES{
         ArrayList<Mueble>listMueble=new ArrayList<>();
         try{
            con=conexion.getConnection();
-           ps =con.prepareStatement(Querys.queryPieza);
+           ps =con.prepareStatement(Querys.queryMueble);
            rs =ps.executeQuery();
            while(rs.next()){
                Mueble mueble=new Mueble();
