@@ -11,5 +11,5 @@ package Mysql;
  */
 public class Insert {
     public static final String insertPieza="INSERT INTO pieza (tipo, costo, cantidad) values (?,?,?)";
-    public static final String INSERTMUEBLEENSAMBLADO="INSERT INTO mueble_ensamblado (identificador_mueble, nombre_mueble_ensamble, usuario_constructor, fecha_ensamblaje, costo_construccion, estado) VALUES (?,?,?,?,?,?)";
+    public static final String INSERTMUEBLEENSAMBLADO="INSERT INTO mueble_ensamblado (identificador_mueble, nombre_mueble_ensamble, usuario_constructor, fecha_ensamblaje, costo_construccion, estado, precio) VALUES (?,?,?,?,?,?,?)";
 }

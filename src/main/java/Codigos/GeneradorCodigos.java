@@ -10,7 +10,8 @@ package Codigos;
  * @author luis
  */
 public class GeneradorCodigos {
-    /**
+    
+/**
      * Este constructor me permite generar un codigo a travez de la cantidad de caracteres a collocar y letras a colocar
      * @param palabra
      * @param caracteresTotales

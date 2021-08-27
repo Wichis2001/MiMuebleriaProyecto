@@ -94,8 +94,9 @@
                         <th class="text-center" class="text-black-50"><%=mueble.getNombre_mueble_ensamble()%> </th>
                         <th class="text-center" class="text-black-50"><%=mueble.getPrecio()%></th>
                         <td class="text-center">
-                            <input type="hidden" id="nombre" value="<%=mueble.getNombre_mueble_ensamble()%>">
-                            <a id="agregarMueble"class="btn btn-warning" href="Servlet-Pieza?accion=editar&tipo=<%=mueble.getNombre_mueble_ensamble()%>%>">Editar</a>
+                            <input type="hidden" id="tipo" value="<%=mueble.getNombre_mueble_ensamble()%>">
+                            <input type="hidden" id="precio" value="<%=mueble.getPrecio()%>">  
+                            <a class="btn btn-warning" href="Servlet-Mueble?accion=construir&tipo=<%=mueble.getNombre_mueble_ensamble()%>&precio=<%=mueble.getPrecio()%>"">Construir Mueble</a>
                         </td>
                     </tr>
                     <%}%>

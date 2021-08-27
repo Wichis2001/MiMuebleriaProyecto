@@ -7,6 +7,7 @@ package Mueble;
 import Codigos.GeneradorCodigos;
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -14,7 +15,7 @@ import java.sql.Date;
  */
 public class MuebleEnsamblado implements Serializable{
     private String identificador_mueble;
-    private Date fecha_ensamblaje;
+    private LocalDate fecha_ensamblaje;
     private Double precio;
     private Double costo_construccion;
     private int estado;
@@ -23,26 +24,33 @@ public class MuebleEnsamblado implements Serializable{
 
     public MuebleEnsamblado() {
     }
+    
+    {
+        // Este metodo anonimo establecemos al identificador de un mueble como ""
+        this.identificador_mueble="";
+    }
 
-    public MuebleEnsamblado(Date fecha_ensamblaje, Double precio, String usuario_constructor, String nombre_mueble_ensamblado) {
-        this.identificador_mueble = GeneradorCodigos.generarCodigo(this.identificador_mueble, 6, true);
+    public MuebleEnsamblado(LocalDate fecha_ensamblaje, Double precio, String usuario_constructor, String nombre_mueble_ensamblado) {
         this.fecha_ensamblaje = fecha_ensamblaje;
         this.precio = precio;
         this.costo_construccion=0.0;
         this.estado = 3;
         this.usuario_constructor = usuario_constructor;
         this.nombre_mueble_ensamblado = nombre_mueble_ensamblado;
+        this.identificador_mueble= GeneradorCodigos.generarCodigo(this.identificador_mueble, 6, true);
     }
 
-    public MuebleEnsamblado(Date fecha_ensamblaje, Double precio, Double costo_construccion, int estado, String usuario_constructor, String nombre_mueble_ensamblado) {
-        this.identificador_mueble = GeneradorCodigos.generarCodigo(this.identificador_mueble, 6, true);
+
+    public MuebleEnsamblado(LocalDate fecha_ensamblaje, Double precio, int estado, String usuario_constructor, String nombre_mueble_ensamblado) {
         this.fecha_ensamblaje = fecha_ensamblaje;
-        this.precio = precio;
-        this.costo_construccion=costo_construccion;
+        this.precio=precio;
         this.estado = estado;
         this.usuario_constructor = usuario_constructor;
         this.nombre_mueble_ensamblado = nombre_mueble_ensamblado;
+        this.identificador_mueble= GeneradorCodigos.generarCodigo(this.identificador_mueble, 6, true);
     }
+    
+    
 
     public Double getCosto_construccion() {
         return costo_construccion;
@@ -62,11 +70,11 @@ public class MuebleEnsamblado implements Serializable{
         this.identificador_mueble = identificador_mueble;
     }
 
-    public Date getFecha_ensamblaje() {
+    public LocalDate getFecha_ensamblaje() {
         return fecha_ensamblaje;
     }
 
-    public void setFecha_ensamblaje(Date fecha_ensamblaje) {
+    public void setFecha_ensamblaje(LocalDate fecha_ensamblaje) {
         this.fecha_ensamblaje = fecha_ensamblaje;
     }
 

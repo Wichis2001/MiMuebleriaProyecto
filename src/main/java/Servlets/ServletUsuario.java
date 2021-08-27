@@ -28,7 +28,7 @@ public class ServletUsuario extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
+    public static String nombreRecurrente;
     UsuarioDAO dao= new UsuarioDAO();
     Usuario usuario= new Usuario();
     int resultado=0;
@@ -49,6 +49,7 @@ public class ServletUsuario extends HttpServlet {
             resultado=dao.validar(usuario);
             if(resultado==1){
                 request.getSession().setAttribute("nom", nom);
+                nombreRecurrente=nom;
                 lugar=dao.correspondencia(usuario);
                 if(lugar==1){
                     response.sendRedirect(fabrica);

@@ -14,6 +14,6 @@ public class Querys {
     public static final String  queryMueble="SELECT * FROM mueble";
     public static final String queryUsuarios="SELECT * FROM usuario WHERE nombre_usuario=? AND contraseña=?";
     public static final String querySelectPiezasNecesarias="SELECT * FROM pieza WHERE UPPER(tipo) = UPPER(?)";
-    public static final String FORMATO_FECHA_SQL = "yyyy-mm-dd";
+    public static final String FORMATO_FECHA_SQL = "yyyy-MM-dd";
     
 }

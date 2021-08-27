@@ -10,12 +10,14 @@ import Mueble.Mueble;
 import Mueble.MuebleEnsamblado;
 import Mueble.Pieza;
 import Mysql.Conexion;
+import Mysql.Insert;
 import Mysql.Querys;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,8 +30,6 @@ public class ConstruirMuebleDAO implements Interfaces.CRUDMUEBLES{
     Connection con;
     PreparedStatement ps;
     ResultSet rs;
-    Mueble muebles = new Mueble();
-    Pieza piezaauxiliar= new Pieza();
     
     @Override
     public List listar() {
@@ -40,8 +40,8 @@ public class ConstruirMuebleDAO implements Interfaces.CRUDMUEBLES{
            rs =ps.executeQuery();
            while(rs.next()){
                Mueble mueble=new Mueble();
-               mueble.setNombre_mueble_ensamble(rs.getString("mueble"));
-               mueble.setPrecio(rs.getDouble("precio"));;
+               mueble.setNombre_mueble_ensamble(rs.getString("nombre_mueble"));
+               mueble.setPrecio(rs.getDouble("precio"));
                listMueble.add(mueble);
            }
         }catch(SQLException e){
@@ -54,7 +54,7 @@ public class ConstruirMuebleDAO implements Interfaces.CRUDMUEBLES{
     @Override
     public boolean add(MuebleEnsamblado mueble) throws SQLException{
         try {
-            String sql="SELECT mueble_nombre, pieza_tipo, cantidad FROM ensamble_piezas WHERE UPPER(nombre_mueble) = UPPER('"+ mueble.getNombre_mueble_ensamblado() + "')";
+           String sql="SELECT * FROM ensamble_piezas WHERE UPPER(mueble_nombre) = UPPER('"+ mueble.getNombre_mueble_ensamblado() +"')";
             con=conexion.getConnection();
             ArrayList<EnsamblePiezas>piezasNecesarias=new ArrayList<>();
             ps=con.prepareStatement(sql);
@@ -63,14 +63,14 @@ public class ConstruirMuebleDAO implements Interfaces.CRUDMUEBLES{
             double costo_construccion = 0;
             //Agregamos todas las piezas que son necesarias para poder construir un mueble
             while(rs.next()){
-                EnsamblePiezas pieza=new EnsamblePiezas();
-                pieza.setCantidad(rs.getInt("cantidad"));
-                pieza.setMueble_nombre(rs.getString("mueble_nombre"));
-                pieza.setPieza_tipo(rs.getString("pieza_tipo"));
+                EnsamblePiezas pieza=new EnsamblePiezas(rs.getString("mueble_nombre"),rs.getString("pieza_tipo"),rs.getInt("cantidad"));
                 piezasNecesarias.add(pieza);
+                System.err.print("prebando");
+                
             }
             //Verificamos que nuestro Array de piezas necesarias no se encuentre vacio y tenga instrucciones
             if(piezasNecesarias.size() > 0){
+                System.err.print("Si se puede");
                 ArrayList<ResultSet> resultadoPiezasaEnsamblar = new ArrayList<>();
                 ArrayList<Pieza> piezas = new ArrayList<>();
 
@@ -90,7 +90,7 @@ public class ConstruirMuebleDAO implements Interfaces.CRUDMUEBLES{
                     }
                 }
                 //Si existe esta pieza en el sistema, por lo cual necesitamos verificar si podemos tomar estas piezas para podder construir el mueble
-                if(piezas.size() > 0){ 
+                if(piezas.size() > 0){
                 int piezasEncontradas = 0;
                 for(EnsamblePiezas receta: piezasNecesarias){
                     int piezasFaltantes = receta.getCantidad();
@@ -115,10 +115,10 @@ public class ConstruirMuebleDAO implements Interfaces.CRUDMUEBLES{
                             //Verificamos si ya se han encontrado todas las piezas necesarias
                             if(piezasFaltantes == 0 && permitirEnsamble == true){
                                 piezasEncontradas++; 
-                                //Obtenemos el costo de fabricacion que va tenerel mueble
+                               // Obtenemos el costo de fabricacion que va tenerel mueble
                                 costo_construccion+=piezas.get(i).getCosto().doubleValue()*piezasUtilizadas;
                                 break;
-                                //Si en dado caso no se han encontrado todas las piezas necesarias debemos tomar el costo de estas peizas
+                               // Si en dado caso no se han encontrado todas las piezas necesarias debemos tomar el costo de estas peizas
                             } else if(piezasFaltantes > piezasUtilizadas && piezasUtilizadas > 0){ 
                                 costo_construccion+=piezas.get(i).getCosto().doubleValue()*piezasUtilizadas;
                                 continue; 
@@ -134,6 +134,7 @@ public class ConstruirMuebleDAO implements Interfaces.CRUDMUEBLES{
                 }
                 //Se encontraron con todas las peizas necesarias y podemos progresar con el ensamblamiento en la base de datos
                 if(permitirEnsamble == true && piezasEncontradas == piezasNecesarias.size()){ 
+                    System.err.print("Si se puede");
                     //Actualizamos las piezas
                     for(Pieza piezasActualizadas: piezas){
                         String sqlPieza="UPDATE pieza SET cantidad='"+ piezasActualizadas.getCantidad() + "' WHERE UPPER(tipo)=UPPER('"+ piezasActualizadas.getTipo() +"') AND UPPER(costo)=UPPER('"+ piezasActualizadas.getCosto() +"')"; 
@@ -142,27 +143,28 @@ public class ConstruirMuebleDAO implements Interfaces.CRUDMUEBLES{
                         ps.executeUpdate();
                     }
                     con=conexion.getConnection();
-                    ps=con.prepareStatement(Mysql.Querys.querySelectPiezasNecesarias);
-                    resultadoPiezasaEnsamblar.add(rs);
+                    ps=con.prepareStatement(Insert.INSERTMUEBLEENSAMBLADO);           
                     ps.setString(1, mueble.getIdentificador_mueble());
-                    ps.setString(7, mueble.getNombre_mueble_ensamblado());
-                    ps.setString(6, mueble.getUsuario_constructor());
-                    ps.setDate(2, java.sql.Date.valueOf(new SimpleDateFormat(Mysql.Querys.FORMATO_FECHA_SQL).format(mueble.getFecha_ensamblaje())));
-                    ps.setDouble(4, costo_construccion);
-                    ps.setInt(5, mueble.getEstado());
-                    
+                    ps.setString(2, mueble.getNombre_mueble_ensamblado());
+                    ps.setString(3, mueble.getUsuario_constructor());
+                    ps.setDate(4, java.sql.Date.valueOf(mueble.getFecha_ensamblaje()));
+                    ps.setDouble(5, 16.25);
+                    ps.setInt(6, mueble.getEstado());
+                    ps.setDouble(7, mueble.getPrecio());
+                    ps.executeUpdate();
                 } else {
                     System.err.println("No posee todas las piezas para elaborar el mueble");
                 }
             }else {
                 System.err.println("No se poseen las piezas necesarias par apoder elaborar el mueble");
             }
+            } else {
+                System.err.print("error");
             }
         } catch (Exception e) {
             System.err.print(e);
         }
         return false;    
     }  
-    
 
 }
