@@ -110,6 +110,5 @@
         <script src="./../resources/libraries/aos/aos.js"></script>
         <script src="./../resources/js/index.js"></script>
         <script src="./../resources/libraries/sweetalert/sweetalert.js" type="text/javascript"></script>
-        <script src="./../resources/js/funcionesPieza.js"></script>
     </body>
 </html>

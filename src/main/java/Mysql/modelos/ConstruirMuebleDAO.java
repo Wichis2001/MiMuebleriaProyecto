@@ -137,7 +137,7 @@ public class ConstruirMuebleDAO implements Interfaces.CRUDMUEBLES{
                     System.err.print("Si se puede");
                     //Actualizamos las piezas
                     for(Pieza piezasActualizadas: piezas){
-                        String sqlPieza="UPDATE pieza SET cantidad='"+ piezasActualizadas.getCantidad() + "' WHERE UPPER(tipo)=UPPER('"+ piezasActualizadas.getTipo() +"') AND UPPER(costo)=UPPER('"+ piezasActualizadas.getCosto() +"')"; 
+                        String sqlPieza="UPDATE pieza SET cantidad='"+ piezasActualizadas.getCantidad() + "' WHERE UPPER(tipo)=UPPER('"+ piezasActualizadas.getTipo() +"') AND costo='"+ piezasActualizadas.getCosto() +"'"; 
                         con=conexion.getConnection();
                         ps=con.prepareStatement(sqlPieza);
                         ps.executeUpdate();
@@ -148,7 +148,7 @@ public class ConstruirMuebleDAO implements Interfaces.CRUDMUEBLES{
                     ps.setString(2, mueble.getNombre_mueble_ensamblado());
                     ps.setString(3, mueble.getUsuario_constructor());
                     ps.setDate(4, java.sql.Date.valueOf(mueble.getFecha_ensamblaje()));
-                    ps.setDouble(5, 16.25);
+                    ps.setDouble(5, costo_construccion);
                     ps.setInt(6, mueble.getEstado());
                     ps.setDouble(7, mueble.getPrecio());
                     ps.executeUpdate();
