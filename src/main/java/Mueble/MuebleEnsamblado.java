@@ -16,6 +16,7 @@ public class MuebleEnsamblado implements Serializable{
     private String identificador_mueble;
     private Date fecha_ensamblaje;
     private Double precio;
+    private Double costo_construccion;
     private int estado;
     private String usuario_constructor;
     private String nombre_mueble_ensamblado;
@@ -27,19 +28,31 @@ public class MuebleEnsamblado implements Serializable{
         this.identificador_mueble = GeneradorCodigos.generarCodigo(this.identificador_mueble, 6, true);
         this.fecha_ensamblaje = fecha_ensamblaje;
         this.precio = precio;
+        this.costo_construccion=0.0;
         this.estado = 3;
         this.usuario_constructor = usuario_constructor;
         this.nombre_mueble_ensamblado = nombre_mueble_ensamblado;
     }
 
-    public MuebleEnsamblado(Date fecha_ensamblaje, Double precio, int estado, String usuario_constructor, String nombre_mueble_ensamblado) {
+    public MuebleEnsamblado(Date fecha_ensamblaje, Double precio, Double costo_construccion, int estado, String usuario_constructor, String nombre_mueble_ensamblado) {
         this.identificador_mueble = GeneradorCodigos.generarCodigo(this.identificador_mueble, 6, true);
         this.fecha_ensamblaje = fecha_ensamblaje;
         this.precio = precio;
+        this.costo_construccion=costo_construccion;
         this.estado = estado;
         this.usuario_constructor = usuario_constructor;
         this.nombre_mueble_ensamblado = nombre_mueble_ensamblado;
     }
+
+    public Double getCosto_construccion() {
+        return costo_construccion;
+    }
+
+    public void setCosto_construccion(Double costo_construccion) {
+        this.costo_construccion = costo_construccion;
+    }
+    
+    
 
     public String getIdentificador_mueble() {
         return identificador_mueble;

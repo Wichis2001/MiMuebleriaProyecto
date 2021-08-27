@@ -18,7 +18,7 @@ public class EnsamblePiezas implements Serializable{
     public EnsamblePiezas() {
     }
 
-    public EnsamblePiezas(String mueble_nombre, int cantidad, String pieza_tipo) {
+    public EnsamblePiezas(String mueble_nombre,String pieza_tipo,int cantidad) {
         this.mueble_nombre = mueble_nombre;
         this.cantidad = cantidad;
         this.pieza_tipo = pieza_tipo;

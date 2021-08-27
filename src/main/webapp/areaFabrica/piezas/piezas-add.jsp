@@ -44,7 +44,7 @@
                         Muebles
                       </a>
                       <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Ensablar Mueble</a></li>
+                        <li><a class="dropdown-item" href="Servlet-Mueble?accion=listar">Ensablar Mueble</a></li>
                         <li><a class="dropdown-item" href="#">Registrar Mueble</a></li>
                       </ul>
                     </li>
@@ -72,8 +72,8 @@
                             Costo: <br>
                             <input class="form-control" class="text-center" type="text" name="txtCosto"required><br>
                             Cantidad: <br>
-                            <input class="form-control" class="text-center" type="number" name="txtCantidad"required><br>                 
-                            <input id="prueba" class="btn btn-primary" class="text-center" type="submit" name="accion" value="Agregar"><br>
+                            <input class="form-control" class="text-center" type="number" name="txtCantidad"required><br>  
+                            <input id="agregar" class="btn btn-primary" class="text-center" type="submit" name="accion" value="Agregar"><br>
                             <a id="regresarbutton" class="btn btn-warning">Regresar</a>
                         </form>
                     </div>

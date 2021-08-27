@@ -12,4 +12,7 @@ package Mysql;
 public class Querys {
     public static final String  queryPieza="SELECT * FROM pieza";
     public static final String queryUsuarios="SELECT * FROM usuario WHERE nombre_usuario=? AND contraseña=?";
+    public static final String querySelectPiezasNecesarias="SELECT * FROM pieza WHERE UPPER(tipo) = UPPER(?)";
+    public static final String FORMATO_FECHA_SQL = "yyyy-mm-dd";
+    
 }

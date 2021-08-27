@@ -61,11 +61,6 @@
             </section>
         </header>     
         
-        <div class="container col-lg3">
-            
-        </div>
-        
-        
         <script src="resources/libraries/bootstrap/js/jquery.js"></script>
         <script src="resources/libraries/bootstrap/js/bootstrap.min.js"></script>
         <script src="resources/libraries/aos/aos.js"></script>

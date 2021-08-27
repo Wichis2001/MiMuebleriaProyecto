@@ -45,7 +45,7 @@
                         Muebles
                       </a>
                       <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Ensablar Mueble</a></li>
+                        <li><a class="dropdown-item" href="Servlet-Mueble?accion=listar">Ensablar Mueble</a></li>
                         <li><a class="dropdown-item" href="#">Registrar Mueble</a></li>
                       </ul>
                     </li>

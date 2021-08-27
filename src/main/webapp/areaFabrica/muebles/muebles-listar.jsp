@@ -1,15 +1,23 @@
 <%-- 
-    Document   : piezas-delete
-    Created on : 18/08/2021, 19:38:07
+    Document   : muebles-listar
+    Created on : 26/08/2021, 05:50:10 PM
     Author     : luis
 --%>
 
+<%@page import="Mueble.Mueble"%>
+<%@page import="Mysql.modelos.ConstruirMuebleDAO"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.Iterator"%>
 <%@page import="Mueble.Pieza"%>
+<%@page import="Mueble.Pieza"%>
+<%@page import="Mysql.modelos.PiezaDAO"%>
+<%@page import="Mysql.modelos.PiezaDAO"%>
 <%@page import="Mysql.modelos.PiezaDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond" rel="stylesheet">
         <link rel="stylesheet" href="./../resources/libraries/aos/aos.css"/>
         <link rel="stylesheet" href="./../resources/libraries/bootstrap/css/bootstrap.min.css"/>
@@ -62,29 +70,45 @@
             <section>
                 <div class="ewk_cont_banner">
                     <div class="ewk_sombra">
-                        <h1 class="text-center">Modificación de Piezas</h1>
-                            <% 
-                            PiezaDAO dao=new PiezaDAO();
-                            String tipo=(String)request.getAttribute("tipopieza");
-                            Double precio=Double.parseDouble((String)request.getAttribute("costopieza"));
-                            Pieza p=(Pieza)dao.list(tipo, precio);
-                            %>
-                            <form >
-                                <p class="ali">Cantidad:</p> <br>
-                                <input class="form-control" class="text-center" type="number" name="txtCantidad" value ="<%=p.getCantidad()%>" required><br>
-                                <input type="hidden" name="txtTipo" value ="<%=p.getTipo()%>"required><br>
-                                <input type="hidden" name="txtCosto" value ="<%=p.getCosto()%>"required><br>
-                                <input class="btn btn-primary" class="align-bottom" type="submit" name="accion" value="Actualizar"><br>
-                                <a id="regresarbutton" class="btn btn-secondary" href="Servlet-Pieza?accion=listar">Regresar</a>
-                            </form>
-                    </div>
-                </div>
-            </section>
+                        <h1 class="text-center">Listado de Muebles Disponibles</h1>
+                        <br>
+                        <br>
+                        <table class="table table-bordered"border="1">
+                        <thead>
+                    <tr>
+                        <th class="text-center">NOMBRE MUEBLE</th>
+                        <th class="text-center">COSTO</th>
+                        <th class="text-center">ACCIONES</th>
+                        </tr>
+                    </thead>
+                    <%
+                        ConstruirMuebleDAO dao= new ConstruirMuebleDAO();
+                        List<Mueble>list=dao.listar();
+                        Iterator<Mueble>iter=list.iterator();
+                        Mueble mueble=null;
+                        while(iter.hasNext()){
+                            mueble=iter.next();
+                    %>
+                    <tbody>
+                    <tr>
+                        <th class="text-center" class="text-black-50"><%=mueble.getNombre_mueble_ensamble()%> </th>
+                        <th class="text-center" class="text-black-50"><%=mueble.getPrecio()%></th>
+                        <td class="text-center">
+                            <input type="hidden" id="nombre" value="<%=mueble.getNombre_mueble_ensamble()%>">
+                            <a id="agregarMueble"class="btn btn-warning" href="Servlet-Pieza?accion=editar&tipo=<%=mueble.getNombre_mueble_ensamble()%>%>">Editar</a>
+                        </td>
+                    </tr>
+                    <%}%>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </section>
         <script src="./../resources/libraries/bootstrap/js/jquery.js"></script>
         <script src="./../resources/libraries/bootstrap/js/bootstrap.min.js"></script>
         <script src="./../resources/libraries/aos/aos.js"></script>
         <script src="./../resources/js/index.js"></script>
         <script src="./../resources/libraries/sweetalert/sweetalert.js" type="text/javascript"></script>
-        <script src="./../resources/js/piezasAgregar.js"></script>
+        <script src="./../resources/js/funcionesPieza.js"></script>
     </body>
 </html>
