@@ -5,7 +5,7 @@ $(document).ready(function(){
       var costo=$(this).parent().find('#costo').val();
       swal({
           title: "Estas seguro de querer eliminar este registro?",
-          text: "No podras recuperar este registro!",
+          text: "NOTA: TU REGISTRO PUEDE NO SER ELIMINADO DEBIDO A QUE PUEDE ESTAR INMERSO EN UNA RELACION DE DATOS!",
           type: "warning",
           showCancelButton: true,
           confirmButtonClass: "btn-danger",

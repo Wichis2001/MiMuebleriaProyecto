@@ -5,7 +5,7 @@ $(document).ready(function(){
       var costo=$(this).parent().find('#costo').val();
       swal({
           title: "Estas seguro de quieres armar este mueble?",
-          text: "Este mueble se armara definitivamente!",
+          text: "Este mueble se armara!",
           type: "warning",
           showCancelButton: true,
           confirmButtonClass: "btn-danger",
@@ -22,7 +22,7 @@ $(document).ready(function(){
                parent.location.href="Servlet-Mueble?accion=listar";
             }, 1800);
           } else {
-            swal("Cancelado", "Tu registro esta a salvo :)", "error");
+            swal("Cancelado", "El mueble no a sido ensamblado :)", "error");
           }
         });
    });
