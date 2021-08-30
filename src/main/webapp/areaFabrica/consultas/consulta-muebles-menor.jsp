@@ -67,7 +67,7 @@
             <section>
                 <div class="ewk_cont_banner">
                     <div class="ewk_sombra">
-                        <h1 class="text-center">Consulta de Piezas Disponibles</h1>
+                        <h1 class="text-center">Consulta de Muebles Creados</h1>
                         <a class="btn btn-success" href="Servlet-Consulta?accion=listar4">Regresar</a>
                         <a class="btn btn-success" href="Servlet-Consulta?accion=listar5">Ordenar mayor a menor</a>
                         <br>
