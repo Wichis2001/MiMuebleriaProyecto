@@ -4,6 +4,7 @@
     Author     : luis
 --%>
 
+<%@page import="Mueble.MuebleEnsamblado"%>
 <%@page import="Mueble.Mueble"%>
 <%@page import="Mysql.modelos.ConstruirMuebleDAO"%>
 <%@page import="java.util.List"%>
@@ -76,27 +77,30 @@
                         <table class="table table-bordered"border="1">
                         <thead>
                     <tr>
+                        <th class="text-center">ID MUEBLE</th>
                         <th class="text-center">NOMBRE MUEBLE</th>
-                        <th class="text-center">COSTO</th>
+                        <th class="text-center">USUARIO CONSTRUCTOR</th>
+                        <th class="text-center">FECHA ENSAMBLE</th>
                         <th class="text-center">ACCIONES</th>
                         </tr>
                     </thead>
                     <%
                         ConstruirMuebleDAO dao= new ConstruirMuebleDAO();
-                        List<Mueble>list=dao.listar();
-                        Iterator<Mueble>iter=list.iterator();
-                        Mueble mueble=null;
+                        List<MuebleEnsamblado>list=dao.listarMueble();
+                        Iterator<MuebleEnsamblado>iter=list.iterator();
+                        MuebleEnsamblado mueble=null;
                         while(iter.hasNext()){
                             mueble=iter.next();
                     %>
                     <tbody>
                     <tr>
-                        <th class="text-center" class="text-black-50"><%=mueble.getNombre_mueble_ensamble()%> </th>
-                        <th class="text-center" class="text-black-50"><%=mueble.getPrecio()%></th>
+                        <th class="text-center" class="text-black-50"><%=mueble.getIdentificador_mueble()%> </th>
+                        <th class="text-center" class="text-black-50"><%=mueble.getNombre_mueble_ensamblado()%></th>
+                        <th class="text-center" class="text-black-50"><%=mueble.getUsuario_constructor()%></th>
+                        <th class="text-center" class="text-black-50"><%=mueble.getFecha_ensamblaje()%></th>
                         <td class="text-center">
-                            <input type="hidden" id="tipo" value="<%=mueble.getNombre_mueble_ensamble()%>">
-                            <input type="hidden" id="precio" value="<%=mueble.getPrecio()%>">  
-                            <a id="actualizar" class="btn btn-warning">Construir Mueble</a>
+                            <input type="hidden" id="id" value="<%=mueble.getIdentificador_mueble()%>">
+                            <a id="upgrade" class="btn btn-warning">Transferir Mueble</a>
                         </td>
                     </tr>
                     <%}%>
@@ -110,6 +114,6 @@
         <script src="./../resources/libraries/aos/aos.js"></script>
         <script src="./../resources/js/index.js"></script>
         <script src="./../resources/libraries/sweetalert/sweetalert.js" type="text/javascript"></script>
-        <script src="./../resources/js/funcionesMueble.js"></script>
+        <script src="./../resources/js/funcionesMueblesV.js"></script>
     </body>
 </html>

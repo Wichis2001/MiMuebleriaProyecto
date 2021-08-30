@@ -16,4 +16,6 @@ import java.util.List;
 public interface CRUDMUEBLES {
     public List listar();
     public boolean add(MuebleEnsamblado mueble) throws SQLException;
+    public List listarMueble();
+    public boolean upgrade(String identificador);
 }

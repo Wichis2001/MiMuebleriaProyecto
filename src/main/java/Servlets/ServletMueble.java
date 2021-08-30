@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "ServletMueble", urlPatterns = {"/areaFabrica/Servlet-Mueble"})
 public class ServletMueble extends HttpServlet {
     String listar="muebles/muebles-listar.jsp";
+    String listar2="muebles/muebles-ventas.jsp";
     ConstruirMuebleDAO dao= new ConstruirMuebleDAO();
     
     @Override
@@ -44,8 +45,17 @@ public class ServletMueble extends HttpServlet {
             } catch (Exception e){ 
                 request.setAttribute("msje", "Error al crear pieza" + e.getMessage());
             } 
+        } else if(action.equalsIgnoreCase("listar2")){
+            acceso=listar2;
+        } else if (action.equalsIgnoreCase("update")){
+            try{
+                String identificador=request.getParameter("id");
+                dao.upgrade(identificador);
+                acceso=listar2;
+            } catch (Exception e){ 
+                request.setAttribute("msje", "Error al crear pieza" + e.getMessage());
+            } 
         }
-        
         RequestDispatcher vista=request.getRequestDispatcher(acceso);
         vista.forward(request, response);
     }

@@ -42,7 +42,7 @@
                       </a>
                       <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="Servlet-Mueble?accion=listar">Ensablar Mueble</a></li>
-                        <li><a class="dropdown-item" href="#">Registrar Mueble</a></li>
+                        <li><a class="dropdown-item" href="Servlet-Mueble?accion=listar2">Registrar Mueble</a></li>
                       </ul>
                     </li>
                     <li class="nav-item dropdown">

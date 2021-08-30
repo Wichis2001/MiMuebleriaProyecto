@@ -1,8 +1,8 @@
 $(document).ready(function(){
-   $("tr #construirPieza").click(function(e){
+   $("section #actualizar").click(function(e){
       e.preventDefault();
       var tipo=$(this).parent().find('#tipo').val();
-      var costo=$(this).parent().find('#costo').val();
+      var costo=$(this).parent().find('#precio').val();
       swal({
           title: "Estas seguro de quieres armar este mueble?",
           text: "Este mueble se armara!",
@@ -27,7 +27,7 @@ $(document).ready(function(){
         });
    });
    function construirMueble(tipo, costo){
-       var url="Servlet-Mueble?accion=construir&tipo=" + tipo +"&costo=" + costo;
+       var url="Servlet-Mueble?accion=construir&tipo=" + tipo +"&precio=" + costo;
        console.log("eliminado");
        $.ajax({
            type: 'GET',

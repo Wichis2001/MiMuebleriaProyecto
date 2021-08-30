@@ -13,11 +13,14 @@ import Mysql.Conexion;
 import Mysql.Insert;
 import Mysql.Querys;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -166,5 +169,40 @@ public class ConstruirMuebleDAO implements Interfaces.CRUDMUEBLES{
         }
         return false;    
     }  
+
+    @Override
+    public List listarMueble() {
+        ArrayList<MuebleEnsamblado>listMuebleEnsamblado=new ArrayList<>();
+        try{
+           con=conexion.getConnection();
+           ps =con.prepareStatement(Querys.queryMuebleEnsamblado);
+           rs =ps.executeQuery();
+           while(rs.next()){
+               MuebleEnsamblado mueble=new MuebleEnsamblado();
+               mueble.setIdentificador_mueble(rs.getString("identificador_mueble"));
+               mueble.setNombre_mueble_ensamblado(rs.getString("nombre_mueble_ensamble"));
+               mueble.setUsuario_constructor(rs.getString("usuario_constructor"));
+               mueble.setFecha_ensamblaje(rs.getDate(("fecha_ensamblaje")).toLocalDate());
+               listMuebleEnsamblado.add(mueble);
+           }
+        }catch(SQLException e){
+            System.err.print(e);
+            
+        } 
+            return listMuebleEnsamblado;
+    }
+
+    @Override
+    public boolean upgrade(String identificador) {
+       String sql="UPDATE mueble_ensamblado SET estado='3' WHERE (identificador_mueble)='"+ identificador +"'"; 
+         try {
+            con=conexion.getConnection();
+            ps=con.prepareStatement(sql);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.err.print(e);
+        }
+         return false;
+    }
 
 }
