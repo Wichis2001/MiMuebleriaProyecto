@@ -18,4 +18,8 @@ public class Querys {
     public static final String FORMATO_FECHA_SQL = "yyyy-MM-dd";
     public static final String querypiezaMayoraMenor="SELECT tipo, costo, cantidad FROM pieza ORDER BY cantidad DESC";
     public static final String querypiezaMenoraMayor="SELECT tipo, costo, cantidad FROM pieza ORDER BY cantidad ASC";
+    public static final String querymuebleconsulta="SELECT identificador_mueble, nombre_mueble_ensamble, usuario_constructor, precio, fecha_ensamblaje FROM mueble_ensamblado";
+    public static final String querymuebleconsultamenor="SELECT identificador_mueble, nombre_mueble_ensamble, usuario_constructor, precio, fecha_ensamblaje FROM mueble_ensamblado ORDER BY fecha_ensamblaje DESC";
+    public static final String querymuebleconsultamayor="SELECT identificador_mueble, nombre_mueble_ensamble, usuario_constructor, precio, fecha_ensamblaje FROM mueble_ensamblado ORDER BY fecha_ensamblaje ASC";
+    
 }

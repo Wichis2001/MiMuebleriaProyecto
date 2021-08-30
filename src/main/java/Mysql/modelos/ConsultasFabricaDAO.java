@@ -5,6 +5,7 @@
  */
 package Mysql.modelos;
 
+import Mueble.MuebleEnsamblado;
 import Mueble.Pieza;
 import Mysql.Conexion;
 import Mysql.Querys;
@@ -81,7 +82,69 @@ public class ConsultasFabricaDAO {
         } 
             return listPiezas;
     }
-    
+    public List listarMueble() {
+        ArrayList<MuebleEnsamblado>listMuelble=new ArrayList<>();
+        try{
+           con=conexion.getConnection();
+           ps =con.prepareStatement(Querys.querymuebleconsulta);
+           rs =ps.executeQuery();
+           while(rs.next()){
+               MuebleEnsamblado mueble=new MuebleEnsamblado();
+               mueble.setIdentificador_mueble(rs.getString("identificador_mueble"));
+               mueble.setNombre_mueble_ensamblado(rs.getString("nombre_mueble_ensamble"));
+               mueble.setUsuario_constructor(rs.getString("usuario_constructor"));
+               mueble.setPrecio(rs.getDouble("precio"));
+               mueble.setFecha_ensamblaje(rs.getDate("fecha_ensamblaje").toLocalDate());
+               listMuelble.add(mueble);
+           }
+        }catch(SQLException e){
+            System.err.print(e);
+            
+        } 
+            return listMuelble;
+    }
+    public List listarMayoraMenorMueble() {
+        ArrayList<MuebleEnsamblado>listMuelble=new ArrayList<>();
+        try{
+           con=conexion.getConnection();
+           ps =con.prepareStatement(Querys.querymuebleconsultamenor);
+           rs =ps.executeQuery();
+           while(rs.next()){
+               MuebleEnsamblado mueble=new MuebleEnsamblado();
+               mueble.setIdentificador_mueble(rs.getString("identificador_mueble"));
+               mueble.setNombre_mueble_ensamblado(rs.getString("nombre_mueble_ensamble"));
+               mueble.setUsuario_constructor(rs.getString("usuario_constructor"));
+               mueble.setPrecio(rs.getDouble("precio"));
+               mueble.setFecha_ensamblaje(rs.getDate("fecha_ensamblaje").toLocalDate());
+               listMuelble.add(mueble);
+           }
+        }catch(SQLException e){
+            System.err.print(e);
+            
+        } 
+            return listMuelble;
+    }
+    public List listarMenoraMayorMueble() {
+        ArrayList<MuebleEnsamblado>listMuelble=new ArrayList<>();
+        try{
+           con=conexion.getConnection();
+           ps =con.prepareStatement(Querys.querymuebleconsultamayor);
+           rs =ps.executeQuery();
+           while(rs.next()){
+               MuebleEnsamblado mueble=new MuebleEnsamblado();
+               mueble.setIdentificador_mueble(rs.getString("identificador_mueble"));
+               mueble.setNombre_mueble_ensamblado(rs.getString("nombre_mueble_ensamble"));
+               mueble.setUsuario_constructor(rs.getString("usuario_constructor"));
+               mueble.setPrecio(rs.getDouble("precio"));
+               mueble.setFecha_ensamblaje(rs.getDate("fecha_ensamblaje").toLocalDate());
+               listMuelble.add(mueble);
+           }
+        }catch(SQLException e){
+            System.err.print(e);
+            
+        } 
+            return listMuelble;
+    }
     public String verificadorCantidad(Pieza pieza){
         String palabra="";
         if(pieza.getCantidad()==0){

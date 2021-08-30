@@ -1,18 +1,15 @@
 <%-- 
-    Document   : muebles-listar
-    Created on : 26/08/2021, 05:50:10 PM
+    Document   : consulta-muebles-menor
+    Created on : 30/08/2021, 03:36:55 PM
     Author     : luis
 --%>
 
-<%@page import="Mueble.Mueble"%>
-<%@page import="Mysql.modelos.ConstruirMuebleDAO"%>
-<%@page import="java.util.List"%>
+<%@page import="Mueble.MuebleEnsamblado"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="Mueble.Pieza"%>
-<%@page import="Mueble.Pieza"%>
-<%@page import="Mysql.modelos.PiezaDAO"%>
-<%@page import="Mysql.modelos.PiezaDAO"%>
-<%@page import="Mysql.modelos.PiezaDAO"%>
+<%@page import="Mysql.modelos.*"%>
+<%@page import="Mueble.Mueble"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -26,7 +23,7 @@
         <link href="./../resources/libraries/sweetalert/sweetalert.css" rel="stylesheet" type="text/css"/>
         <link href="./../resources/libraries/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="./../resources/css/style-general.css"/>
-        <title>Lista Piezas</title>
+        <title>Consulta de Muebles</title>
     </head>
     <body>
         <header>
@@ -70,34 +67,37 @@
             <section>
                 <div class="ewk_cont_banner">
                     <div class="ewk_sombra">
-                        <h1 class="text-center">Listado de Muebles Disponibles</h1>
+                        <h1 class="text-center">Consulta de Piezas Disponibles</h1>
+                        <a class="btn btn-success" href="Servlet-Consulta?accion=listar4">Regresar</a>
+                        <a class="btn btn-success" href="Servlet-Consulta?accion=listar5">Ordenar mayor a menor</a>
                         <br>
                         <br>
                         <table class="table table-bordered"border="1">
                         <thead>
                     <tr>
+                        <th class="text-center">ID MUEBLE</th>
                         <th class="text-center">NOMBRE MUEBLE</th>
-                        <th class="text-center">COSTO</th>
-                        <th class="text-center">ACCIONES</th>
-                        </tr>
+                        <th class="text-center">USUARIO CONSTRUCTOR</th>
+                        <th class="text-center">PRECIO</th>
+                        <th class="text-center">FECHA ENSAMBLAJE</th>
+                    </tr>
                     </thead>
                     <%
-                        ConstruirMuebleDAO dao= new ConstruirMuebleDAO();
-                        List<Mueble>list=dao.listar();
-                        Iterator<Mueble>iter=list.iterator();
-                        Mueble mueble=null;
+                        
+                        ConsultasFabricaDAO dao= new ConsultasFabricaDAO();
+                        List<MuebleEnsamblado>list=dao.listarMueble();
+                        Iterator<MuebleEnsamblado>iter=list.iterator();
+                        MuebleEnsamblado mueble=null;
                         while(iter.hasNext()){
                             mueble=iter.next();
                     %>
                     <tbody>
                     <tr>
-                        <th class="text-center" class="text-black-50"><%=mueble.getNombre_mueble_ensamble()%> </th>
-                        <th class="text-center" class="text-black-50"><%=mueble.getPrecio()%></th>
-                        <td class="text-center">
-                            <input type="hidden" id="tipo" value="<%=mueble.getNombre_mueble_ensamble()%>">
-                            <input type="hidden" id="precio" value="<%=mueble.getPrecio()%>">  
-                            <a id="actualizar" class="btn btn-warning">Construir Mueble</a>
-                        </td>
+                        <th class="text-center" class="text-black-50"><%=mueble.getIdentificador_mueble()%> </th>
+                        <th class="text-center" class="text-black-50"><%=mueble.getNombre_mueble_ensamblado()%></th>
+                        <th class="text-center" class="text-black-50"><%=mueble.getUsuario_constructor()%></th>
+                        <th class="text-center" class="text-danger"><%=mueble.getPrecio()%></th>
+                        <th class="text-center" class="text-danger"><%=mueble.getFecha_ensamblaje()%></th>
                     </tr>
                     <%}%>
                 </tbody>
@@ -108,8 +108,6 @@
         <script src="./../resources/libraries/bootstrap/js/jquery.js"></script>
         <script src="./../resources/libraries/bootstrap/js/bootstrap.min.js"></script>
         <script src="./../resources/libraries/aos/aos.js"></script>
-        <script src="./../resources/js/index.js"></script>
-        <script src="./../resources/libraries/sweetalert/sweetalert.js" type="text/javascript"></script>
-        <script src="./../resources/js/funcionesMueble.js"></script>
     </body>
 </html>
+

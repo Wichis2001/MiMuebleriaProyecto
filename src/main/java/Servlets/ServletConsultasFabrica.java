@@ -8,7 +8,6 @@ package Servlets;
 import Mueble.Pieza;
 import Mysql.modelos.PiezaDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,6 +25,9 @@ public class ServletConsultasFabrica extends HttpServlet {
     String listar="consultas/consulta-piezas.jsp";
     String listar2="consultas/consulta-piezas-mayor.jsp";
     String listar3="consultas/consulta-piezas-menor.jsp";
+    String listar4="consultas/consulta-muebles.jsp";
+    String listar5="consultas/consulta-muebles-mayor.jsp";
+    String listar6="consultas/consulta-muebles-menor.jsp";
     Pieza pieza =new Pieza();
     PiezaDAO dao= new PiezaDAO();
     @Override
@@ -39,6 +41,12 @@ public class ServletConsultasFabrica extends HttpServlet {
             acceso=listar2;
         } else if(action.equalsIgnoreCase("listar3")){
             acceso=listar3;
+        } else if(action.equalsIgnoreCase("listar4")){
+            acceso=listar4;
+        } else if(action.equalsIgnoreCase("listar5")){
+            acceso=listar5;
+        } else if(action.equalsIgnoreCase("listar6")){
+            acceso=listar6;
         }
         RequestDispatcher vista=request.getRequestDispatcher(acceso);
         vista.forward(request, response);
