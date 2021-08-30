@@ -54,7 +54,7 @@
                         Consultas
                       </a>
                       <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Consulta de Piezas</a></li>
+                        <li><a class="dropdown-item" href="Servlet-Consulta?accion=listar">Consulta de Piezas</a></li>
                         <li><a class="dropdown-item" href="#">Consulta de Muebles</a></li>
                       </ul>
                     </li>
@@ -76,6 +76,7 @@
                         <th class="text-center">TIPO</th>
                         <th class="text-center">COSTO</th>
                         <th class="text-center">CANTIDAD</th>
+                        <th class="text-center">DISPONIBILIDAD</th>
                         <th class="text-center">ACCIONES</th>
                         </tr>
                     </thead>
@@ -92,6 +93,7 @@
                         <th class="text-center" class="text-black-50"><%=pieza.getTipo()%> </th>
                         <th class="text-center" class="text-black-50"><%=pieza.getCosto()%></th>
                         <th class="text-center" class="text-black-50"><%=pieza.getCantidad()%></th>
+                        <th class="text-center" class="text-danger"><%=dao.verificadorCantidad(pieza)%></th>
                         <td class="text-center">
                             <input type="hidden" id="tipo" value="<%=pieza.getTipo()%>">
                             <input type="hidden" id="costo" value="<%=pieza.getCosto()%>">

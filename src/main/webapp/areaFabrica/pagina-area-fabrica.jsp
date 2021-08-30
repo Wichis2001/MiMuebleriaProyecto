@@ -49,7 +49,7 @@
                         Consultas
                       </a>
                       <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Consulta de Piezas</a></li>
+                        <li><a class="dropdown-item" href="Servlet-Consulta?accion=listar">Consulta de Piezas</a></li>
                         <li><a class="dropdown-item" href="#">Consulta de Muebles</a></li>
                       </ul>
                     </li>

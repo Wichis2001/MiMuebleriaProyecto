@@ -1,11 +1,8 @@
-<%-- 
-    Document   : piezas
-    Created on : 18/08/2021, 19:19:37
-    Author     : luis
---%>
-
-<%@page import="Mysql.modelos.PiezaDAO"%>
+<%@page import="java.util.Iterator"%>
 <%@page import="Mueble.Pieza"%>
+<%@page import="Mysql.modelos.*"%>
+<%@page import="Mueble.Mueble"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,9 +17,7 @@
         <link href="./../resources/libraries/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="./../resources/css/style-general.css"/>
         <title>Lista Piezas</title>
-        <title>JSP Page</title>
     </head>
-    
     <body>
         <header>
             <nav class="ewk_navbar navbar navbar-expand-lg navbar-light bg-light fixed-top">
@@ -65,25 +60,44 @@
             <section>
                 <div class="ewk_cont_banner">
                     <div class="ewk_sombra">
-                        <h1 class="text-center">Formulario de Asignacion de Piezas</h1>
-                        <form>
-                            Tipo: <br>
-                            <input class="form-control" class="text-center" type="text" name="txtTipo" required><br>
-                            Costo: <br>
-                            <input class="form-control" class="text-center" type="text" name="txtCosto"required><br>
-                            Cantidad: <br>
-                            <input class="form-control" class="text-center" type="number" name="txtCantidad"required><br>  
-                            <input id="agregar" class="btn btn-primary" class="text-center" type="submit" name="accion" value="Agregar"><br>
-                            <a id="regresarbutton" class="btn btn-warning">Regresar</a>
-                        </form>
-                    </div>
-                </div>
-            </section>
+                        <h1 class="text-center">Consulta de Piezas Disponibles</h1>
+                        <a class="btn btn-success" href="Servlet-Consulta?accion=listar2">Ordenar mayor a menor</a>
+                        <a class="btn btn-success" href="Servlet-Consulta?accion=listar3">Ordenar menor a mayor</a>
+                        <br>
+                        <br>
+                        <table class="table table-bordered"border="1">
+                        <thead>
+                    <tr>
+                        <th class="text-center">TIPO</th>
+                        <th class="text-center">COSTO</th>
+                        <th class="text-center">CANTIDAD</th>
+                        <th class="text-center">DISPONIBILIDAD</th>
+                        </tr>
+                    </thead>
+                    <%
+                        
+                        ConsultasFabricaDAO dao= new ConsultasFabricaDAO();
+                        List<Pieza>list=dao.listar();
+                        Iterator<Pieza>iter=list.iterator();
+                        Pieza pieza=null;
+                        while(iter.hasNext()){
+                            pieza=iter.next();
+                    %>
+                    <tbody>
+                    <tr>
+                        <th class="text-center" class="text-black-50"><%=pieza.getTipo()%> </th>
+                        <th class="text-center" class="text-black-50"><%=pieza.getCosto()%></th>
+                        <th class="text-center" class="text-black-50"><%=pieza.getCantidad()%></th>
+                        <th class="text-center" class="text-danger"><%=dao.verificadorCantidad(pieza)%></th>
+                    </tr>
+                    <%}%>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </section>
         <script src="./../resources/libraries/bootstrap/js/jquery.js"></script>
         <script src="./../resources/libraries/bootstrap/js/bootstrap.min.js"></script>
         <script src="./../resources/libraries/aos/aos.js"></script>
-        <script src="./../resources/js/index.js"></script>
-        <script src="./../resources/libraries/sweetalert/sweetalert.js" type="text/javascript"></script>
-        <script src="./../resources/js/piezasAgregar.js"></script>
     </body>
 </html>

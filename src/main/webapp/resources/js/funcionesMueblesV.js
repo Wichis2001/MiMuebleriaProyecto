@@ -1,6 +1,6 @@
- $("section #upgrade").click(function(e){
+ $("tr #upgrade").click(function(e){
       e.preventDefault();
-      var id=$(this).parent().find('#tipo').val();
+      var id=$(this).parent().find('#id').val();
       swal({
           title: "Estas seguro que quieres transferir este mueble?",
           text: "El mueble sera transferido!",

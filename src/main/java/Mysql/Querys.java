@@ -16,5 +16,6 @@ public class Querys {
     public static final String queryUsuarios="SELECT * FROM usuario WHERE nombre_usuario=? AND contraseña=?";
     public static final String querySelectPiezasNecesarias="SELECT * FROM pieza WHERE UPPER(tipo) = UPPER(?)";
     public static final String FORMATO_FECHA_SQL = "yyyy-MM-dd";
-    
+    public static final String querypiezaMayoraMenor="SELECT tipo, costo, cantidad FROM pieza ORDER BY cantidad DESC";
+    public static final String querypiezaMenoraMayor="SELECT tipo, costo, cantidad FROM pieza ORDER BY cantidad ASC";
 }

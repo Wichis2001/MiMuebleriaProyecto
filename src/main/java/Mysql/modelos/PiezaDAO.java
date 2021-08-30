@@ -151,4 +151,16 @@ public class PiezaDAO implements Interfaces.CRUDPieza{
         return false;
     }
     
+    public String verificadorCantidad(Pieza pieza){
+        String palabra="";
+        if(pieza.getCantidad()==0){
+            palabra="Agotada";
+        } else if(pieza.getCantidad()<=5){
+            palabra="A punto de agotarse";
+        } else if(pieza.getCantidad()>5){
+            palabra="Disponible";
+        }
+        return palabra;
+    }
+    
 }
