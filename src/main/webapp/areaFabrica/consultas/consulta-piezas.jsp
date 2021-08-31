@@ -75,7 +75,7 @@
                         </tr>
                     </thead>
                     <%
-                        
+                        //Creamos un nuevo dao de listar pieza para poder agregar todos nuestros objetos de  piezas dentro de nuestra tabla
                         ConsultasFabricaDAO dao= new ConsultasFabricaDAO();
                         List<Pieza>list=dao.listar();
                         Iterator<Pieza>iter=list.iterator();

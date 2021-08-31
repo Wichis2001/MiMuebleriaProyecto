@@ -82,6 +82,7 @@
                     </tr>
                     </thead>
                     <%
+                        //Creamos un nuevo dao de listar mueble para poder agregar todos nuestros objetos de mueble dentro de nuestra tabla
                         ConsultasFabricaDAO dao= new ConsultasFabricaDAO();
                         List<MuebleEnsamblado>list=dao.listarMueble();
                         Iterator<MuebleEnsamblado>iter=list.iterator();

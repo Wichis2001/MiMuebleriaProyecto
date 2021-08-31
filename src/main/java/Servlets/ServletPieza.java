@@ -16,20 +16,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * Esta Servlet me permite establecer una conexion entre mis jsp de piezas y poder establecer sus parametros con mis clases javas 
  * @author luis
  */
 @WebServlet(name = "ServletPieza", urlPatterns = {"/areaFabrica/Servlet-Pieza"})
 public class ServletPieza extends HttpServlet {
-
+    //Establacemos constantes
     String listar="piezas/piezas-listar.jsp";
     String add="piezas/piezas-add.jsp";
     String edit="piezas/piezas-edit.jsp";
     Pieza pieza =new Pieza();
     PiezaDAO dao= new PiezaDAO();
+
+    /**
+     * El metodo do get me permite establecer un comunicador entre mi pagina web y el usuario recogiendo la accion que tomara el usuario
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //Establecemos nuestras acciones y nuestra respuesta hacia donde se rediccionara la pagina al momento de ralizar la accion
         String acceso="";
         String action=request.getParameter("accion");
         if(action.equalsIgnoreCase("listar")){
@@ -38,9 +47,11 @@ public class ServletPieza extends HttpServlet {
             acceso=add;
         } else if(action.equalsIgnoreCase("Agregar")){
             try{
+                //Recogemos los parametros para poder asignar una pieza
                 String tipo=request.getParameter("txtTipo");
                 Double precio=Double.parseDouble(request.getParameter("txtCosto"));
                 int cantidad=Integer.parseInt(request.getParameter("txtCantidad"));
+                //Verificamos que esta piesa no exista para poder crear una nueva
                 if(dao.verificar(tipo,precio,cantidad)==false){
                     pieza.setTipo(tipo);
                     pieza.setCosto(precio);
@@ -48,22 +59,27 @@ public class ServletPieza extends HttpServlet {
                     dao.add(pieza);
                     acceso=listar;
                 } else {
+                    //Si esta pieza exista procedemos a actualizr la cantidad de esta pieza
                     dao.update(tipo, precio, cantidad);
                     acceso=listar;
                 }  
+                //Error format exceptcion al crear la pieza
             } catch (NumberFormatException e){
                 System.err.print(e);
                 request.setAttribute("msje", "Error al agregar pieza" + e.getMessage());
             }   
         } else if(action.equalsIgnoreCase("editar")){
+            //Asignamos los parametros para poder actualizasr
             request.setAttribute(("tipopieza"), request.getParameter(("tipo")));
             request.setAttribute(("costopieza"), request.getParameter(("costo")));
             acceso=edit; 
         } else if(action.equalsIgnoreCase("Actualizar")){
             try {
+                //Recogemos los parametros para poder establecer los datos consizos para poder actualizar
                 String tipo=request.getParameter("txtTipo");
                 Double precio=Double.parseDouble(request.getParameter("txtCosto"));
                 int cantidad=Integer.parseInt(request.getParameter("txtCantidad"));
+                //Construimos una nueva pieza y procedemos a recargar la pagina
                 pieza.setTipo(tipo);
                 pieza.setCosto(precio);
                 pieza.setCantidad(cantidad);

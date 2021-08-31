@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package Servlets;
-
 import Mueble.Pieza;
 import Mysql.modelos.PiezaDAO;
 import java.io.IOException;
@@ -16,12 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * Este Servlet me permite establecer un comunicador entre java y la pagina web esperando acciones ue haga el usuario
  * @author luis
  */
 @WebServlet(name = "ServletConsultasFabrica", urlPatterns = {"/areaFabrica/Servlet-Consulta"})
 public class ServletConsultasFabrica extends HttpServlet {
-
+    //Establecemos constantes
     String listar="consultas/consulta-piezas.jsp";
     String listar2="consultas/consulta-piezas-mayor.jsp";
     String listar3="consultas/consulta-piezas-menor.jsp";
@@ -30,10 +29,19 @@ public class ServletConsultasFabrica extends HttpServlet {
     String listar6="consultas/consulta-muebles-menor.jsp";
     Pieza pieza =new Pieza();
     PiezaDAO dao= new PiezaDAO();
+
+    /**
+     * El metodo do get me permite establecer un comunicador entre mi pagina web y el usuario recogiendo la accion que tomara el usuario
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String acceso="";
+        //Definimos los puntos de acceso y mandamos el acceso al cual se redigira
         String action=request.getParameter("accion");
         if(action.equalsIgnoreCase("listar")){
             acceso=listar;
@@ -51,6 +59,4 @@ public class ServletConsultasFabrica extends HttpServlet {
         RequestDispatcher vista=request.getRequestDispatcher(acceso);
         vista.forward(request, response);
     }
-
-    
 }

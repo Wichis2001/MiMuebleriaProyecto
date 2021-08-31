@@ -81,7 +81,7 @@
                         </tr>
                     </thead>
                     <%
-                        
+                        //Creamos un nuevo dao de listar pieza para poder agregar todos nuestros objetos de  piezas dentro de nuestra tabla y poder ordenarlas de menor a mayor
                         ConsultasFabricaDAO dao= new ConsultasFabricaDAO();
                         List<Pieza>list=dao.listarMenoraMayor();
                         Iterator<Pieza>iter=list.iterator();

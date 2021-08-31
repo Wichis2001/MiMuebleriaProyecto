@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * Este servlet me permite establecer una comunicacion entre la ventana de inicio sesion y mis metodos y clases java
  * @author luis
  */
 public class ServletUsuario extends HttpServlet {
@@ -22,12 +22,13 @@ public class ServletUsuario extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
-     *
+     * El metodo do get me permite establecer un comunicador entre mi pagina web y el usuario recogiendo la accion que tomara el usuario
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    //Establecemos las constantes
     public static String nombreRecurrente;
     UsuarioDAO dao= new UsuarioDAO();
     Usuario usuario= new Usuario();
@@ -40,14 +41,18 @@ public class ServletUsuario extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //Establecemos los parametros de accion para recoger la accion que ingresa el usuaio y poder rederigirlo a otra ventana
         String action=request.getParameter("accion");
         if(action.equalsIgnoreCase("Ingresar")){
+            //Recogemos los parametros del nombre y la contraseña para poder establecer el usuario a examinar
             String nom=request.getParameter("txtnom");
             String contraseña=request.getParameter("txtcontraseña");
             usuario.setNombre_usuario(nom);
             usuario.setContraseña(contraseña);
             resultado=dao.validar(usuario);
+            //Determinamos el area a la que pertenece el usuario
             if(resultado==1){
+                //Guardamos el parametro del usuario que esta laborando
                 request.getSession().setAttribute("nom", nom);
                 nombreRecurrente=nom;
                 lugar=dao.correspondencia(usuario);
@@ -63,6 +68,7 @@ public class ServletUsuario extends HttpServlet {
                 }
                 
             } else{
+                //Si la contraseña o el usuario son incorrectos regresamos a la pestaña de inicio
                 response.sendRedirect(inicio);
             }
         }

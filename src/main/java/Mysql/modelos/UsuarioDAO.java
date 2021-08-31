@@ -13,10 +13,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
- *
+ * Este DAO me permite establecer los metodos que emplementara mi servlet de iinicio de sesion
  * @author luis
  */
 public class UsuarioDAO implements Validar{
+    //Establecemos nuestras variables y constantes
     Conexion conexion=new Conexion();
     Connection con;
     PreparedStatement ps;
@@ -26,19 +27,24 @@ public class UsuarioDAO implements Validar{
     public int validar(Usuario usuario) {
         int r=0;
         try {
+            //Establsecemos una conexion y establecemos la Query a realizar
             con=conexion.getConnection();
             ps=con.prepareStatement(Querys.queryUsuarios);
+            //Asignamos los parametros
             ps.setString(1, usuario.getNombre_usuario());
             ps.setString(2, usuario.getContraseña());
             rs=ps.executeQuery();
             while(rs.next()){
+                //El usuario fue encontrado y devolvemos los parametros
                 r=r+1;
                 usuario.setNombre_usuario(rs.getString("nombre_usuario"));
                 usuario.setContraseña(rs.getString("contraseña"));
                 usuario.setTipo_usuario((rs.getInt("tipo_usuario")));
             }
+            //Usuario encontrado
             if(r==1){
                 return 1;
+                //Usuario no encontrado
             }else {
                 return 0;
             }
@@ -47,24 +53,35 @@ public class UsuarioDAO implements Validar{
         }
     }
     
+    /**
+     * Este metodo me permite establecer hacia que ventana se redirigira mi usuario
+     * @param usuario
+     * @return
+     */
     public int correspondencia(Usuario usuario) {
         int respuesta=0;
         try {
+            //Establecemos una conexion y enviamos la Query
             con=conexion.getConnection();
             ps=con.prepareStatement(Querys.queryUsuarios);
+            //Asignamos los parametros
             ps.setString(1, usuario.getNombre_usuario());
             ps.setString(2, usuario.getContraseña());
             rs=ps.executeQuery();
             while(rs.next()){
+                //Usuario fue encontrado cambiamos los parametros del usuario encontrado
                 usuario.setNombre_usuario(rs.getString("nombre_usuario"));
                 usuario.setContraseña(rs.getString("contraseña"));
                 usuario.setTipo_usuario((rs.getInt("tipo_usuario")));
             }
             respuesta=usuario.getTipo_usuario();
+            //Usuario del area de fabrica
             if(respuesta==1){
                 return 1;
+                //Usuario del area de Venta
             }else if(respuesta==2){
                 return 2;
+                //Usuario del area de administracion
             } else{
                 return 3;
             } 

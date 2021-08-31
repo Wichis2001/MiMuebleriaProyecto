@@ -85,6 +85,7 @@
                         </tr>
                     </thead>
                     <%
+                        //Creamos un nuevo dao de listar muebles ensamblados para poder agregar todos nuestros objetos de muebles ensamblados dentro de nuestra tabla
                         ConstruirMuebleDAO dao= new ConstruirMuebleDAO();
                         List<MuebleEnsamblado>list=dao.listarMueble();
                         Iterator<MuebleEnsamblado>iter=list.iterator();

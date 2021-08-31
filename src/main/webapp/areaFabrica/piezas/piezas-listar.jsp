@@ -81,6 +81,7 @@
                         </tr>
                     </thead>
                     <%
+                        //Creamos un nuevo dao de listar pieza para poder agregar todos nuestros objetos de  piezas dentro de nuestra tabla
                         PiezaDAO dao= new PiezaDAO();
                         List<Pieza>list=dao.listar();
                         Iterator<Pieza>iter=list.iterator();

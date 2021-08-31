@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package Mysql.modelos;
-
 import Mueble.EnsamblePiezas;
 import Mueble.Mueble;
 import Mueble.MuebleEnsamblado;
@@ -20,10 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Esta clase me permite establecer un DAO de un mueble para poder construir un muebley asignarle las funciones
  * @author luis
  */
 public class ConstruirMuebleDAO implements Interfaces.CRUDMUEBLES{
+    //Establecemos variables
     Conexion conexion=new Conexion();
     Connection con;
     PreparedStatement ps;
@@ -33,15 +33,19 @@ public class ConstruirMuebleDAO implements Interfaces.CRUDMUEBLES{
     public List listar() {
         ArrayList<Mueble>listMueble=new ArrayList<>();
         try{
+           //Establecemos una conexion con la base de datos
            con=conexion.getConnection();
+           //Establecemos la Query
            ps =con.prepareStatement(Querys.queryMueble);
            rs =ps.executeQuery();
            while(rs.next()){
+               //Asignamos un nuevo mueble con los parametros
                Mueble mueble=new Mueble();
                mueble.setNombre_mueble_ensamble(rs.getString("nombre_mueble"));
                mueble.setPrecio(rs.getDouble("precio"));
                listMueble.add(mueble);
            }
+           //Error una excepcion SQL
         }catch(SQLException e){
             System.err.print(e);
             
@@ -52,7 +56,8 @@ public class ConstruirMuebleDAO implements Interfaces.CRUDMUEBLES{
     @Override
     public boolean add(MuebleEnsamblado mueble) throws SQLException{
         try {
-           String sql="SELECT * FROM ensamble_piezas WHERE UPPER(mueble_nombre) = UPPER('"+ mueble.getNombre_mueble_ensamblado() +"')";
+            //Estrablecemos una conexion con la base de datos y enviamos los parametros
+            String sql="SELECT * FROM ensamble_piezas WHERE UPPER(mueble_nombre) = UPPER('"+ mueble.getNombre_mueble_ensamblado() +"')";
             con=conexion.getConnection();
             ArrayList<EnsamblePiezas>piezasNecesarias=new ArrayList<>();
             ps=con.prepareStatement(sql);
@@ -63,8 +68,7 @@ public class ConstruirMuebleDAO implements Interfaces.CRUDMUEBLES{
             while(rs.next()){
                 EnsamblePiezas pieza=new EnsamblePiezas(rs.getString("mueble_nombre"),rs.getString("pieza_tipo"),rs.getInt("cantidad"));
                 piezasNecesarias.add(pieza);
-                System.err.print("prebando");
-                
+                System.err.print("prebando");    
             }
             //Verificamos que nuestro Array de piezas necesarias no se encuentre vacio y tenga instrucciones
             if(piezasNecesarias.size() > 0){
@@ -140,6 +144,7 @@ public class ConstruirMuebleDAO implements Interfaces.CRUDMUEBLES{
                         ps=con.prepareStatement(sqlPieza);
                         ps.executeUpdate();
                     }
+                    //Insertamos los muebles ensamblados creados en el sismtema
                     con=conexion.getConnection();
                     ps=con.prepareStatement(Insert.INSERTMUEBLEENSAMBLADO);           
                     ps.setString(1, mueble.getIdentificador_mueble());
@@ -169,10 +174,12 @@ public class ConstruirMuebleDAO implements Interfaces.CRUDMUEBLES{
     public List listarMueble() {
         ArrayList<MuebleEnsamblado>listMuebleEnsamblado=new ArrayList<>();
         try{
+            //Establecemos una conexion con la base de datos y enviamos como parametro la query
            con=conexion.getConnection();
            ps =con.prepareStatement(Querys.queryMuebleEnsamblado);
            rs =ps.executeQuery();
            while(rs.next()){
+               //Asignamos un nuevo mueble ensamblado y le asignamos los parametros
                MuebleEnsamblado mueble=new MuebleEnsamblado();
                mueble.setIdentificador_mueble(rs.getString("identificador_mueble"));
                mueble.setNombre_mueble_ensamblado(rs.getString("nombre_mueble_ensamble"));
@@ -180,17 +187,19 @@ public class ConstruirMuebleDAO implements Interfaces.CRUDMUEBLES{
                mueble.setFecha_ensamblaje(rs.getDate(("fecha_ensamblaje")).toLocalDate());
                listMuebleEnsamblado.add(mueble);
            }
+           //Error en excepcion de SQL
         }catch(SQLException e){
             System.err.print(e);
-            
         } 
             return listMuebleEnsamblado;
     }
 
     @Override
     public boolean upgrade(String identificador) {
+       //Actualizamos el mueble ensamblado y le ponemos en estado 3 el cual significa eque puede ser vendido
        String sql="UPDATE mueble_ensamblado SET estado='3' WHERE (identificador_mueble)='"+ identificador +"'"; 
          try {
+            //Establecemos conexion con la base de datos y enviamos la Query
             con=conexion.getConnection();
             ps=con.prepareStatement(sql);
             ps.executeUpdate();

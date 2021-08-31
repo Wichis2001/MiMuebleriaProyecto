@@ -64,6 +64,7 @@
                     <div class="ewk_sombra">
                         <h1 class="text-center">Modificación de Piezas</h1>
                             <% 
+                            //Creamos un nuevo dao de listar pieza para poder capturar los atributos de tipo de pieza y costo de pieza con la finalidad de poder erealizar nuestra actualizacion de datos
                             PiezaDAO dao=new PiezaDAO();
                             String tipo=(String)request.getAttribute("tipopieza");
                             Double precio=Double.parseDouble((String)request.getAttribute("costopieza"));
