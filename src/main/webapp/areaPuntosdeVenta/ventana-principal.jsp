@@ -23,7 +23,7 @@
         <header>
             <nav class="ewk_navbar navbar navbar-expand-lg navbar-light bg-light fixed-top">
               <div class="container-fluid">
-                <a class="navbar-brand" href="pagina-area-fabrica.jsp">Área de Punto de Venta</a>
+                <a class="navbar-brand" href="ventana-principal.jsp">Área de Punto de Venta</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
                 </button>
@@ -33,7 +33,7 @@
                       <a class="nav-link active" aria-current="pagina-principal.jsp" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="pagina-principal.jsp" href="#">Ventas</a>
+                      <a class="nav-link active" aria-current="pagina-principal.jsp" href="Servlet-Venta?accion=vender" >Ventas</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link active" aria-current="pagina-principal.jsp" href="#">Devoluciones</a>

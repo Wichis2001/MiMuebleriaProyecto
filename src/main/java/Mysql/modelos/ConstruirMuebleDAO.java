@@ -208,5 +208,83 @@ public class ConstruirMuebleDAO implements Interfaces.CRUDMUEBLES{
         }
          return false;
     }
-
+    
+    /**
+     * Este metodo me permite poder encontrar un mueble ensamblado a travez de un identificador
+     * @param Identificador
+     * @return
+     */
+    public MuebleEnsamblado listarID(String Identificador){
+        //Establecemos los parametros para la consulta sql
+        MuebleEnsamblado mueble=new MuebleEnsamblado();
+        String sql="Select * FROM mueble_ensamblado WHERE UPPER(identificador_mueble)=UPPER('"+Identificador+"')";
+        try {
+            //Establecemos una conexion con la base de datos
+            con=conexion.getConnection();
+            ps=con.prepareStatement(sql);
+            rs=ps.executeQuery();
+            while(rs.next()){
+                //Agregamos los atributos del mueble
+                mueble.setIdentificador_mueble(rs.getString(1));
+                mueble.setFecha_ensamblaje(rs.getDate(2).toLocalDate());
+                mueble.setPrecio(rs.getDouble(3));
+                mueble.setCosto_construccion(rs.getDouble(4));
+                mueble.setEstado(rs.getInt(5));
+                mueble.setUsuario_constructor(rs.getString(6));
+                mueble.setNombre_mueble_ensamblado(rs.getString(7));
+            }
+            //Error de excepcion de SQL
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+        return mueble;
+    }
+    
+    /**
+     * Este metodo me lista muebles que han sido ensamblados y ha sido trasladado a la sala de ventas
+     * @return
+     */
+    public List listarMuebleEnsamblado() {
+        ArrayList<MuebleEnsamblado>listMuebleEnsamblado=new ArrayList<>();
+        try{
+            //Establecemos una conexion con la base de datos y enviamos como parametro la query
+           String sql="SELECT identificador_mueble, nombre_mueble_ensamble, usuario_constructor, fecha_ensamblaje  FROM mueble_ensamblado WHERE estado=3";
+           con=conexion.getConnection();
+           ps =con.prepareStatement(sql);
+           rs =ps.executeQuery();
+           while(rs.next()){
+               //Asignamos un nuevo mueble ensamblado y le asignamos los parametros
+               MuebleEnsamblado mueble=new MuebleEnsamblado();
+               mueble.setIdentificador_mueble(rs.getString("identificador_mueble"));;
+               listMuebleEnsamblado.add(mueble);
+           }
+           //Error en excepcion de SQL
+        }catch(SQLException e){
+            System.err.print(e);
+        } 
+            return listMuebleEnsamblado;
+    }
+    
+    /**
+     * Este metodo me permite actualizar el estado de un mueble a travez de su identificador
+     * @param id
+     * @return
+     */
+    public int actualizarEstadoMueble(String id){
+        int r=0;
+        //Establecemos una consulta sql
+        String sql="UPDATE mueble_ensamblado SET estado='4' WHERE (identificador_mueble)=?"; 
+         try {
+            //Establecemos conexion con la base de datos y enviamos la Query
+            con=conexion.getConnection();
+            ps=con.prepareStatement(sql);
+            //Asignamos el parametro del id
+            ps.setString(1, id);
+            ps.executeUpdate();
+            //Excepcion de sql encontrada
+        } catch (Exception e) {
+            System.err.print(e);
+        }
+         return r;
+    }
 }

@@ -6,6 +6,7 @@
 package CompraVenta;
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  * Esta clase me permite  la creacion y manejamiento de un objeto Devolucion, el cual me permitira manejarlo desde la pagina de web y la base de datos
@@ -13,9 +14,9 @@ import java.sql.Date;
  */
 public class Devolucion implements Serializable {
     int no_devolucion;
-    Date fecha_devolucion;
+    LocalDate fecha_devolucion;
     Double perdida;
-    int no_factura;
+    String no_factura;
 
     /**
      * Este es un costructor de la clase devolución que me puede llegar a ser de utilidad en el uso del programa
@@ -29,7 +30,7 @@ public class Devolucion implements Serializable {
      * @param perdida
      * @param no_factura
      */
-    public Devolucion(Date fecha_devolucion, Double perdida, int no_factura) {
+    public Devolucion(LocalDate fecha_devolucion, Double perdida, String no_factura) {
         this.fecha_devolucion = fecha_devolucion;
         this.perdida = perdida;
         this.no_factura = no_factura;
@@ -55,7 +56,7 @@ public class Devolucion implements Serializable {
      * Este metodo me devuelve la fecha de devolucion
      * @return
      */
-    public Date getFecha_devolucion() {
+    public LocalDate getFecha_devolucion() {
         return fecha_devolucion;
     }
 
@@ -63,7 +64,7 @@ public class Devolucion implements Serializable {
      * Este metodo me permite cambiar la fecha de devolucion 
      * @param fecha_devolucion
      */
-    public void setFecha_devolucion(Date fecha_devolucion) {
+    public void setFecha_devolucion(LocalDate fecha_devolucion) {
         this.fecha_devolucion = fecha_devolucion;
     }
 
@@ -87,7 +88,7 @@ public class Devolucion implements Serializable {
      * Este metodo me devuelve el numero de factura que esta asociada con la devoluciono
      * @return
      */
-    public int getNo_factura() {
+    public String getNo_factura() {
         return no_factura;
     }
 
@@ -95,7 +96,7 @@ public class Devolucion implements Serializable {
      * Este metodo me permite cambiar el numero de factura que esta asociada con la devolucion
      * @param no_factura
      */
-    public void setNo_factura(int no_factura) {
+    public void setNo_factura(String no_factura) {
         this.no_factura = no_factura;
     }
     

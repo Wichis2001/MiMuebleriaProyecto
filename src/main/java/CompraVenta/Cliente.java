@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 public class Cliente implements Serializable{
     private String nombre;
-    private long nit;
+    private String nit;
     private String direccion;
     private String municipio;
     private String departamento;
@@ -29,7 +29,7 @@ public class Cliente implements Serializable{
      * @param nit
      * @param direccion
      */
-    public Cliente(String nombre, long nit, String direccion) {
+    public Cliente(String nombre, String nit, String direccion) {
         this.nombre = nombre;
         this.nit = nit;
         this.direccion = direccion;
@@ -43,7 +43,7 @@ public class Cliente implements Serializable{
      * @param municipio
      * @param departamento
      */
-    public Cliente(String nombre, long nit, String direccion, String municipio, String departamento) {
+    public Cliente(String nombre, String nit, String direccion, String municipio, String departamento) {
         this.nombre = nombre;
         this.nit = nit;
         this.direccion = direccion;
@@ -71,7 +71,7 @@ public class Cliente implements Serializable{
      * Este metodo me devuelve el nit que tiene un cliente
      * @return
      */
-    public long getNit() {
+    public String getNit() {
         return nit;
     }
 
@@ -79,7 +79,7 @@ public class Cliente implements Serializable{
      * Este metodo me permite cambiar el nit que tiene un cliente
      * @param nit
      */
-    public void setNit(long nit) {
+    public void setNit(String nit) {
         this.nit = nit;
     }
 
