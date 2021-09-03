@@ -101,3 +101,4 @@ public class DetalleVenta implements Serializable{
         this.precio_venta = precio_venta;
     }
 }
+

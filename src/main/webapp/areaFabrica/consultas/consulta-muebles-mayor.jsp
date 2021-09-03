@@ -85,7 +85,7 @@
                     <% 
                         //Creamos un nuevo dao de listar mueble para poder agregar todos nuestros objetos de mueble dentro de nuestra tabla y poder ordenarlos de mayor a menor
                         ConsultasFabricaDAO dao= new ConsultasFabricaDAO();
-                        List<MuebleEnsamblado>list=dao.listarMueble();
+                        List<MuebleEnsamblado>list=dao.listarMayoraMenorMueble();
                         Iterator<MuebleEnsamblado>iter=list.iterator();
                         MuebleEnsamblado mueble=null;
                         while(iter.hasNext()){

@@ -1,6 +1,6 @@
 <%-- 
     Document   : venta
-    Created on : 31/08/2021, 07:16:49 PM
+    Created on : 3/09/2021, 05:15:39 AM
     Author     : luis
 --%>
 
@@ -182,3 +182,4 @@
         <script src="../resources/js/index.js"></script>
     </body>
 </html>
+

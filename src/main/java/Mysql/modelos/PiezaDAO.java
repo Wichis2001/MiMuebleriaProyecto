@@ -145,7 +145,7 @@ public class PiezaDAO implements Interfaces.CRUDPieza{
         try{
             //Establecemos una conexin con la base de datos y mandamos la Query
            con=conexion.getConnection();
-           ps=con.prepareStatement("SELECT tipo, costo FROM pieza WHERE UPPER(tipo)=UPPER('"+ tipo +"') AND costo='"+ costo +"'");
+           ps=con.prepareStatement("SELECT tipo, costo, cantidad FROM pieza WHERE UPPER(tipo)=UPPER('"+ tipo +"') AND costo='"+ costo +"'");
            rs=ps.executeQuery();
            while(rs.next()){
                //Si la pieza existe podemos agregarla

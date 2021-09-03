@@ -6,7 +6,7 @@
 package Codigos;
 
 /**
- * Esta clase me ayuda a poder generar un numero de sere para una factura
+ *
  * @author luis
  */
 public class GeneradorSerie {

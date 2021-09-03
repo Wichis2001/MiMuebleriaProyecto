@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  * Este DAO me permite la manipulacion de un objeto cliente como comunicador entre mi Servlet y mi pagina web
  * @author luis
  */
-public class ClienteDAO {
+public class ClienteDAO{
     //Establecemos variables
     Conexion conexion=new Conexion();
     Connection con;
@@ -115,3 +115,4 @@ public class ClienteDAO {
         return false;   
     }
 }
+

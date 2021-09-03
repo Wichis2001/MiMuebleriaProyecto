@@ -1,13 +1,13 @@
 <%-- 
-    Document   : cliente
-    Created on : 3/09/2021, 05:14:16 AM
+    Document   : ErrorFecha
+    Created on : 2/09/2021, 06:11:04 PM
     Author     : luis
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 <%@page import="Mysql.modelos.PiezaDAO"%>
 <%@page import="Mueble.Pieza"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -19,8 +19,7 @@
         <link href="./../resources/libraries/sweetalert/sweetalert.css" rel="stylesheet" type="text/css"/>
         <link href="./../resources/libraries/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="./../resources/css/style-general.css"/>
-        <title>Lista Piezas</title>
-        <title>JSP Page</title>
+        <title>Devolucion Mueeble</title>
     </head>
     
     <body>
@@ -40,7 +39,7 @@
                       <a class="nav-link active" aria-current="pagina-principal.jsp" href="Servlet-Venta?accion=vender">Ventas</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="pagina-principal.jsp" href="#">Devoluciones</a>
+                      <a class="nav-link active" aria-current="pagina-principal.jsp" href="Servlet-Factura?accion=devolver">Devoluciones</a>
                     </li>
                     <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -62,20 +61,11 @@
             <section>
                 <div class="ewk_cont_banner">
                     <div class="ewk_sombra">
-                        <h1 class="text-center">Creación de un nuevo Cliente</h1>
-                        <form action="Servlet-Venta?menu=NuevoCliente" method="POST">
-                            NIT: <br>
-                            <input class="form-control" class="text-center" type="text" name="txtNIT" required><br>
-                            Nombre: <br>
-                            <input class="form-control" class="text-center" type="text" name="txtNombre"required><br>
-                            Direccion: <br>
-                            <input class="form-control" class="text-center" type="text" name="txtDireccion"required><br>
-                            Municipio. <br>
-                            <input class="form-control" class="text-center" type="text" name="txtMunicipio"><br>  
-                            Departamento <br>
-                            <input class="form-control" class="text-center" type="text" name="txtDepartamento"><br>  
-                            <input id="agregar" class="btn btn-primary" class="text-center" type="submit" name="accion" value="Agregar"><br>
-                        </form>
+                        <h1 class="text-center">ERROR</h1>
+                        <p class="text-center">Ya no puedes optar a la devolución, debido a que a transcurrido maś de una semana desde la compra.</p>
+                            <div class="ewk_cont_banner_link">
+                            <a class="ewk_banner_link" href="Servlet-Factura?accion=devolver">REGRESAR</a>
+                            </div>
                     </div>
                 </div>
             </section>
@@ -87,4 +77,3 @@
         <script src="./../resources/js/piezasAgregar.js"></script>
     </body>
 </html>
-
