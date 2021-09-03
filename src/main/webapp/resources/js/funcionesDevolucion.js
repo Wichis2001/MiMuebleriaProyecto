@@ -1,5 +1,5 @@
 $(document).ready(function(){
-   $("tr #devolver").click(function(e){
+   $("tr #boton").click(function(e){
       e.preventDefault();
       var idmueble=$(this).parent().find('#idmueble').val();
       swal({

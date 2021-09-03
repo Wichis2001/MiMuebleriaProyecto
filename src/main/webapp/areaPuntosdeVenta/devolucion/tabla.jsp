@@ -97,8 +97,7 @@
                         <th class="text-center" class="text-black-50"><%=venta.getIdmueble()%></th>
                         <th class="text-center" class="text-black-50"><%=venta.getTotal()%></th>
                         <td class="text-center">
-                            <input type="hidden" id="idmueble" value="<%=venta.getIdmueble()%>">
-                            <a class="btn btn-warning" id="devolver" href="Servlet-Factura?accion=devolucion&idmueble=<%=venta.getIdmueble()%>">Devolver Mueble</a>
+                            <a class="btn btn-warning" id="devolver" href="Servlet-Factura?accion=devolucion&id=<%=venta.getIdmueble()%>">Devolver Mueble</a>
                         </td>
                     </tr>
                     <%}%>
@@ -112,5 +111,6 @@
         <script src="./../resources/libraries/aos/aos.js"></script>
         <script src="./../resources/js/index.js"></script>
         <script src="./../resources/libraries/sweetalert/sweetalert.js" type="text/javascript"></script>
+        
     </body>
 </html>

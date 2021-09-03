@@ -6,8 +6,12 @@
 package Servlets;
 
 import Mueble.Pieza;
+import Mysql.Conexion;
 import Mysql.modelos.PiezaDAO;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,6 +29,7 @@ public class ServletPieza extends HttpServlet {
     String listar="piezas/piezas-listar.jsp";
     String add="piezas/piezas-add.jsp";
     String edit="piezas/piezas-edit.jsp";
+    String inicio="piezas/gracias.jsp";
     Pieza pieza =new Pieza();
     PiezaDAO dao= new PiezaDAO();
 
@@ -98,6 +103,14 @@ public class ServletPieza extends HttpServlet {
             } catch (Exception e){
                 request.setAttribute("msje", "Error al eliminar pieza" + e.getMessage());
             }        
+        } else if(action.equalsIgnoreCase("inicio")){
+            Conexion conexion=new Conexion();
+            try {
+                conexion.desconectar();
+            } catch (SQLException ex) {
+                Logger.getLogger(ServletPieza.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            acceso=inicio;
         }
         
         RequestDispatcher vista=request.getRequestDispatcher(acceso);

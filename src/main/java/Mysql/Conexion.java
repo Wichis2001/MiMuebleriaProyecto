@@ -28,7 +28,7 @@ public final class Conexion {
     /**
      * Este metodo me permite conectarme a mi base de datos
      */
-    public void conectar(){
+    public static void conectar(){
         try{
             // Verificamos que no haya una conexion vigente con la base de datos para no tener mas de una conexion corriendo
             if (conexion != null) {
@@ -57,7 +57,8 @@ public final class Conexion {
     /**
      * Este metodo me permite desconectarme de mi base de datos
      */
-    public void desconectar(){
+    public void desconectar() throws SQLException{
+        conexion.close();
         conexion = null;
         if (conexion!=null) {
             JOptionPane.showMessageDialog(null, "NO se pudo desconectar de la base de datos, ya que hay una conexion vigente");
@@ -69,6 +70,7 @@ public final class Conexion {
      * @return
      */
     public static Connection getConnection(){
+        conectar();
         return conexion;
     }
 }

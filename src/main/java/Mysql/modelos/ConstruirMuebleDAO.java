@@ -270,22 +270,39 @@ public class ConstruirMuebleDAO implements Interfaces.CRUDMUEBLES{
      * @param id
      * @return
      */
-    public int actualizarEstadoMueble(String id){
-        int r=0;
+    public boolean actualizarEstadoMueble(String id){
         //Establecemos una consulta sql
-        String sql="UPDATE mueble_ensamblado SET estado='4' WHERE (identificador_mueble)=?"; 
+        String sql="UPDATE mueble_ensamblado SET estado='4' WHERE (identificador_mueble)='"+ id +"'"; 
          try {
             //Establecemos conexion con la base de datos y enviamos la Query
             con=conexion.getConnection();
             ps=con.prepareStatement(sql);
-            //Asignamos el parametro del id
-            ps.setString(1, id);
             ps.executeUpdate();
             //Excepcion de sql encontrada
         } catch (Exception e) {
             System.err.print(e);
         }
-         return r;
+         return false;
+    }
+    
+    /**
+     * Este metodo me permite actualizar el estado de un mueble a travez de su identificador
+     * @param id
+     * @return
+     */
+    public boolean actualizarEstadoMuebleDevuelto(String id){
+        //Establecemos una consulta sql
+         String sql="UPDATE mueble_ensamblado SET estado='5' WHERE (identificador_mueble)='"+ id +"'"; 
+         try {
+            //Establecemos conexion con la base de datos y enviamos el update
+            con=conexion.getConnection();
+            ps=con.prepareStatement(sql);
+            ps.executeUpdate();
+            //Excepcion de sql encontrada
+        } catch (Exception e) {
+            System.err.print(e);
+        }
+         return false;
     }
 }
 

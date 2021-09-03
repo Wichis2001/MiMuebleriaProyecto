@@ -20,7 +20,6 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -34,16 +33,15 @@ public class DevolucionDAO {
     PreparedStatement ps;
     ResultSet rs;
     Venta ventas = new Venta();
-    Pieza piezaauxiliar= new Pieza();
-
+    MuebleEnsamblado mueble= new MuebleEnsamblado();
     /**
      *
      * @param noFactura
      * @return
      */
-    public Venta venta(String noFactura) {
-        ArrayList<Venta>listVenta=new ArrayList<>();
-        String sql="SELECT id_venta, fecha_compra FROM venta WHERE numeros_serie="+noFactura+"";
+    public int venta(String noFactura) {
+        int r=0;
+        String sql="SELECT id_venta FROM venta WHERE numeros_serie="+noFactura+"";
         try{            
            //Establecemos una conexion con la bese de datos y le enviamos el parametro de mi Query
            con=conexion.getConnection();
@@ -52,13 +50,37 @@ public class DevolucionDAO {
            while(rs.next()){
                //Creamos un objeto de pieza y le asignamos los parametros
                ventas.setId_venta(rs.getInt(1));
-               ventas.setFecha_compra(rs.getDate(2).toLocalDate());
+               r=1;
            }
            //Error SQL al momento de listar las piezas
         }catch(SQLException e){
             System.err.print(e);
         } 
-            return ventas;
+            return r;
+    }
+    
+    /**
+     *
+     * @param noFactura
+     * @return
+     */
+    public Venta ventaValor(String noFactura) {
+        Venta venta= new Venta();
+        String sql="SELECT id_venta FROM venta WHERE numeros_serie="+noFactura+"";
+        try{            
+           //Establecemos una conexion con la bese de datos y le enviamos el parametro de mi Query
+           con=conexion.getConnection();
+           ps =con.prepareStatement(sql);
+           rs =ps.executeQuery(); 
+           while(rs.next()){
+               //Creamos un objeto de pieza y le asignamos los parametros
+               venta.setId_venta(rs.getInt(1));
+           }
+           //Error SQL al momento de listar las piezas
+        }catch(SQLException e){
+            System.err.print(e);
+        } 
+            return venta;
     }
     
     /**
@@ -130,29 +152,27 @@ public class DevolucionDAO {
      * @param idMueble
      * @return
      */
-    public boolean verificarEstado(String idMueble) {
-        Boolean estado=false;
-        MuebleEnsamblado mueble= new MuebleEnsamblado();
-        String sql="SELECT estado FROM mueble_ensamblado WHERE identificador_mueble="+idMueble+"";
+    public MuebleEnsamblado verificarEstadoMueble(String idMueble) {
+        String sql = "SELECT * FROM mueble_ensamblado WHERE identificador_mueble='"+ idMueble +"'";
         try{
            //Establecemos una conexion con la bese de datos y le enviamos el parametro de mi Query
            con=conexion.getConnection();
            ps =con.prepareStatement(sql);
-           rs =ps.executeQuery(); 
+           rs =ps.executeQuery();
            while(rs.next()){
-               //Creamos un objeto de mueble y le asignamos los parametros
-               mueble.setEstado(1);
-           }
-           if(mueble.getEstado()==4){
-               estado=true;
-           }else{
-               estado=false;
+                mueble.setIdentificador_mueble(rs.getString(1));
+                mueble.setFecha_ensamblaje(rs.getDate(2).toLocalDate());
+                mueble.setPrecio(rs.getDouble(3));
+                mueble.setCosto_construccion(rs.getDouble(4));
+                mueble.setEstado(rs.getInt(5));
+                mueble.setUsuario_constructor(rs.getString(6));
+                mueble.setNombre_mueble_ensamblado(rs.getString(7));
            }
            //Error SQL al momento de listar las piezas
         }catch(SQLException e){
             System.err.print(e);
-        } 
-        return estado;
+        }
+        return mueble;
     }
     
     /**

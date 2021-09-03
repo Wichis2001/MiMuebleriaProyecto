@@ -65,7 +65,7 @@
                         <p>Bienvenid@ al sistema ${nom}!</p>
                         <hr/>
                         <div class="ewk_cont_banner_link">
-                            <a class="ewk_banner_link" href="../index.html">Cerrar Sesión</a>
+                            <a class="ewk_banner_link" href="Servlet-Pieza?accion=inicio">Cerrar Sesión</a>
                         </div>
                     </div>
                 </div>

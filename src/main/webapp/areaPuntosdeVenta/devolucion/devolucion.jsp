@@ -1,13 +1,13 @@
 <%-- 
-    Document   : cliente
-    Created on : 3/09/2021, 05:14:16 AM
+    Document   : dovolucion
+    Created on : 3/09/2021, 01:25:02 PM
     Author     : luis
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 <%@page import="Mysql.modelos.PiezaDAO"%>
 <%@page import="Mueble.Pieza"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -19,8 +19,7 @@
         <link href="./../resources/libraries/sweetalert/sweetalert.css" rel="stylesheet" type="text/css"/>
         <link href="./../resources/libraries/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="./../resources/css/style-general.css"/>
-        <title>Lista Piezas</title>
-        <title>JSP Page</title>
+        <title>Devolucion Mueble</title>
     </head>
     
     <body>
@@ -62,20 +61,16 @@
             <section>
                 <div class="ewk_cont_banner">
                     <div class="ewk_sombra">
-                        <h1 class="text-center">Creación de un nuevo Cliente</h1>
-                        <form action="Servlet-Venta?menu=NuevoCliente" method="POST">
-                            NIT: <br>
-                            <input class="form-control" class="text-center" type="text" name="txtNIT" required><br>
-                            Nombre: <br>
-                            <input class="form-control" class="text-center" type="text" name="txtNombre"required><br>
-                            Direccion: <br>
-                            <input class="form-control" class="text-center" type="text" name="txtDireccion"required><br>
-                            Municipio. <br>
-                            <input class="form-control" class="text-center" type="text" name="txtMunicipio"><br>  
-                            Departamento <br>
-                            <input class="form-control" class="text-center" type="text" name="txtDepartamento"><br>  
-                            <input id="agregar" class="btn btn-primary" class="text-center" type="submit" name="accion" value="Agregar"><br>
-                        </form>
+                        <h1>AREA DE DEVOLUCIÓN</h1>
+                        <p>Ingresa tu número de factura para poder optar por una devolución</p>
+                        <hr/>
+                        <div class="ewk_cont_banner_link">
+                            <form action="Servlet-Factura">
+                                No. FACTURA: <br>
+                                    <input class="form-control" class="text-center" type="number" name="txtfactura" required><br>
+                                    <input class="btn btn-success" class="text-center" type="submit" name="accion" value="Optar Devolución"><br>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -87,4 +82,3 @@
         <script src="./../resources/js/piezasAgregar.js"></script>
     </body>
 </html>
-

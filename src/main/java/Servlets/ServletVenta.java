@@ -12,6 +12,7 @@ import Mysql.modelos.ClienteDAO;
 import Mysql.modelos.ConstruirMuebleDAO;
 import Mysql.modelos.VentaDAO;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
@@ -42,8 +43,10 @@ public class ServletVenta extends HttpServlet {
     double subtotal;
     double totalaPagar;
     String idenuso;
+    boolean agregar=false;
     Venta venta=new Venta();
     String numeroSerie;
+    String inicio="venta/gracias.jsp";
     VentaDAO vdao= new VentaDAO();
     /**
      * El metodo do get me permite establecer un comunicador entre mi pagina web y el usuario recogiendo la accion que tomara el usuario
@@ -106,13 +109,15 @@ public class ServletVenta extends HttpServlet {
                 request.setAttribute("nserie", numeroSerie);
             }
             acceso=vender;
+        } else if(action.equalsIgnoreCase("inicio")){
+            acceso=inicio;
         }
         RequestDispatcher vista=request.getRequestDispatcher(acceso);
         vista.forward(request, response);
     }
     
     /**
-     *
+     * El metodo Post se encargara del manejo de mi JSP de ventas y la creacion de un nuevo cliente
      * @param request
      * @param response
      * @throws ServletException
@@ -126,133 +131,172 @@ public class ServletVenta extends HttpServlet {
         if(menu.equalsIgnoreCase("NuevaVenta")){
             switch(accion){
             case "BuscarCliente":
-                //Recogemos el parametro de nit de cliente y procedemos a encontrarlo
-                String nit=request.getParameter("nitcliente");
-                //Si este existe procedemos a hacer la busqueda
-                if(cdao.encontrado(nit)==true){
-                    c.setNit(nit);
-                    c=cdao.buscar(nit);
-                    request.setAttribute("c", c);
-                    numeroSerie=vdao.GenerarSerie();
-                    //Asignamos un número de serie
-                    if(numeroSerie==null){
-                        numeroSerie="00000001";
-                        request.setAttribute("nserie", numeroSerie);
-                    } else {
-                        int incrementar=Integer.parseInt(numeroSerie);
-                        GeneradorSerie gs= new GeneradorSerie();
-                        numeroSerie=gs.numeroSerie(incrementar);
-                        request.setAttribute("nserie", numeroSerie);
+                try{
+                    //Recogemos el parametro de nit de cliente y procedemos a encontrarlo
+                    String nit=request.getParameter("nitcliente");
+                    //Si este existe procedemos a hacer la busqueda
+                    if(cdao.encontrado(nit)==true){
+                        c.setNit(nit);
+                        c=cdao.buscar(nit);
+                        request.setAttribute("c", c);
+                        numeroSerie=vdao.GenerarSerie();
+                        //Asignamos un número de serie
+                        if(numeroSerie==null){
+                            numeroSerie="00000001";
+                            request.setAttribute("nserie", numeroSerie);
+                        } else {
+                            int incrementar=Integer.parseInt(numeroSerie);
+                            GeneradorSerie gs= new GeneradorSerie();
+                            numeroSerie=gs.numeroSerie(incrementar);
+                            request.setAttribute("nserie", numeroSerie);
+                        }
+                        //Volvemos a recargar la pagina
+                        accion=vender;
+                    } else{
+                        //Si en caso no se encuentra el cliente procedemos a crear un cliente nuevo
+                        accion=crearCliente;
                     }
-                    //Volvemos a recargar la pagina
-                    accion=vender;
-                } else{
-                    //Si en caso no se encuentra el cliente procedemos a crear un cliente nuevo
-                    accion=crearCliente;
-                }  
+                }  catch(Exception e){
+                    System.err.print(e);
+                }
                 break;
             case "BuscarMueble":
-                //Procedemos a recoger el mueble y a listar dicho mueble
-                String id=request.getParameter("valor");
-                mueble=mdao.listarID(id);
-                request.setAttribute("c", c);
-                request.setAttribute("m", mueble);
-                request.setAttribute("lista", listVenta);
-                request.setAttribute("totalpagar", totalaPagar);
-                //Volvemos a llenar nuestro frontend con las variables que ya tenemos definidas
-                numeroSerie=vdao.GenerarSerie();
-                if(numeroSerie==null){
-                    numeroSerie="00000001";
-                    request.setAttribute("nserie", numeroSerie);
-                } else {
-                    int incrementar=Integer.parseInt(numeroSerie);
-                    GeneradorSerie gs= new GeneradorSerie();
-                    numeroSerie=gs.numeroSerie(incrementar);
-                    request.setAttribute("nserie", numeroSerie);
+                try{
+                    //Procedemos a recoger el mueble y a listar dicho mueble
+                    String id=request.getParameter("valor");
+                    mueble=mdao.listarID(id);
+                    request.setAttribute("c", c);
+                    request.setAttribute("m", mueble);
+                    request.setAttribute("lista", listVenta);
+                    request.setAttribute("totalpagar", totalaPagar);
+                    //Volvemos a llenar nuestro frontend con las variables que ya tenemos definidas
+                    numeroSerie=vdao.GenerarSerie();
+                    if(numeroSerie==null){
+                        numeroSerie="00000001";
+                        request.setAttribute("nserie", numeroSerie);
+                    } else {
+                        int incrementar=Integer.parseInt(numeroSerie);
+                        GeneradorSerie gs= new GeneradorSerie();
+                        numeroSerie=gs.numeroSerie(incrementar);
+                        request.setAttribute("nserie", numeroSerie);
+                    }
+                    //Recargamos la página
+                    accion=vender;
+                } catch(Exception e){
+                    System.err.print(e);
                 }
-                //Recargamos la página
-                accion=vender;
                 break;
             case "Agregar":
-                request.setAttribute("c", c);
-                boolean agregar=false;
-                totalaPagar=0.0;
-                idMueble=mueble.getIdentificador_mueble();
-                descripcion=request.getParameter("nombreMueble");
-                precio=Double.parseDouble(request.getParameter("precio"));
-                subtotal=precio;
-                for (int x = 0; x < listVenta.size(); x++) {
-                    if(idMueble.equalsIgnoreCase(listVenta.get(x).getIdmueble())){
-                        agregar=true;
+                //Esto nos permite agregar una nueva venta a travez de los parametros
+                try{
+                    request.setAttribute("c", c);
+                    totalaPagar=0.0;
+                    idMueble=mueble.getIdentificador_mueble();
+                    //Asinamos las constantes
+                    descripcion=request.getParameter("nombreMueble");
+                    precio=Double.parseDouble(request.getParameter("precio"));
+                    subtotal=precio;
+                    for (int x = 0; x < listVenta.size(); x++) {
+                        if(idMueble.equalsIgnoreCase(listVenta.get(x).getIdmueble())){
+                            agregar=true;
+                        }
                     }
+                } catch(Exception e){
+                    
                 }
+                //Verificamos que el objeto no haya sido agregado al carrito
                 if(agregar==false){
-                    item=item+1;
-                    venta=new Venta();
-                    venta.setItem(item);
-                    venta.setIdmueble(idMueble);
-                    venta.setDescripcion(descripcion);
-                    venta.setTotal(precio);
-                    venta.setSubtotal(subtotal);
-                    listVenta.add(venta);
-                    for (int i = 0; i < listVenta.size(); i++) {
-                        totalaPagar=totalaPagar+listVenta.get(i).getSubtotal();
+                    try{
+                        //Agregamos parametros para la venta
+                        item=item+1;
+                        venta=new Venta();
+                        venta.setItem(item);
+                        venta.setIdmueble(idMueble);
+                        venta.setDescripcion(descripcion);
+                        venta.setTotal(precio);
+                        venta.setSubtotal(subtotal);
+                        listVenta.add(venta);
+                        //Modificamos el total a pagar
+                        for (int i = 0; i < listVenta.size(); i++) {
+                            totalaPagar=totalaPagar+listVenta.get(i).getSubtotal();
+                        }
+                        //Agregamos estos valores al formulario de la pagina web
+                        request.setAttribute("totalpagar", totalaPagar);
+                        request.setAttribute("lista", listVenta);
+                        numeroSerie=vdao.GenerarSerie();
+                        //Asignamos el numero de serie
+                        if(numeroSerie==null){
+                            numeroSerie="00000001";
+                            request.setAttribute("nserie", numeroSerie);
+                        } else {
+                            int incrementar=Integer.parseInt(numeroSerie);
+                            GeneradorSerie gs= new GeneradorSerie();
+                            numeroSerie=gs.numeroSerie(incrementar);
+                            request.setAttribute("nserie", numeroSerie);
+                        }
+                        //Recargamos la pagina
+                        accion=vender; 
+                    } catch(Exception e){
+                        System.err.print(e);
                     }
-                    request.setAttribute("totalpagar", totalaPagar);
-                    request.setAttribute("lista", listVenta);
-                    numeroSerie=vdao.GenerarSerie();
-                    if(numeroSerie==null){
-                        numeroSerie="00000001";
-                        request.setAttribute("nserie", numeroSerie);
-                    } else {
-                        int incrementar=Integer.parseInt(numeroSerie);
-                        GeneradorSerie gs= new GeneradorSerie();
-                        numeroSerie=gs.numeroSerie(incrementar);
-                        request.setAttribute("nserie", numeroSerie);
-                    }
-                    accion=vender;  
                 } else {
-                    for (int i = 0; i < listVenta.size(); i++) {
+                    //Si en caso este llega a existe unicamente volvemos a asignar los parametros
+                    try{
+                        for (int i = 0; i < listVenta.size(); i++) {
                         totalaPagar=totalaPagar+listVenta.get(i).getSubtotal();
+                        }
+                        request.setAttribute("lista", listVenta);
+                        request.setAttribute("totalpagar", totalaPagar);
+                        numeroSerie=vdao.GenerarSerie();
+                        if(numeroSerie==null){
+                            numeroSerie="00000001";
+                            request.setAttribute("nserie", numeroSerie);
+                        } else {
+                            int incrementar=Integer.parseInt(numeroSerie);
+                            GeneradorSerie gs= new GeneradorSerie();
+                            numeroSerie=gs.numeroSerie(incrementar);
+                            request.setAttribute("nserie", numeroSerie);
+                        }
+                        //Volmemos a recargar la pagina
+                        accion=vender;
+                    } catch (Exception e){
+                        System.err.print(e);
                     }
-                    request.setAttribute("lista", listVenta);
-                    request.setAttribute("totalpagar", totalaPagar);
-                    numeroSerie=vdao.GenerarSerie();
-                    if(numeroSerie==null){
-                        numeroSerie="00000001";
-                        request.setAttribute("nserie", numeroSerie);
-                    } else {
-                        int incrementar=Integer.parseInt(numeroSerie);
-                        GeneradorSerie gs= new GeneradorSerie();
-                        numeroSerie=gs.numeroSerie(incrementar);
-                        request.setAttribute("nserie", numeroSerie);
-                    }
-                    accion=vender;
                 } 
                 break;
             case "Generar Venta":
-                for (int i = 0; i < listVenta.size(); i++) {
-                    MuebleEnsamblado mueble= new MuebleEnsamblado();
-                    String idmueble=listVenta.get(i).getIdmueble();
-                    mdao.actualizarEstadoMueble(idmueble);
+                //Recorremos nuestra lista y actualizamos sus estados a vendidos
+                try{
+                    for (int i = 0; i < listVenta.size(); i++) {
+                        String idmueble=listVenta.get(i).getIdmueble();
+                        mdao.actualizarEstadoMueble(idmueble);
+                    }
+                    //Agregamos los parametros de la venta
+                    venta.setMonto(totalaPagar);
+                    venta.setFecha_compra(LocalDate.now());
+                    venta.setNit_cliente(c.getNit());
+                    venta.setUsuario_vendedor(ServletUsuario.nombreRecurrente);
+                    venta.setNumero_serie(numeroSerie);
+                    //Guardamos la venta
+                    vdao.guardarVenta(venta);
+                    int idv=Integer.parseInt(vdao.idVentas());
+                    for (int i = 0; i < listVenta.size(); i++) {
+                        //Asignamos parametros y volvemos a guardar el detalle de la venta a travez de los muebles
+                        venta=new Venta();
+                        venta.setId_venta(idv);
+                        venta.setIdmueble(listVenta.get(i).getIdmueble());
+                        venta.setTotal(listVenta.get(i).getTotal());
+                        vdao.guardarDetalledelaVenta(venta);
+                    }
+                    //Volvemos a recargar la pagina
+                    accion=vender;
+                } catch(Exception e){
+                    request.setAttribute("msje", "Error al vender" + e.getMessage());
                 }
-                venta.setMonto(totalaPagar);
-                venta.setFecha_compra(LocalDate.now());
-                venta.setNit_cliente(c.getNit());
-                venta.setUsuario_vendedor(ServletUsuario.nombreRecurrente);
-                venta.setNumero_serie(numeroSerie);
-                vdao.guardarVenta(venta);
-                int idv=Integer.parseInt(vdao.idVentas());
-                for (int i = 0; i < listVenta.size(); i++) {
-                    venta=new Venta();
-                    venta.setId_venta(idv);
-                    venta.setIdmueble(listVenta.get(i).getIdmueble());
-                    venta.setTotal(listVenta.get(i).getTotal());
-                    vdao.guardarDetalledelaVenta(venta);
-                }
-                accion=vender;
                 break;
+
             case "Cancelar":
+                //Reiniciamos las variables y recargamos la pagina
                 totalaPagar=0.0;
                 listVenta.removeAll(listVenta);
                 item=0;

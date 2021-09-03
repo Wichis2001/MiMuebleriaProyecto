@@ -23,20 +23,20 @@
         <header>
             <nav class="ewk_navbar navbar navbar-expand-lg navbar-light bg-light fixed-top">
               <div class="container-fluid">
-                <a class="navbar-brand" href="ventana-principal.jsp">Área de Punto de Venta</a>
+                <a class="navbar-brand" href="../areaPuntosdeVenta/ventana-principal.jsp">Área de Punto de Venta</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="pagina-principal.jsp" href="#">Home</a>
+                      <a class="nav-link active" aria-current="pagina-principal.jsp" href="../areaPuntosdeVenta/ventana-principal.jsp">Home</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="pagina-principal.jsp" href="Servlet-Venta?accion=vender" >Ventas</a>
+                      <a class="nav-link active" aria-current="pagina-principal.jsp" href="Servlet-Venta?accion=vender">Ventas</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="pagina-principal.jsp" href="#">Devoluciones</a>
+                      <a class="nav-link active" aria-current="pagina-principal.jsp" href="Servlet-Factura?accion=devolver">Devoluciones</a>
                     </li>
                     <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -62,7 +62,7 @@
                         <p>Bienvenid@ al sistema ${nom}!</p>
                         <hr/>
                         <div class="ewk_cont_banner_link">
-                            <a class="ewk_banner_link" href="../index.html">Cerrar Sesión</a>
+                            <a class="ewk_banner_link" href="Servlet-Venta?accion=inicio">Cerrar Sesión</a>
                         </div>
                     </div>
                 </div>

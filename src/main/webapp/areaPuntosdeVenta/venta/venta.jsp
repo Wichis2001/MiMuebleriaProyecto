@@ -38,10 +38,10 @@
                       <a class="nav-link active" aria-current="pagina-principal.jsp" href="../areaPuntosdeVenta/ventana-principal.jsp">Home</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="pagina-principal.jsp" href="">Ventas</a>
+                      <a class="nav-link active" aria-current="pagina-principal.jsp" href="Servlet-Venta?accion=vender">Ventas</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="pagina-principal.jsp" href="#">Devoluciones</a>
+                      <a class="nav-link active" aria-current="pagina-principal.jsp" href="Servlet-Factura?accion=devolver">Devoluciones</a>
                     </li>
                     <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
