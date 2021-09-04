@@ -1,24 +1,27 @@
 <%-- 
-    Document   : ventana-principal
-    Created on : 19/08/2021, 11:07:57 PM
+    Document   : consulta-comopras-cliente-datos
+    Created on : 4/09/2021, 12:40:03 PM
     Author     : luis
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@page import="Mysql.modelos.PiezaDAO"%>
+<%@page import="Mueble.Pieza"%>
 <html>
-    <html>
-       <head>
+    <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>MI MUEBLERIA</title>
         <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond" rel="stylesheet">
-        <link rel="stylesheet" href="../resources/libraries/aos/aos.css"/>
-        <link rel="stylesheet" href="../resources/libraries/bootstrap/css/bootstrap.min.css"/>
-        <link rel="stylesheet" href="../resources/css/banner-area-punto-venta.css"/>
-        <link rel="stylesheet" href="../resources/css/keyframes.css"/>
-        <link rel="stylesheet" href="../resources/css/style-area-ventas.css"/>
-
+        <link rel="stylesheet" href="./../resources/libraries/aos/aos.css"/>
+        <link rel="stylesheet" href="./../resources/libraries/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="./../resources/css/banner-general.css"/>
+        <link rel="stylesheet" href="./../resources/css/keyframes.css"/>
+        <link href="./../resources/libraries/sweetalert/sweetalert.css" rel="stylesheet" type="text/css"/>
+        <link href="./../resources/libraries/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="./../resources/css/style-general.css"/>
+        <title>Consultas Ventas</title>
     </head>
+    
     <body>
         <header>
             <nav class="ewk_navbar navbar navbar-expand-lg navbar-light bg-light fixed-top">
@@ -43,7 +46,7 @@
                         Consultas
                       </a>
                       <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="Servlet-CounstaVenta?accion=ingresoaCompra">Consulta de Compras</a></li>
+                        <li><a class="dropdown-item" href="#">Consulta de Compras</a></li>
                         <li><a class="dropdown-item" href="#">Consulta de Devoluciones</a></li>
                         <li><a class="dropdown-item" href="#">Consulta de Muebles</a></li>
                         <li><a class="dropdown-item" href="#">Consulta de Facturas</a></li>
@@ -58,19 +61,24 @@
             <section>
                 <div class="ewk_cont_banner">
                     <div class="ewk_sombra">
-                        <h1>AREA DE PUNTO DE VENTA</h1>
-                        <p>Bienvenid@ al sistema ${nom}!</p>
-                        <hr/>
-                        <div class="ewk_cont_banner_link">
-                            <a class="ewk_banner_link" href="Servlet-Venta?accion=inicio">Cerrar Sesión</a>
-                        </div>
+                        <h1 class="text-center">CONSULTA DE COMPRAS DE UN NUEVO CLIENTE</h1>
+                        <form action="Servlet-CounstaVenta?accion=reporteCompra">
+                            Nombre Cliente: <br>
+                            <input class="form-control" class="text-center" type="text" name="txtNombre" placeholder="Nombre" required><br>
+                            FechaInicial: <br>
+                            <input class="form-control" class="text-center" type="date" name="fechaI"><br>
+                            FechaFinal: <br>
+                            <input class="form-control" class="text-center" type="date" name="fechaF"><br>
+                            <input id="agregar" class="btn btn-primary" class="text-center" type="submit" name="accion" value="Buscar ClienteC"><br>
+                        </form>
                     </div>
                 </div>
             </section>
-        <script src="../resources/libraries/bootstrap/js/jquery.js"></script>
-        <script src="../resources/libraries/bootstrap/js/bootstrap.min.js"></script>
-        <script src="../resources/libraries/aos/aos.js"></script>
-        <script src="../resources/js/index.js"></script>
+        <script src="./../resources/libraries/bootstrap/js/jquery.js"></script>
+        <script src="./../resources/libraries/bootstrap/js/bootstrap.min.js"></script>
+        <script src="./../resources/libraries/aos/aos.js"></script>
+        <script src="./../resources/js/index.js"></script>
+        <script src="./../resources/libraries/sweetalert/sweetalert.js" type="text/javascript"></script>
+        <script src="./../resources/js/piezasAgregar.js"></script>
     </body>
 </html>
-
