@@ -17,7 +17,9 @@ public class Reporte {
     private LocalDate fecha_compra;
     private String mueble_identificador_mueble;
     private String nombre_mueble_ensamble;
-
+    private String numeroSerie;
+    private LocalDate fechaDevolucion;
+    private Double perdida;
     public Reporte(String nombreClientre, String direccion, String nit, LocalDate fecha_compra, String mueble_identificador_mueble, String nombre_mueble_ensamble) {
         this.nombreClientre = nombreClientre;
         this.direccion = direccion;
@@ -29,6 +31,34 @@ public class Reporte {
 
     public Reporte() {
     }
+
+    public Double getPerdida() {
+        return perdida;
+    }
+
+    public void setPerdida(Double perdida) {
+        this.perdida = perdida;
+    }
+
+    
+    public LocalDate getFechaDevolucion() {
+        return fechaDevolucion;
+    }
+
+    public void setFechaDevolucion(LocalDate fechaDevolucion) {
+        this.fechaDevolucion = fechaDevolucion;
+    }
+
+    
+    public String getNumeroSerie() {
+        return numeroSerie;
+    }
+
+    public void setNumeroSerie(String numeroSerie) {
+        this.numeroSerie = numeroSerie;
+    }
+    
+    
 
     public String getNombreClientre() {
         return nombreClientre;
