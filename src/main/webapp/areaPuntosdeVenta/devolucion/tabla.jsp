@@ -68,7 +68,7 @@
                 <div class="ewk_cont_banner">
                     <div class="ewk_sombra">
                         <h1 class="text-center">Listado de Productos Comprados</h1>
-                        <a id="salir" class="btn btn-danger" href="Servlet-Pieza?accion=add">Finalizar Devolucion</a>
+                        <a id="salir" class="btn btn-danger" href="Servlet-Factura?accion=devolver">Finalizar Devolucion</a>
                         <br>
                         <br>
                         <table class="table table-bordered"border="1">

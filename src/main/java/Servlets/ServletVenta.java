@@ -8,6 +8,7 @@ import Codigos.GeneradorSerie;
 import CompraVenta.Cliente;
 import CompraVenta.Venta;
 import Mueble.MuebleEnsamblado;
+import Mysql.Conexion;
 import Mysql.modelos.ClienteDAO;
 import Mysql.modelos.ConstruirMuebleDAO;
 import Mysql.modelos.VentaDAO;
@@ -15,6 +16,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -110,6 +113,12 @@ public class ServletVenta extends HttpServlet {
             }
             acceso=vender;
         } else if(action.equalsIgnoreCase("inicio")){
+            Conexion conexion=new Conexion();
+            try {
+                conexion.desconectar();
+            } catch (SQLException ex) {
+                Logger.getLogger(ServletPieza.class.getName()).log(Level.SEVERE, null, ex);
+            }
             acceso=inicio;
         }
         RequestDispatcher vista=request.getRequestDispatcher(acceso);
