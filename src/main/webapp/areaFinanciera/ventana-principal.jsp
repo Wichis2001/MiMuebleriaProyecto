@@ -46,7 +46,7 @@
                         <li><a class="dropdown-item" href="Servlet-Reportes?accion=venta">Reporte de Ventas</a></li>
                         <li><a class="dropdown-item" href="Servlet-Reportes?accion=devolucion">Reporte de Devoluciones</a></li>
                         <li><a class="dropdown-item" href="Servlet-Reportes?accion=ganancia">Reporte de Ganancias</a></li>
-                        <li><a class="dropdown-item" href="#">Reporte de Usuario con Ventas</a></li>
+                        <li><a class="dropdown-item" href="Servlet-Reportes?accion=usuariov">Reporte de Usuario con Ventas</a></li>
                         <li><a class="dropdown-item" href="#">Reporte de Usuario Ganancias</a></li>
                         <li><a class="dropdown-item" href="#">Reporte de Mueble más Vendido</a></li>
                         <li><a class="dropdown-item" href="#">Reporte de Mueble menos Vendido</a></li>

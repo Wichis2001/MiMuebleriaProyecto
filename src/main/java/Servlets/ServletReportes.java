@@ -31,6 +31,8 @@ String devolucion="reportes/reporte-devoluciones.jsp";
 String devolucionreporte="reportes/reporte-devoluciones-tabla.jsp";
 String ganancia="reportes/reporte-ganancias.jsp";
 String gananciaReporte="reportes/reporte-ganancias-tabla.jsp";
+String usuarioventa="reportes/reporte-usuarios-ventas.jsp";
+String usuarioventaReporte="reportes/reporte-usuarios-ventas-tabla.jsp";
 public static String nombreUsuario;
 public static Date fechaInicio;
 public static Date fechaFinal;    
@@ -98,8 +100,27 @@ String fecha2;
                 } catch (ParseException ex) {
                     Logger.getLogger(ServletCounstaVenta.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
+            } 
             acceso=gananciaReporte;
+        } else if(action.equalsIgnoreCase("usuariov")){
+            acceso=usuarioventa;
+        } else if(action.equalsIgnoreCase("Consultar Usuario")){
+            fecha1=request.getParameter("fechaI");
+            fecha2=request.getParameter("fechaF");
+            if(fecha1.equals("")||fecha2.equals("")){
+                fechaInicio=null;
+                fechaFinal=null;
+            } else{
+                try {
+                    java.util.Date nfecha= formatter.parse(fecha1);
+                    java.util.Date nfecha2= formatter.parse(fecha2);
+                    fechaInicio= new java.sql.Date(nfecha.getTime());
+                    fechaFinal=new java.sql.Date(nfecha2.getTime());
+                } catch (ParseException ex) {
+                    Logger.getLogger(ServletCounstaVenta.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } 
+            acceso=usuarioventaReporte;
         }
         RequestDispatcher vista=request.getRequestDispatcher(acceso);
         vista.forward(request, response);

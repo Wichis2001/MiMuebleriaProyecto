@@ -138,6 +138,8 @@ public class ReportesDAO {
     
     public Double ganancia(Date inicio, Date finalfecha) {
         Double valor=0.0;
+        Double valor2=0.0;
+        Double ganancia=0.0;
         if(inicio==null||finalfecha==null){
             String sql="SELECT SUM(v.total) AS 'TOTAL' FROM venta v";
             try{
@@ -153,8 +155,24 @@ public class ReportesDAO {
             }catch(SQLException e){
                 System.err.print(e);
 
-            } 
-                return valor;
+            }
+            String sql2="SELECT SUM(m.costo_construccion) AS 'TOTAL' FROM venta v JOIN detalle_venta dv ON (v.id_venta=dv.venta_id) JOIN mueble_ensamblado m ON(dv.mueble_identificador_mueble=m.identificador_mueble)";
+            try{
+                //Establecemos una conexion con la base de datos y enviamos los parametros de las Querys
+               con=conexion.getConnection();
+               ps =con.prepareStatement(sql2);
+               rs =ps.executeQuery();
+               while(rs.next()){
+                   //Creamos un objeto pieza y lo asignamos a la lista
+                    valor2=(rs.getDouble("TOTAL"));
+               }
+               // Error SQL al momento de listar mis piezas
+            }catch(SQLException e){
+                System.err.print(e);
+
+            }
+            ganancia=valor-valor2;
+            return ganancia;
         } else {
             String sql="SELECT SUM(v.total) AS 'TOTAL' FROM venta v WHERE v.fecha_compra BETWEEN '"+inicio+"' AND '"+finalfecha+"'";
             try{
@@ -170,15 +188,31 @@ public class ReportesDAO {
             }catch(SQLException e){
                 System.err.print(e);
 
-            } 
-                return valor;
+            }
+            String sql2="SELECT SUM(m.costo_construccion) AS 'TOTAL' FROM venta v JOIN detalle_venta dv ON (v.id_venta=dv.venta_id) JOIN mueble_ensamblado m ON(dv.mueble_identificador_mueble=m.identificador_mueble) WHERE v.fecha_compra BETWEEN '"+inicio+"' AND '"+finalfecha+"'";
+            try{
+                //Establecemos una conexion con la base de datos y enviamos los parametros de las Querys
+               con=conexion.getConnection();
+               ps =con.prepareStatement(sql2);
+               rs =ps.executeQuery();
+               while(rs.next()){
+                   //Creamos un objeto pieza y lo asignamos a la lista
+                    valor2=(rs.getDouble("TOTAL"));
+               }
+               // Error SQL al momento de listar mis piezas
+            }catch(SQLException e){
+                System.err.print(e);
+
+            }
+            ganancia=valor-valor2;
+            return ganancia;
         }  
     }
     
     public List gananciaAtributos(Date inicio, Date finalfecha) {
         if(inicio==null||finalfecha==null){
             ArrayList<Reporte>listReporte=new ArrayList<>();
-            String sql="SELECT m.identificador_mueble, m.nombre_mueble_ensamble, m.precio FROM venta v JOIN detalle_venta dv ON (v.id_venta=dv.venta_id) JOIN mueble_ensamblado m ON(dv.mueble_identificador_mueble=m.identificador_mueble)";
+            String sql="SELECT m.identificador_mueble, m.nombre_mueble_ensamble, m.precio, m.costo_construccion FROM venta v JOIN detalle_venta dv ON (v.id_venta=dv.venta_id) JOIN mueble_ensamblado m ON(dv.mueble_identificador_mueble=m.identificador_mueble)";
             try{
                 //Establecemos una conexion con la base de datos y enviamos los parametros de las Querys
                con=conexion.getConnection();
@@ -188,6 +222,95 @@ public class ReportesDAO {
                    //Creamos un objeto pieza y lo asignamos a la lista
                     Reporte reporte=new Reporte();
                     reporte.setMueble_identificador_mueble(rs.getString("identificador_mueble"));
+                    reporte.setNombre_mueble_ensamble(rs.getString("nombre_mueble_ensamble"));
+                    reporte.setPrecio(rs.getDouble("precio")-rs.getDouble("costo_construccion"));
+                    listReporte.add(reporte);
+               }
+               // Error SQL al momento de listar mis piezas
+            }catch(SQLException e){
+                System.err.print(e);
+
+            } 
+                return listReporte;
+        } else {
+            ArrayList<Reporte>listReporte=new ArrayList<>();
+            String sql="SELECT m.identificador_mueble, m.nombre_mueble_ensamble, m.precio, m.costo_construccion FROM venta v JOIN detalle_venta dv ON (v.id_venta=dv.venta_id) JOIN mueble_ensamblado m ON(dv.mueble_identificador_mueble=m.identificador_mueble) WHERE v.fecha_compra BETWEEN '"+inicio+"' AND '"+finalfecha+"'";
+            try{
+                //Establecemos una conexion con la base de datos y enviamos los parametros de las Querys
+               con=conexion.getConnection();
+               ps =con.prepareStatement(sql);
+               rs =ps.executeQuery();
+               while(rs.next()){
+                   //Creamos un objeto pieza y lo asignamos a la lista
+                    Reporte reporte=new Reporte();
+                    reporte.setMueble_identificador_mueble(rs.getString("identificador_mueble"));
+                    reporte.setNombre_mueble_ensamble(rs.getString("nombre_mueble_ensamble"));
+                    reporte.setPrecio(rs.getDouble("precio")-rs.getDouble("costo_construccion"));
+                    listReporte.add(reporte);
+               }
+               // Error SQL al momento de listar mis piezas
+            }catch(SQLException e){
+                System.err.print(e);
+
+            } 
+                return listReporte;
+        }  
+    }
+    
+    public String clienteV(Date inicio, Date finalfecha) {
+        String valor="";
+        if(inicio==null||finalfecha==null){
+            String sql="SELECT v.usuario_vendedor FROM venta v GROUP BY v.usuario_vendedor ORDER BY COUNT(v.usuario_vendedor) DESC LIMIT 1";
+            try{
+                //Establecemos una conexion con la base de datos y enviamos los parametros de las Querys
+               con=conexion.getConnection();
+               ps =con.prepareStatement(sql);
+               rs =ps.executeQuery();
+               while(rs.next()){
+                   //Creamos un objeto pieza y lo asignamos a la lista
+                    valor=(rs.getString("usuario_vendedor"));
+               }
+               // Error SQL al momento de listar mis piezas
+            }catch(SQLException e){
+                System.err.print(e);
+
+            } 
+                return valor;
+        } else {
+            String sql="SELECT v.usuario_vendedor FROM venta v GROUP BY v.fecha_compra BETWEEN '"+inicio+"' AND '"+finalfecha+"', v.usuario_vendedor ORDER BY COUNT(v.usuario_vendedor) DESC LIMIT 1";
+            try{
+                //Establecemos una conexion con la base de datos y enviamos los parametros de las Querys
+               con=conexion.getConnection();
+               ps =con.prepareStatement(sql);
+               rs =ps.executeQuery();
+               while(rs.next()){
+                   //Creamos un objeto pieza y lo asignamos a la lista
+                    valor=(rs.getString("usuario_vendedor"));
+               }
+               // Error SQL al momento de listar mis piezas
+            }catch(SQLException e){
+                System.err.print(e);
+
+            } 
+                return valor;
+        }  
+    }
+    
+    public List clientesVtabla(String nombre,Date inicio, Date finalfecha) {
+        if(inicio==null||finalfecha==null){
+            ArrayList<Reporte>listReporte=new ArrayList<>();
+            String sql="SELECT v.usuario_vendedor, v.fecha_compra, dv.mueble_identificador_mueble, m.nombre_mueble_ensamble, m.precio FROM venta v JOIN detalle_venta dv ON (v.id_venta=dv.venta_id) JOIN mueble_ensamblado m ON(dv.mueble_identificador_mueble=m.identificador_mueble) WHERE v.usuario_vendedor LIKE '"+nombre+"'";
+            try{
+                //Establecemos una conexion con la base de datos y enviamos los parametros de las Querys
+               con=conexion.getConnection();
+               ps =con.prepareStatement(sql);
+               rs =ps.executeQuery();
+               while(rs.next()){
+                   //Creamos un objeto pieza y lo asignamos a la lista
+                    Reporte reporte=new Reporte();
+                    reporte.setNombreClientre(rs.getString("usuario_vendedor"));
+                    reporte.setFecha_compra(rs.getDate("fecha_compra").toLocalDate());
+                    reporte.setMueble_identificador_mueble(rs.getString("mueble_identificador_mueble"));
                     reporte.setNombre_mueble_ensamble(rs.getString("nombre_mueble_ensamble"));
                     reporte.setPrecio(rs.getDouble("precio"));
                     listReporte.add(reporte);
@@ -200,7 +323,7 @@ public class ReportesDAO {
                 return listReporte;
         } else {
             ArrayList<Reporte>listReporte=new ArrayList<>();
-            String sql="SELECT m.identificador_mueble, m.nombre_mueble_ensamble, m.precio FROM venta v JOIN detalle_venta dv ON (v.id_venta=dv.venta_id) JOIN mueble_ensamblado m ON(dv.mueble_identificador_mueble=m.identificador_mueble) WHERE v.fecha_compra BETWEEN '"+inicio+"' AND '"+finalfecha+"'";
+            String sql="SELECT v.usuario_vendedor, v.fecha_compra, dv.mueble_identificador_mueble, m.nombre_mueble_ensamble, m.precio FROM venta v JOIN detalle_venta dv ON (v.id_venta=dv.venta_id) JOIN mueble_ensamblado m ON(dv.mueble_identificador_mueble=m.identificador_mueble) WHERE v.usuario_vendedor LIKE '"+nombre+"' AND v.fecha_compra BETWEEN '"+inicio+"' AND '"+finalfecha+"'";
             try{
                 //Establecemos una conexion con la base de datos y enviamos los parametros de las Querys
                con=conexion.getConnection();
@@ -209,7 +332,100 @@ public class ReportesDAO {
                while(rs.next()){
                    //Creamos un objeto pieza y lo asignamos a la lista
                     Reporte reporte=new Reporte();
-                    reporte.setMueble_identificador_mueble(rs.getString("identificador_mueble"));
+                    reporte.setNombreClientre(rs.getString("usuario_vendedor"));
+                    reporte.setFecha_compra(rs.getDate("fecha_compra").toLocalDate());
+                    reporte.setMueble_identificador_mueble(rs.getString("mueble_identificador_mueble"));
+                    reporte.setNombre_mueble_ensamble(rs.getString("nombre_mueble_ensamble"));
+                    reporte.setPrecio(rs.getDouble("precio"));
+                    listReporte.add(reporte);
+               }
+               // Error SQL al momento de listar mis piezas
+            }catch(SQLException e){
+                System.err.print(e);
+
+            } 
+                return listReporte;
+        }  
+    }
+    
+    public String usuarioG(Date inicio, Date finalfecha) {
+        String valor="";
+        if(inicio==null||finalfecha==null){
+            String sql="SELECT v.usuario_vendedor FROM venta v JOIN detalle_venta dv ON (v.id_venta=dv.venta_id) JOIN mueble_ensamblado m ON(dv.mueble_identificador_mueble=m.identificador_mueble) GROUP BY v.usuario_vendedor ORDER BY SUM(m.precio-m.costo_construccion) DESC LIMIT 1";
+            try{
+                //Establecemos una conexion con la base de datos y enviamos los parametros de las Querys
+               con=conexion.getConnection();
+               ps =con.prepareStatement(sql);
+               rs =ps.executeQuery();
+               while(rs.next()){
+                   //Creamos un objeto pieza y lo asignamos a la lista
+                    valor=(rs.getString("usuario_vendedor"));
+               }
+               // Error SQL al momento de listar mis piezas
+            }catch(SQLException e){
+                System.err.print(e);
+
+            } 
+                return valor;
+        } else {
+            String sql="SELECT v.usuario_vendedor FROM venta v GROUP BY v.fecha_compra BETWEEN '"+inicio+"' AND '"+finalfecha+"', v.usuario_vendedor ORDER BY COUNT(v.usuario_vendedor) DESC LIMIT 1";
+            try{
+                //Establecemos una conexion con la base de datos y enviamos los parametros de las Querys
+               con=conexion.getConnection();
+               ps =con.prepareStatement(sql);
+               rs =ps.executeQuery();
+               while(rs.next()){
+                   //Creamos un objeto pieza y lo asignamos a la lista
+                    valor=(rs.getString("usuario_vendedor"));
+               }
+               // Error SQL al momento de listar mis piezas
+            }catch(SQLException e){
+                System.err.print(e);
+
+            } 
+                return valor;
+        }  
+    }
+    
+    public List usuarioGTabla(String nombre,Date inicio, Date finalfecha) {
+        if(inicio==null||finalfecha==null){
+            ArrayList<Reporte>listReporte=new ArrayList<>();
+            String sql="SELECT v.usuario_vendedor, v.fecha_compra, dv.mueble_identificador_mueble, m.nombre_mueble_ensamble, m.precio FROM venta v JOIN detalle_venta dv ON (v.id_venta=dv.venta_id) JOIN mueble_ensamblado m ON(dv.mueble_identificador_mueble=m.identificador_mueble) WHERE v.usuario_vendedor LIKE '"+nombre+"'";
+            try{
+                //Establecemos una conexion con la base de datos y enviamos los parametros de las Querys
+               con=conexion.getConnection();
+               ps =con.prepareStatement(sql);
+               rs =ps.executeQuery();
+               while(rs.next()){
+                   //Creamos un objeto pieza y lo asignamos a la lista
+                    Reporte reporte=new Reporte();
+                    reporte.setNombreClientre(rs.getString("usuario_vendedor"));
+                    reporte.setFecha_compra(rs.getDate("fecha_compra").toLocalDate());
+                    reporte.setMueble_identificador_mueble(rs.getString("mueble_identificador_mueble"));
+                    reporte.setNombre_mueble_ensamble(rs.getString("nombre_mueble_ensamble"));
+                    reporte.setPrecio(rs.getDouble("precio"));
+                    listReporte.add(reporte);
+               }
+               // Error SQL al momento de listar mis piezas
+            }catch(SQLException e){
+                System.err.print(e);
+
+            } 
+                return listReporte;
+        } else {
+            ArrayList<Reporte>listReporte=new ArrayList<>();
+            String sql="SELECT v.usuario_vendedor, v.fecha_compra, dv.mueble_identificador_mueble, m.nombre_mueble_ensamble, m.precio FROM venta v JOIN detalle_venta dv ON (v.id_venta=dv.venta_id) JOIN mueble_ensamblado m ON(dv.mueble_identificador_mueble=m.identificador_mueble) WHERE v.usuario_vendedor LIKE '"+nombre+"' AND v.fecha_compra BETWEEN '"+inicio+"' AND '"+finalfecha+"'";
+            try{
+                //Establecemos una conexion con la base de datos y enviamos los parametros de las Querys
+               con=conexion.getConnection();
+               ps =con.prepareStatement(sql);
+               rs =ps.executeQuery();
+               while(rs.next()){
+                   //Creamos un objeto pieza y lo asignamos a la lista
+                    Reporte reporte=new Reporte();
+                    reporte.setNombreClientre(rs.getString("usuario_vendedor"));
+                    reporte.setFecha_compra(rs.getDate("fecha_compra").toLocalDate());
+                    reporte.setMueble_identificador_mueble(rs.getString("mueble_identificador_mueble"));
                     reporte.setNombre_mueble_ensamble(rs.getString("nombre_mueble_ensamble"));
                     reporte.setPrecio(rs.getDouble("precio"));
                     listReporte.add(reporte);
