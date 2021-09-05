@@ -20,6 +20,7 @@ public class Reporte {
     private String numeroSerie;
     private LocalDate fechaDevolucion;
     private Double perdida;
+    private Double precio;
     public Reporte(String nombreClientre, String direccion, String nit, LocalDate fecha_compra, String mueble_identificador_mueble, String nombre_mueble_ensamble) {
         this.nombreClientre = nombreClientre;
         this.direccion = direccion;
@@ -32,6 +33,15 @@ public class Reporte {
     public Reporte() {
     }
 
+    public Double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
+    }
+    
+    
     public Double getPerdida() {
         return perdida;
     }
