@@ -82,9 +82,11 @@ public class UsuarioDAO implements Validar{
             }else if(respuesta==2){
                 return 2;
                 //Usuario del area de administracion
-            } else{
+            } else if(respuesta==3){
                 return 3;
-            } 
+            } else {
+                return 4;
+            }
         } catch (Exception e) {
             return 0;
         }

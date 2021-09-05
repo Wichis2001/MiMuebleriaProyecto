@@ -36,7 +36,7 @@
                       <a class="nav-link active" aria-current="ventana-principal.jsp" href="#">Crear Mueble</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="ventana-principal.jsp" href="">Creación/Cancelacion Usuarios</a>
+                      <a class="nav-link active" aria-current="ventana-principal.jsp" href="Servlet-Usuarios?accion=listar">Creación/Cancelacion Usuarios</a>
                     </li>
                     <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -64,7 +64,7 @@
                         <p>Bienvenid@ al sistema ${nom}!</p>
                         <hr/>
                         <div class="ewk_cont_banner_link">
-                            <a class="ewk_banner_link" href="../index.html">Cerrar Sesión</a>
+                            <a class="ewk_banner_link" href="Servlet-Usuarios?accion=inicio">Cerrar Sesión</a>
                         </div>
                     </div>
                 </div>

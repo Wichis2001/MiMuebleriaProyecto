@@ -14,7 +14,7 @@ public class Usuario implements Serializable{
     private String nombre_usuario;
     private String contraseña;
     private int tipo_usuario;
-
+    private String tipo_usuario_S;
     /**
      * Constructor vacio que me permite la creacion de un nuevo usuario sin la necesidad de parametros
      */
@@ -33,6 +33,14 @@ public class Usuario implements Serializable{
         this.tipo_usuario = tipo_usuario;
     }
 
+    public String getTipo_usuario_S() {
+        return tipo_usuario_S;
+    }
+
+    public void setTipo_usuario_S(String tipo_usuario_S) {
+        this.tipo_usuario_S = tipo_usuario_S;
+    }
+    
     /**
      * Este metodo me devuelve el nombre del usuario
      * @return

@@ -65,8 +65,10 @@ public class ServletUsuario extends HttpServlet {
                 }else if(lugar==3){
                     response.sendRedirect(financiera);
                     lugar=0;
+                }else if(lugar==4){
+                    response.sendRedirect(inicio);
+                    lugar=0;
                 }
-                
             } else{
                 //Si la contraseña o el usuario son incorrectos regresamos a la pestaña de inicio
                 response.sendRedirect(inicio);
