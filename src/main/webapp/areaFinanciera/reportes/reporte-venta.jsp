@@ -35,24 +35,24 @@
                     <li class="nav-item">
                       <a class="nav-link active" aria-current="ventana-principal.jsp" href="../areaFinanciera/ventana-principal.jsp">Home</a>
                     </li>
-                    <li class="nav-item">
-                      <a class="nav-link active" aria-current="ventana-principal.jsp" href="#">Crear Mueble</a>
+                   <li class="nav-item">
+                      <a class="nav-link active" aria-current="ventana-principal.jsp" href="Servlet-Mueble?accion=listar">Crear Mueble</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="ventana-principal.jsp" href="">Creación/Cancelacion Usuarios</a>
+                      <a class="nav-link active" aria-current="ventana-principal.jsp" href="Servlet-Usuarios?accion=listar">Creación/Cancelacion Usuarios</a>
                     </li>
                     <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Reportes
                       </a>
                       <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="Servlet-Reportes?accion=vender">Reporte de Ventas</a></li>
-                        <li><a class="dropdown-item" href="#">Reporte de Devoluciones</a></li>
-                        <li><a class="dropdown-item" href="#">Reporte de Ganancias</a></li>
-                        <li><a class="dropdown-item" href="#">Reporte de Usuario con Ventas</a></li>
-                        <li><a class="dropdown-item" href="#">Reporte de Usuario Ganancias</a></li>
-                        <li><a class="dropdown-item" href="#">Reporte de Mueble más Vendido</a></li>
-                        <li><a class="dropdown-item" href="#">Reporte de Mueble menos Vendido</a></li>
+                        <li><a class="dropdown-item" href="Servlet-Reportes?accion=venta">Reporte de Ventas</a></li>
+                        <li><a class="dropdown-item" href="Servlet-Reportes?accion=devolucion">Reporte de Devoluciones</a></li>
+                        <li><a class="dropdown-item" href="Servlet-Reportes?accion=ganancia">Reporte de Ganancias</a></li>
+                        <li><a class="dropdown-item" href="Servlet-Reportes?accion=usuariov">Reporte de Usuario con Ventas</a></li>
+                        <li><a class="dropdown-item" href="Servlet-Reportes?accion=usuariog">Reporte de Usuario Ganancias</a></li>
+                        <li><a class="dropdown-item" href="Servlet-Reportes?accion=mmas">Reporte de Mueble más Vendido</a></li>
+                        <li><a class="dropdown-item" href="Servlet-Reportes?accion=mmenos">Reporte de Mueble menos Vendido</a></li>
                       </ul>
                     </li>
                   </ul>

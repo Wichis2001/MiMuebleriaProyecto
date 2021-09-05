@@ -33,7 +33,7 @@
                       <a class="nav-link active" aria-current="ventana-principal.jsp" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="ventana-principal.jsp" href="#">Crear Mueble</a>
+                      <a class="nav-link active" aria-current="ventana-principal.jsp" href="Servlet-Mueble?accion=listar">Crear Mueble</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link active" aria-current="ventana-principal.jsp" href="Servlet-Usuarios?accion=listar">Creación/Cancelacion Usuarios</a>
