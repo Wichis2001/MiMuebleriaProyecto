@@ -27,6 +27,10 @@ import javax.servlet.http.HttpServletResponse;
 public class ServletReportes extends HttpServlet {
 String ventas="reportes/reporte-venta.jsp";
 String ventasreporte="reportes/reporte-venta-tabla.jsp";
+String devolucion="reportes/reporte-devoluciones.jsp";
+String devolucionreporte="reportes/reporte-devoluciones-tabla.jsp";
+String ganancia="reportes/reporte-ganancias.jsp";
+String gananciaReporte="reportes/reporte-ganancias-tabla.jsp";
 public static String nombreUsuario;
 public static Date fechaInicio;
 public static Date fechaFinal;    
@@ -56,8 +60,46 @@ String fecha2;
                 } catch (ParseException ex) {
                     Logger.getLogger(ServletCounstaVenta.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
+            } 
             acceso=ventasreporte;
+        } else if(action.equalsIgnoreCase("devolucion")){
+            acceso=devolucion;
+        } else if(action.equalsIgnoreCase("Consultar Devolucion")){
+            fecha1=request.getParameter("fechaI");
+            fecha2=request.getParameter("fechaF");
+            if(fecha1.equals("")||fecha2.equals("")){
+                fechaInicio=null;
+                fechaFinal=null;
+            } else{
+                try {
+                    java.util.Date nfecha= formatter.parse(fecha1);
+                    java.util.Date nfecha2= formatter.parse(fecha2);
+                    fechaInicio= new java.sql.Date(nfecha.getTime());
+                    fechaFinal=new java.sql.Date(nfecha2.getTime());
+                } catch (ParseException ex) {
+                    Logger.getLogger(ServletCounstaVenta.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            acceso=devolucionreporte;
+        } else if(action.equalsIgnoreCase("ganancia")){
+            acceso=ganancia;
+        } else if(action.equalsIgnoreCase("Consultar Ganancia")){
+            fecha1=request.getParameter("fechaI");
+            fecha2=request.getParameter("fechaF");
+            if(fecha1.equals("")||fecha2.equals("")){
+                fechaInicio=null;
+                fechaFinal=null;
+            } else{
+                try {
+                    java.util.Date nfecha= formatter.parse(fecha1);
+                    java.util.Date nfecha2= formatter.parse(fecha2);
+                    fechaInicio= new java.sql.Date(nfecha.getTime());
+                    fechaFinal=new java.sql.Date(nfecha2.getTime());
+                } catch (ParseException ex) {
+                    Logger.getLogger(ServletCounstaVenta.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            acceso=gananciaReporte;
         }
         RequestDispatcher vista=request.getRequestDispatcher(acceso);
         vista.forward(request, response);

@@ -1,6 +1,6 @@
 <%-- 
-    Document   : reporte-venta
-    Created on : 4/09/2021, 08:45:03 PM
+    Document   : reporte-ganancias
+    Created on : 5/09/2021, 12:37:02 AM
     Author     : luis
 --%>
 
@@ -63,13 +63,13 @@
             <section>
                 <div class="ewk_cont_banner">
                     <div class="ewk_sombra">
-                        <h1 class="text-center">CONSULTA DE VENTAS</h1>
+                        <h1 class="text-center">CONSULTA DE GANANCIAS</h1>
                         <form action="Servlet-Reportes?accion=reporteCompra">
                             FechaInicial: <br>
                             <input class="form-control" class="text-center" type="date" name="fechaI"><br>
                             FechaFinal: <br>
                             <input class="form-control" class="text-center" type="date" name="fechaF"><br>
-                            <input id="agregar" class="btn btn-primary" class="text-center" type="submit" name="accion" value="Consultar Venta"><br>
+                            <input id="agregar" class="btn btn-primary" class="text-center" type="submit" name="accion" value="Consultar Ganancia"><br>
                         </form>
                     </div>
                 </div>

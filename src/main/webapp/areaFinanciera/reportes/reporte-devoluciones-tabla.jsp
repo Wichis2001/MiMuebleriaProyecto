@@ -1,6 +1,6 @@
 <%-- 
-    Document   : reporte-venta-tabla
-    Created on : 4/09/2021, 08:45:12 PM
+    Document   : reporte-devoluciones-tabla
+    Created on : 5/09/2021, 12:12:17 AM
     Author     : luis
 --%>
 
@@ -72,25 +72,27 @@
             <section>
                 <div class="ewk_cont_banner">
                     <div class="ewk_sombra">
-                        <h1 class="text-center">Reporta de Ventas</h1>
-                        <a class="btn btn-success" href="Servlet-Reportes?accion=venta">Regresar</a>
+                        <h1 class="text-center">Reporta de Devoluciones</h1>
+                        <a class="btn btn-success" href="Servlet-Reportes?accion=devolucion">Regresar</a>
                         <br>
                         <br>
                         <table id="dataTable" class="table table-bordered"border="1">
                         <thead>
                     <tr>
                         <th class="text-center">No.</th>
-                        <th class="text-center">IDENTIFICADOR MUEBLE</th>
+                        <th class="text-center">NÚMERO FACTURA</th>
+                        <th class="text-center">FECHA DEVOLUCION</th>
+                        <th class="text-center">NOMBRE</th>
+                        <th class="text-center">NIT</th>
                         <th class="text-center">NOMBRE MUEBLE</th>
-                        <th class="text-center">PRECIO</th>
-                        <th class="text-center">FECHA COMPRA</th>
+                        <th class="text-center">PERDIDA</th>
                     </tr>
                     </thead>
                     <% 
                         //Creamos un nuevo dao de listar mueble para poder agregar todos nuestros objetos de mueble dentro de nuestra tabla y poder ordenarlos de mayor a menor
                         int i=0;
                         ReportesDAO dao= new ReportesDAO();
-                        List<Reporte>list=dao.Compras(ServletReportes.fechaInicio, ServletReportes.fechaFinal);
+                        List<Reporte>list=dao.Devolucion(ServletReportes.fechaInicio, ServletReportes.fechaFinal);
                         Iterator<Reporte>iter=list.iterator();
                         Reporte reporte=null;
                         while(iter.hasNext()){
@@ -100,10 +102,12 @@
                     <tbody>
                     <tr>
                         <th class="text-center" class="text-black-50"><%=i%> </th>
-                        <th class="text-center" class="text-black-50"><%=reporte.getMueble_identificador_mueble()%></th>
+                        <th class="text-center" class="text-black-50"><%=reporte.getNumeroSerie()%></th>
+                        <th class="text-center" class="text-black-50"><%=reporte.getFechaDevolucion()%></th>
+                        <th class="text-center" class="text-black-50"><%=reporte.getNombreClientre()%></th>
+                        <th class="text-center" class="text-black-50"><%=reporte.getNit()%></th>
                         <th class="text-center" class="text-black-50"><%=reporte.getNombre_mueble_ensamble()%></th>
-                        <th class="text-center" class="text-black-50"><%="Q. "+reporte.getPrecio()%></th>
-                        <th class="text-center" class="text-black-50"><%=reporte.getFecha_compra()%></th>
+                        <th class="text-center" class="text-black-50"><%="Q. "+reporte.getPerdida()%></th>
                     </tr>
                     <%}%>
                 </tbody>
@@ -121,7 +125,7 @@
                         const anchorElement = document.createElement("a");
 
                         anchorElement.href = blobUrl;
-                        anchorElement.download = "reporte-venta.csv";
+                        anchorElement.download = "reporte-devolucion.csv";
                         anchorElement.click();
 
                         setTimeout(() => {

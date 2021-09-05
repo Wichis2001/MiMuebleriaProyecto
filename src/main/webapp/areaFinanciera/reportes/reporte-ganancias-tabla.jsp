@@ -1,6 +1,6 @@
 <%-- 
-    Document   : reporte-venta-tabla
-    Created on : 4/09/2021, 08:45:12 PM
+    Document   : reporte-ganancias-tabla
+    Created on : 5/09/2021, 12:37:20 AM
     Author     : luis
 --%>
 
@@ -72,8 +72,8 @@
             <section>
                 <div class="ewk_cont_banner">
                     <div class="ewk_sombra">
-                        <h1 class="text-center">Reporta de Ventas</h1>
-                        <a class="btn btn-success" href="Servlet-Reportes?accion=venta">Regresar</a>
+                        <h1 class="text-center">Reporte de Ganancias</h1>
+                        <a class="btn btn-success" href="Servlet-Reportes?accion=ganancia">Regresar</a>
                         <br>
                         <br>
                         <table id="dataTable" class="table table-bordered"border="1">
@@ -83,14 +83,13 @@
                         <th class="text-center">IDENTIFICADOR MUEBLE</th>
                         <th class="text-center">NOMBRE MUEBLE</th>
                         <th class="text-center">PRECIO</th>
-                        <th class="text-center">FECHA COMPRA</th>
                     </tr>
                     </thead>
                     <% 
                         //Creamos un nuevo dao de listar mueble para poder agregar todos nuestros objetos de mueble dentro de nuestra tabla y poder ordenarlos de mayor a menor
                         int i=0;
                         ReportesDAO dao= new ReportesDAO();
-                        List<Reporte>list=dao.Compras(ServletReportes.fechaInicio, ServletReportes.fechaFinal);
+                        List<Reporte>list=dao.gananciaAtributos(ServletReportes.fechaInicio, ServletReportes.fechaFinal);
                         Iterator<Reporte>iter=list.iterator();
                         Reporte reporte=null;
                         while(iter.hasNext()){
@@ -103,12 +102,17 @@
                         <th class="text-center" class="text-black-50"><%=reporte.getMueble_identificador_mueble()%></th>
                         <th class="text-center" class="text-black-50"><%=reporte.getNombre_mueble_ensamble()%></th>
                         <th class="text-center" class="text-black-50"><%="Q. "+reporte.getPrecio()%></th>
-                        <th class="text-center" class="text-black-50"><%=reporte.getFecha_compra()%></th>
                     </tr>
                     <%}%>
                 </tbody>
             </table>
-               <button id="btnExportToCsv" type="button" class="btn btn-success">Exportar a CSV</button>
+                <br>
+                        <form class="form-group d-flex">
+                            <label class="text-black-50">Ganancia:</label>
+                            <input class="col-sm-2 d-flex" class="text-center" type="text" value="<%=dao.ganancia(ServletReportes.fechaInicio, ServletReportes.fechaFinal)%>" disabled="disabled"><br>
+                        </form>
+                <br>
+                <button id="btnExportToCsv" type="button" class="btn btn-success">Exportar a CSV</button>
                 <script>
                     const dataTable = document.getElementById("dataTable");
                     const btnExportToCsv = document.getElementById("btnExportToCsv");
@@ -121,7 +125,7 @@
                         const anchorElement = document.createElement("a");
 
                         anchorElement.href = blobUrl;
-                        anchorElement.download = "reporte-venta.csv";
+                        anchorElement.download = "reporte-ganancia.csv";
                         anchorElement.click();
 
                         setTimeout(() => {
