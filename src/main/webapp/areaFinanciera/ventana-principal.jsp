@@ -48,8 +48,8 @@
                         <li><a class="dropdown-item" href="Servlet-Reportes?accion=ganancia">Reporte de Ganancias</a></li>
                         <li><a class="dropdown-item" href="Servlet-Reportes?accion=usuariov">Reporte de Usuario con Ventas</a></li>
                         <li><a class="dropdown-item" href="Servlet-Reportes?accion=usuariog">Reporte de Usuario Ganancias</a></li>
-                        <li><a class="dropdown-item" href="#">Reporte de Mueble más Vendido</a></li>
-                        <li><a class="dropdown-item" href="#">Reporte de Mueble menos Vendido</a></li>
+                        <li><a class="dropdown-item" href="Servlet-Reportes?accion=mmas">Reporte de Mueble más Vendido</a></li>
+                        <li><a class="dropdown-item" href="Servlet-Reportes?accion=mmenos">Reporte de Mueble menos Vendido</a></li>
                       </ul>
                     </li>
                   </ul>

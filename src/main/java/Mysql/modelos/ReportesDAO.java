@@ -511,4 +511,136 @@ public class ReportesDAO {
             return ganancia;
         }  
     }
+    
+    public String nombreMuebleMas(Date inicio, Date finalfecha) {
+        String valor="";
+        if(inicio==null||finalfecha==null){
+            String sql="SELECT m.nombre_mueble_ensamble FROM venta v JOIN detalle_venta dv ON (v.id_venta=dv.venta_id) JOIN mueble_ensamblado m ON(dv.mueble_identificador_mueble=m.identificador_mueble) GROUP BY dv.mueble_identificador_mueble ORDER BY COUNT(dv.mueble_identificador_mueble) DESC LIMIT 1";
+            try{
+                //Establecemos una conexion con la base de datos y enviamos los parametros de las Querys
+               con=conexion.getConnection();
+               ps =con.prepareStatement(sql);
+               rs =ps.executeQuery();
+               while(rs.next()){
+                   //Creamos un objeto pieza y lo asignamos a la lista
+                    valor=(rs.getString("nombre_mueble_ensamble"));
+               }
+               // Error SQL al momento de listar mis piezas
+            }catch(SQLException e){
+                System.err.print(e);
+
+            } 
+                return valor;
+        } else {
+            String sql="SELECT m.nombre_mueble_ensamble FROM venta v JOIN detalle_venta dv ON (v.id_venta=dv.venta_id) JOIN mueble_ensamblado m ON(dv.mueble_identificador_mueble=m.identificador_mueble) GROUP BY dv.mueble_identificador_mueble, v.fecha_compra BETWEEN '"+inicio+"' AND '"+finalfecha+"' ORDER BY COUNT(dv.mueble_identificador_mueble) DESC LIMIT 1;";
+            try{
+                //Establecemos una conexion con la base de datos y enviamos los parametros de las Querys
+               con=conexion.getConnection();
+               ps =con.prepareStatement(sql);
+               rs =ps.executeQuery();
+               while(rs.next()){
+                   //Creamos un objeto pieza y lo asignamos a la lista
+                    valor=(rs.getString("nombre_mueble_ensamble"));
+               }
+               // Error SQL al momento de listar mis piezas
+            }catch(SQLException e){
+                System.err.print(e);
+
+            } 
+                return valor;
+        }  
+    }
+    
+    public List mueble(String nombre,Date inicio, Date finalfecha) {
+        if(inicio==null||finalfecha==null){
+            ArrayList<Reporte>listReporte=new ArrayList<>();
+            String sql="SELECT v.numeros_serie, c.nombre, c.direccion, dv.mueble_identificador_mueble, m.nombre_mueble_ensamble, m.precio FROM cliente c JOIN venta v ON (c.nit=v.nit_cliente) JOIN detalle_venta dv ON (v.id_venta=dv.venta_id) JOIN mueble_ensamblado m ON(dv.mueble_identificador_mueble=m.identificador_mueble) WHERE m.nombre_mueble_ensamble LIKE '"+nombre+"';";
+            try{
+                //Establecemos una conexion con la base de datos y enviamos los parametros de las Querys
+               con=conexion.getConnection();
+               ps =con.prepareStatement(sql);
+               rs =ps.executeQuery();
+               while(rs.next()){
+                   //Creamos un objeto pieza y lo asignamos a la lista
+                    Reporte reporte=new Reporte();
+                    reporte.setNumeroSerie(rs.getString("numeros_serie"));
+                    reporte.setNombreClientre(rs.getString("nombre"));
+                    reporte.setDireccion(rs.getString("direccion"));
+                    reporte.setMueble_identificador_mueble(rs.getString("mueble_identificador_mueble"));
+                    reporte.setNombre_mueble_ensamble(rs.getString("nombre_mueble_ensamble"));
+                    reporte.setPrecio(rs.getDouble("precio"));
+                    listReporte.add(reporte);
+               }
+               // Error SQL al momento de listar mis piezas
+            }catch(SQLException e){
+                System.err.print(e);
+
+            } 
+                return listReporte;
+        } else {
+            ArrayList<Reporte>listReporte=new ArrayList<>();
+            String sql="SELECT v.numeros_serie, c.nombre, c.direccion, dv.mueble_identificador_mueble, m.nombre_mueble_ensamble, m.precio FROM cliente c JOIN venta v ON (c.nit=v.nit_cliente) JOIN detalle_venta dv ON (v.id_venta=dv.venta_id) JOIN mueble_ensamblado m ON(dv.mueble_identificador_mueble=m.identificador_mueble) WHERE m.nombre_mueble_ensamble LIKE '"+nombre+"' AND v.fecha_compra BETWEEN '"+inicio+"' AND '"+finalfecha+"'";
+            try{
+                //Establecemos una conexion con la base de datos y enviamos los parametros de las Querys
+               con=conexion.getConnection();
+               ps =con.prepareStatement(sql);
+               rs =ps.executeQuery();
+               while(rs.next()){
+                   //Creamos un objeto pieza y lo asignamos a la lista
+                    Reporte reporte=new Reporte();
+                    reporte.setNumeroSerie(rs.getString("numeros_serie"));
+                    reporte.setNombreClientre(rs.getString("nombre"));
+                    reporte.setDireccion(rs.getString("direccion"));
+                    reporte.setMueble_identificador_mueble(rs.getString("mueble_identificador_mueble"));
+                    reporte.setNombre_mueble_ensamble(rs.getString("nombre_mueble_ensamble"));
+                    reporte.setPrecio(rs.getDouble("precio"));
+                    listReporte.add(reporte);
+               }
+               // Error SQL al momento de listar mis piezas
+            }catch(SQLException e){
+                System.err.print(e);
+
+            } 
+                return listReporte;
+        }  
+    }
+    
+    public String nombreMuebleMe(Date inicio, Date finalfecha) {
+        String valor="";
+        if(inicio==null||finalfecha==null){
+            String sql="SELECT m.nombre_mueble_ensamble FROM venta v JOIN detalle_venta dv ON (v.id_venta=dv.venta_id) JOIN mueble_ensamblado m ON(dv.mueble_identificador_mueble=m.identificador_mueble) WHERE m.identificador_mueble=(SELECT MIN(m.identificador_mueble)  FROM venta v JOIN detalle_venta dv ON (v.id_venta=dv.venta_id) JOIN mueble_ensamblado m ON(dv.mueble_identificador_mueble=m.identificador_mueble))";
+            try{
+                //Establecemos una conexion con la base de datos y enviamos los parametros de las Querys
+               con=conexion.getConnection();
+               ps =con.prepareStatement(sql);
+               rs =ps.executeQuery();
+               while(rs.next()){
+                   //Creamos un objeto pieza y lo asignamos a la lista
+                    valor=(rs.getString("nombre_mueble_ensamble"));
+               }
+               // Error SQL al momento de listar mis piezas
+            }catch(SQLException e){
+                System.err.print(e);
+
+            } 
+                return valor;
+        } else {
+            String sql="SELECT m.nombre_mueble_ensamble FROM venta v JOIN detalle_venta dv ON (v.id_venta=dv.venta_id) JOIN mueble_ensamblado m ON(dv.mueble_identificador_mueble=m.identificador_mueble) WHERE (v.fecha_compra BETWEEN '"+inicio+"' AND '"+finalfecha+"') AND (m.identificador_mueble=(SELECT MIN(m.identificador_mueble)  FROM venta v JOIN detalle_venta dv ON (v.id_venta=dv.venta_id) JOIN mueble_ensamblado m ON(dv.mueble_identificador_mueble=m.identificador_mueble)))";
+            try{
+                //Establecemos una conexion con la base de datos y enviamos los parametros de las Querys
+               con=conexion.getConnection();
+               ps =con.prepareStatement(sql);
+               rs =ps.executeQuery();
+               while(rs.next()){
+                   //Creamos un objeto pieza y lo asignamos a la lista
+                    valor=(rs.getString("nombre_mueble_ensamble"));
+               }
+               // Error SQL al momento de listar mis piezas
+            }catch(SQLException e){
+                System.err.print(e);
+
+            } 
+                return valor;
+        }  
+    }
 }
