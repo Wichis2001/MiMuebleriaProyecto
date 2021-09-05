@@ -48,11 +48,11 @@
                         Consultas
                       </a>
                       <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Consulta de Compras</a></li>
-                        <li><a class="dropdown-item" href="#">Consulta de Devoluciones</a></li>
-                        <li><a class="dropdown-item" href="#">Consulta de Muebles</a></li>
-                        <li><a class="dropdown-item" href="#">Consulta de Facturas</a></li>
-                        <li><a class="dropdown-item" href="#">Consulta de Ventas</a></li>
+                        <li><a class="dropdown-item" href="Servlet-CounstaVenta?accion=ingresoaCompra">Consulta de Compras</a></li>
+                        <li><a class="dropdown-item" href="Servlet-CounstaVenta?accion=DevolucionC">Consulta de Devoluciones</a></li>
+                        <li><a class="dropdown-item" href="Servlet-CounstaVenta?accion=mueble">Consulta de Muebles</a></li>
+                        <li><a class="dropdown-item" href="Servlet-CounstaVenta?accion=factura">Consulta de Facturas</a></li>
+                        <li><a class="dropdown-item" href="Servlet-CounstaVenta?accion=ventas">Consulta de Ventas</a></li>
                       </ul>
                     </li>
                   </ul>
