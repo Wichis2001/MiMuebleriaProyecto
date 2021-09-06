@@ -38,8 +38,8 @@ public final class Conexion {
             //Establecemos y enviamos nuestros parametros
             Class.forName("com.mysql.jdbc.Driver");
             String url = "jdbc:mysql://localhost:3306/MiMuebleria";
-            String user = "root";
-            String password = "Wichis6661";
+            String user = "UsuarioProyecto";
+            String password = "[Costumbre1]";
             conexion = DriverManager.getConnection(url, user, password);
             System.out.print("Conexio exitosa");
         }catch (SQLException ex) {
