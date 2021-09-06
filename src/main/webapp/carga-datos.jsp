@@ -40,18 +40,6 @@
                     </div>
                 </div>
             </section>
-            <section>
-                <div class="container"> 
-                    <div class="row ewk_cont_sec_1">
-                        <div class="col-md-12">
-                            <h2 data-aos="fade-up-right"><b>Presentación</b></h2>
-                            <p data-aos="fade-right"> <i> El mejor lugar para fabricar y comprar tus muebles</i></p>
-                            <hr/>
-                            <p data-aos="flip-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus faucibus tincidunt sapien in fringilla. Nulla facilisi. Fusce libero magna, placerat id tempus sit amet, tincidunt in leo. Fusce ut rhoncus nisl. Maecenas id velit ante. Sed fermentum vitae tortor at facilisis. Ut sit amet feugiat enim, ut interdum quam. Suspendisse potenti. Aliquam et tristique sem. Quisque nec eros massa. Curabitur ornare quis erat et consectetur. Praesent sed nisi consectetur, fringilla enim quis, lobortis ante. Integer varius mauris condimentum, dapibus tortor sed, suscipit magna. Praesent et elit sollicitudin, hendrerit est ac, ornare neque. Mauris vel est eu odio sagittis volutpat. Lorem.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
         </header>     
         
         <script src="resources/libraries/bootstrap/js/jquery.js"></script>
