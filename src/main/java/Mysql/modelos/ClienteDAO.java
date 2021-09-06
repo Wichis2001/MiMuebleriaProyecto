@@ -4,9 +4,7 @@
  * and open the template in the editor.
  */
 package Mysql.modelos;
-
 import CompraVenta.Cliente;
-import Mueble.Pieza;
 import Mysql.Conexion;
 import Mysql.Insert;
 import java.sql.Connection;

@@ -85,6 +85,7 @@ public class UsuarioDAO implements Validar{
             } else if(respuesta==3){
                 return 3;
             } else {
+                //Usuario que fue renistringido de la base de datos
                 return 4;
             }
         } catch (Exception e) {

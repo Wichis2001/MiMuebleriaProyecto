@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package Interfaces;
-
 import Mueble.MuebleEnsamblado;
 import java.sql.SQLException;
 import java.util.List;

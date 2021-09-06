@@ -16,7 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Esta clase me ayuda a guardar un nuevo usuario a travez de la pagina web y poder servir como pueete entre mi Servlet y la base de datos 
  * @author luis
  */
 public class UsuarioFDAO {
@@ -27,6 +27,10 @@ public class UsuarioFDAO {
     ResultSet rs;
     Usuario usuarios = new Usuario();
     
+    /**
+     * Este metodo me devuelve una lista de todos los usuarios que están registrados en el programa
+     * @return
+     */
     public List listar() {
         ArrayList<Usuario>listUsuario=new ArrayList<>();
         try{
@@ -56,6 +60,11 @@ public class UsuarioFDAO {
             return listUsuario;
     }
     
+    /**
+     * Este metodo me ayuda a reinstrigirle el acceso a la base de datos al ausario colondolo como tipo el '4'
+     * @param nombre
+     * @return
+     */
     public boolean delete(String nombre) {
         String sql="UPDATE usuario SET tipo_usuario='4' WHERE (nombre_usuario)='"+ nombre +"'"; 
         try {
@@ -70,13 +79,18 @@ public class UsuarioFDAO {
         return false;
     }
     
+    /**
+     * ESste metodo me ayuda a agregar un nuevo usuario en mi base de datos
+     * @param usuario
+     * @return
+     */
     public boolean add(Usuario usuario) {
         try{
             String sql="INSERT INTO usuario (nombre_usuario,contraseña,tipo_usuario) VALUES(?,?,?)";
             //Establecemos una conexin la base de datos
             con=conexion.getConnection();
             con.setAutoCommit(false);
-            //Realizamos un insert de una pieza a travez de enviar un parametro
+            //Realizamos un insert de un usuario a travez de enviar un parametro
             ps=con.prepareStatement(sql);
             ps.setString(1, usuario.getNombre_usuario());
             ps.setString(2, usuario.getContraseña());

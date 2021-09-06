@@ -20,7 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Esta clase me ayuda con la creacion de un mueble y las piezas necesarias par poder ser ensamblado
  * @author luis
  */
 public class CrearMuebleDAO {
@@ -29,9 +29,14 @@ public class CrearMuebleDAO {
     PreparedStatement ps;
     ResultSet rs;
     
-    
+    /**
+     * Este metodo me ayuda verificar el nombre de un mueble con la finalidad de que este no se repita
+     * @param nombre
+     * @return
+     */
     public boolean verificar(String nombre){
         boolean verificador=false;
+        //Establecemos la Query sollicitada
         String sql="SELECT nombre_mueble FROM mueble WHERE UPPER(mueble.nombre_mueble)=UPPER('"+nombre+"')";
         try{
             //Establecemos una conexion con la bese de datos y le enviamos el parametro de mi Query
@@ -41,7 +46,7 @@ public class CrearMuebleDAO {
            while(rs.next()){
                verificador=true;
            }
-           //Error SQL al momento de listar las piezas
+           //Error SQL al momento de ejecutar mi Query
         }catch(SQLException e){
             verificador=false;
             System.err.print(e);
@@ -49,7 +54,13 @@ public class CrearMuebleDAO {
         return verificador;
     }
 
+    /**
+     * Este metodo me asigna un objeto mueble a mi base de datos
+     * @param mueble
+     * @return
+     */
     public boolean addMueble(Mueble mueble) {
+        //Establecemos la Query sollicitada
         String sql="INSERT INTO mueble (nombre_mueble,precio) VALUES(?,?)";
         try{
             //Establecemos una conexin la base de datos
@@ -61,7 +72,7 @@ public class CrearMuebleDAO {
             ps.setDouble(2, mueble.getPrecio());
             ps.executeUpdate();
             con.commit();
-            //Error SQL al momento de agregar una pieza
+            //Error SQL al momento de agregar un mueble
         } catch(SQLException e){
             System.err.print(e);
             try {
@@ -75,6 +86,10 @@ public class CrearMuebleDAO {
         return false;   
     }
     
+    /**
+     * Este metodo me ayuda a listar las piezas para verificar que estas existan en mi base de datos
+     * @return
+     */
     public List listar() {
         ArrayList<Pieza>listPiezas=new ArrayList<>();
         try{
@@ -98,8 +113,14 @@ public class CrearMuebleDAO {
             return listPiezas;
     }
     
+    /**
+     * Este metodo  me ayuda a verificar de que no se repita mas de una vez la sentencia de emsamblaje de piezas
+     * @param nombre
+     * @return
+     */
     public boolean verificarPieza(String nombre){
         boolean verificador=false;
+        //Establecemos la Query sollicitada
         String sql="SELECT * FROM ensamble_piezas WHERE upper(ensamble_piezas.pieza_tipo)=UPPER('"+nombre+"') AND UPPER(ensamble_piezas.mueble_nombre)=Upper('"+ServletMuebleF.nombreMueble+"')";
         try{
             //Establecemos una conexion con la bese de datos y le enviamos el parametro de mi Query
@@ -107,7 +128,7 @@ public class CrearMuebleDAO {
            ps =con.prepareStatement(sql);
            rs =ps.executeQuery();
            while(rs.next()){
-               //Creamos un objeto de pieza y le asignamos los parametros
+               //Creamos un objeto de verificador y le asignamos los parametros
                verificador=true;
            }
            //Error SQL al momento de listar las piezas
@@ -118,20 +139,26 @@ public class CrearMuebleDAO {
         return verificador;
     }
 
+    /**
+     * Este metodo me ayuda a asignar una nueva instrucion para ensamblar piezas
+     * @param ensamblaje
+     * @return
+     */
     public boolean addPieza(EnsamblePiezas ensamblaje) {
+        //Establecemos el incert conjunto a sus parametros
         String sql="INSERT INTO ensamble_piezas (mueble_nombre,pieza_tipo,cantidad) VALUES(?,?,?)";
         try{
             //Establecemos una conexin la base de datos
             con=conexion.getConnection();
             con.setAutoCommit(false);
-            //Realizamos un insert de un mueble a travez de enviar un parametro
+            //Realizamos un insert de un ensamblaje de piezas a travez de enviar un parametro
             ps=con.prepareStatement(sql);
             ps.setString(1, ServletMuebleF.nombreMueble);
             ps.setString(2, ensamblaje.getPieza_tipo());
             ps.setInt(3, ensamblaje.getCantidad());
             ps.executeUpdate();
             con.commit();
-            //Error SQL al momento de agregar una pieza
+            //Error SQL al momento de agregar un ensamblaje de parametros
         } catch(SQLException e){
             System.err.print(e);
             try {

@@ -6,12 +6,12 @@
 package Codigos;
 
 /**
- *
+ * Esta clase me permite generar un codigo randoom a travez de un numero de caracteres y poder asignarle dicho valor
  * @author luis
  */
 public class GeneradorCodigos {
     
-/**
+    /**
      * Este constructor me permite generar un codigo a travez de la cantidad de caracteres a collocar y letras a colocar
      * @param palabra
      * @param caracteresTotales

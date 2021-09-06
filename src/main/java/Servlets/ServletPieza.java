@@ -34,7 +34,7 @@ public class ServletPieza extends HttpServlet {
     PiezaDAO dao= new PiezaDAO();
 
     /**
-     * El metodo do get me permite establecer un comunicador entre mi pagina web y el usuario recogiendo la accion que tomara el usuario
+     * El metodo get me permite establecer un comunicador entre mi pagina web y el usuario recogiendo la accion que tomara el usuario
      * @param request
      * @param response
      * @throws ServletException

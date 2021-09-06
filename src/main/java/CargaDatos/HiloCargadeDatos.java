@@ -30,6 +30,10 @@ public class HiloCargadeDatos extends Thread{
     Mueble mueble= new Mueble();
     Pieza pieza = new Pieza();
     PiezaDAO pdao = new PiezaDAO();
+
+    /**
+     * Este array me ayudara a almacenar toda la lista de errores que nos representa el programa
+     */
     public static ArrayList<String>errores=new ArrayList<>();
     VerificadorDatos verificador= new VerificadorDatos();
     private File archivoAProcesar;
@@ -47,7 +51,6 @@ public class HiloCargadeDatos extends Thread{
     /**
      * Este constructor me permite hacer la carga de un archivo y poder aplicarla a la ventana deseada, en este caso a la ventana de carga de datos 
      * @param archivoAProcesar
-     * @param ventanaCarga
      */
     public HiloCargadeDatos(File archivoAProcesar){
         this.archivoAProcesar = archivoAProcesar;
@@ -391,6 +394,10 @@ public class HiloCargadeDatos extends Thread{
         }
     }
     
+    /**
+     * Dicho metodo me elemina las comillas que tiene un dato
+     * @return
+     */
     private String quitarComillas(String dato){
         return dato.substring(1, dato.length()-1);
     }

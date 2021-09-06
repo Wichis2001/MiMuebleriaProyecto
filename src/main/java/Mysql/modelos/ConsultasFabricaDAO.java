@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package Mysql.modelos;
-
 import Mueble.MuebleEnsamblado;
 import Mueble.Pieza;
 import Mysql.Conexion;

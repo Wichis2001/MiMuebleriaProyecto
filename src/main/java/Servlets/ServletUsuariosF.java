@@ -91,6 +91,7 @@ public class ServletUsuariosF extends HttpServlet {
                 request.setAttribute("msje", "Error al Crear usuario" + e.getMessage());
             }
         }else if(action.equalsIgnoreCase("crear")){
+            //Nos redirigimos al path que esta especificado en crear 
             acceso=crear;
         }
         RequestDispatcher vista=request.getRequestDispatcher(acceso);

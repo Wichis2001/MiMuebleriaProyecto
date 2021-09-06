@@ -21,12 +21,8 @@ public class ServletUsuario extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     * El metodo do get me permite establecer un comunicador entre mi pagina web y el usuario recogiendo la accion que tomara el usuario
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * methods.El metodo do get me permite establecer un comunicador entre mi pagina web y el usuario recogiendo la accion que tomara el usuario
+     * 
      */
     //Establecemos las constantes
     public static String nombreRecurrente;
@@ -39,6 +35,13 @@ public class ServletUsuario extends HttpServlet {
     String venta="areaPuntosdeVenta/ventana-principal.jsp";
     String inicio="inicio-sesion.jsp";
 
+    /**
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //Establecemos los parametros de accion para recoger la accion que ingresa el usuaio y poder rederigirlo a otra ventana

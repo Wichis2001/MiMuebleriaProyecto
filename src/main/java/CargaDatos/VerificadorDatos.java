@@ -17,7 +17,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- *
+ * Esta clase me ayuda a las verificaciones que se pueden realizar al hacer una carga de datos, con la finalidad de almacenar estos datos corectamente
  * @author luis
  */
 public class VerificadorDatos {
@@ -25,14 +25,27 @@ public class VerificadorDatos {
     Connection con;
     PreparedStatement ps;
     ResultSet rs;
+
+    /**
+     * Esta clase me ayuda a verificar el tamaño que esta registrado en los caracteres de la entrada de un usuario
+     * @param nombre
+     * @param contraseña
+     * @return
+     */
     public boolean verificarTamañoEntradaUsuario(String nombre, String contraseña){
        boolean retornar=false;
+       //Asignamos los parametros y verificamos su longitud
        if(nombre.length()<=45&&contraseña.length()<=45){
            retornar=true;
        }
        return retornar;
     }
     
+    /**
+     * Este metodo me ayuda a verificar que el usuario no haya sido creado previamente
+     * @param nombre
+     * @return
+     */
     public boolean verificadorUsuario(String nombre){
         boolean retornar=true;
         //Establecemos la query a buscar
@@ -51,6 +64,12 @@ public class VerificadorDatos {
         return retornar;
     }
     
+    /**
+     * Este metodo me ayuda a verificar si el ensamblaje de la pieza no ha sido registrado previamente
+     * @param nombre
+     * @param pieza
+     * @return
+     */
     public boolean verificadorEnsamblajePieza(String nombre, String pieza){
         boolean retornar=true;
         //Establecemos la query a buscar
@@ -69,38 +88,67 @@ public class VerificadorDatos {
         return retornar;
     }
     
+    /**
+     * Este metodo me ayuda a verificar que la contraseña designada en la carga de datos tiene más de 6 caracteres
+     * @param contraseña
+     * @return
+     */
     public boolean verificadorContraseña(String contraseña){
         boolean retornar=false;
+        //Verificamos la longitud de la contraseña
         if(contraseña.length()>=6){
             retornar=true;
         }
         return retornar;
     }
     
+    /**
+     * Este metodo me ayuda a verificar si el lugar donde fue designado el usuario es correcto
+     * @param cantidad
+     * @return
+     */
     public boolean verificar(int cantidad){
         boolean retornar=false;
+        //Verificamos si tiene el valor númerico de alguna de las areas designadas
         if(cantidad==1||cantidad==2||cantidad==3){
             retornar=true;
         }
         return retornar;
     }
     
+    /**
+     * Este metodo me ayuda a verificar el tamaño de la entrada de la pieza con la finalidad de no corromper la base de datos
+     * @param nombre
+     * @return
+     */
     public boolean verificarTamañoEntradaPieza(String nombre){
        boolean retornar=false;
+       //Verificamos el tamaño del nombre
        if(nombre.length()<=45){
            retornar=true;
        }
        return retornar;
     }
     
+    /**
+     * Este metodo me ayuda a verificar si la entrada de un nuevo mueble es valido
+     * @param nombre
+     * @return
+     */
     public boolean verificarTamañoEntradaMueble(String nombre){
        boolean retornar=false;
+       //Verificamos si el nombre ingresado es valido
        if(nombre.length()<=75){
            retornar=true;
        }
        return retornar;
     }
     
+    /**
+     * Este metodo me ayuda a verificar si este mueble no esta asignado previamente en la base de datos
+     * @param nombre
+     * @return
+     */
     public boolean verificadorMueble(String nombre){
         boolean retornar=true;
         //Establecemos la query a buscar
@@ -119,14 +167,26 @@ public class VerificadorDatos {
         return retornar;
     }
     
+    /**
+     * Este metodo me ayuda a verificar el tamaño de entrada para el ensamblaej de un mueble
+     * @param mueble
+     * @param pieza
+     * @return
+     */
     public boolean verificarTamañoEntradaEnsamblaje(String mueble, String pieza){
        boolean retornar=false;
+       //Verificamos el tamaño de un mueble y de la pieza
        if(mueble.length()<=75&&pieza.length()<=45){
            retornar=true;
        }
        return retornar;
     }
     
+    /**
+     * Este metodo me ayuda a verificar si la pieza existe en la base de datos
+     * @param nombre
+     * @return
+     */
     public boolean verificadorPieza(String nombre){
         boolean retornar=false;
         //Establecemos la query a buscar
@@ -145,6 +205,11 @@ public class VerificadorDatos {
         return retornar;
     }
     
+    /**
+     * Este metodo me ayuda a verificar si existe un mueble en la base de datos
+     * @param nombre
+     * @return
+     */
     public boolean verificadorMueble2(String nombre){
         boolean retornar=false;
         //Establecemos la query a buscar
@@ -163,14 +228,26 @@ public class VerificadorDatos {
         return retornar;
     }
     
+    /**
+     * Este metodo me ayuda a verificar el numoero de caracteres que tiene una entrada de ensamblaje de un mueble
+     * @param mueble
+     * @param usuario
+     * @return
+     */
     public boolean verificarTamañoEntradaEnsamblarMueble(String mueble, String usuario){
        boolean retornar=false;
+       //Verificamos la cantidad de caracteres que tienen el mueble y el usuario
        if(mueble.length()<=75&&usuario.length()<=45){
            retornar=true;
        }
        return retornar;
     }
     
+    /**
+     * Este metodo me ayuda a verificar si existe previametne un usuario
+     * @param nombre
+     * @return
+     */
     public boolean verificadorUsuario2(String nombre){
         boolean retornar=false;
         //Establecemos la query a buscar
@@ -189,6 +266,11 @@ public class VerificadorDatos {
         return retornar;
     }
     
+    /**
+     * Este metodo me devuelve el precio que tiene un mueble
+     * @param nombre
+     * @return
+     */
     public Double precioMueble(String nombre){
         double precio=0.0;
         //Establecemos la query a buscar
@@ -207,7 +289,13 @@ public class VerificadorDatos {
         return precio;
     }
     
-   public boolean add(MuebleEnsamblado mueble) throws SQLException{
+    /**
+     * Este metodo me permite asignar un nuevo mueble ensamblado
+     * @param mueble
+     * @return
+     * @throws SQLException
+     */
+    public boolean add(MuebleEnsamblado mueble) throws SQLException{
         try {
             //Estrablecemos una conexion con la base de datos y enviamos los parametros
             String sql="SELECT * FROM ensamble_piezas WHERE UPPER(mueble_nombre) = UPPER('"+ mueble.getNombre_mueble_ensamblado() +"')";
@@ -323,27 +411,52 @@ public class VerificadorDatos {
         return false;    
     }
    
+    /**
+     * Este metodo me permite verificar el numero de caracteres que tiene la entrada de clientes
+     * @param nit
+     * @param direccion
+     * @param municipio
+     * @param departamento
+     * @param nombre
+     * @return
+     */
     public boolean verificarTamañoEntradaCliente(String nit, String direccion, String municipio, String departamento, String nombre){
        boolean retornar=false;
+       //Verificamos el tamaño de las cadenas String
        if(nit.length()<=12&&direccion.length()<=100&&municipio.length()<=100&&departamento.length()<=100&&nombre.length()<=45){
            retornar=true;
        }
        return retornar;
     }
     
+    /**
+     * Este metodo me permite verificar el numero de caracteres que posee la entrada de un nuevo cliente
+     * @param nit
+     * @param direccion
+     * @param nombre
+     * @return
+     */
     public boolean verificarTamañoEntradaClientePequeño(String nit, String direccion,String nombre){
        boolean retornar=false;
+       //Verificamos el tamaño de las cadenas de texto
        if(nit.length()<=12&&direccion.length()<=100&&nombre.length()<=45){
            retornar=true;
        }
        return retornar;
     }
     
+    /**
+     * Este metodo me ayuda a verificar si el nit de un cliente posee un guion
+     * @param nit
+     * @return
+     */
     public boolean verificarGuiones(String nit){
         char caracter;
         boolean retornar=true;
+        //Recorremos la cadena
         for (int i = 0; i < nit.length(); i++) {
             caracter=nit.charAt(i);
+            //Verificamos si este posee un guion
             if(Character.compare(caracter, '-')==0){
                 retornar=false;
             }
@@ -351,6 +464,11 @@ public class VerificadorDatos {
        return retornar;
     }
     
+    /**
+     * Este metodo me ayuda a verificar si un cliente ya existe previamente en la base de datos
+     * @param nit
+     * @return
+     */
     public boolean verificadorCliente(String nit){
         boolean retornar=true;
         //Establecemos la query a buscar

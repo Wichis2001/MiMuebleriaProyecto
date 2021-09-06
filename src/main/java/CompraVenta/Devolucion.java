@@ -5,7 +5,6 @@
  */
 package CompraVenta;
 import java.io.Serializable;
-import java.sql.Date;
 import java.time.LocalDate;
 
 /**

@@ -56,6 +56,7 @@ public final class Conexion {
     
     /**
      * Este metodo me permite desconectarme de mi base de datos
+     * @throws java.sql.SQLException
      */
     public void desconectar() throws SQLException{
         conexion.close();

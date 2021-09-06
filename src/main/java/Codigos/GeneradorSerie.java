@@ -6,7 +6,7 @@
 package Codigos;
 
 /**
- *
+ * Esta clase me ayuda a generar un numero de serie para una factura, a la vez que me puede ayudar a encontrar una devolucion y de apoyo a los reportes posteriores
  * @author luis
  */
 public class GeneradorSerie {
