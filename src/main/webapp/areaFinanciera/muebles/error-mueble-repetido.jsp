@@ -1,6 +1,6 @@
 <%-- 
-    Document   : crearMueble
-    Created on : 5/09/2021, 04:26:48 PM
+    Document   : error-mueble-repetido
+    Created on : 5/09/2021, 05:23:30 PM
     Author     : luis
 --%>
 
@@ -25,7 +25,7 @@
         <link href="./../resources/libraries/sweetalert/sweetalert.css" rel="stylesheet" type="text/css"/>
         <link href="./../resources/libraries/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="./../resources/css/style-general.css"/>
-        <title>CREAR MUEBLES</title>
+            <title>Error</title>
     </head>
     
     <body>
@@ -69,14 +69,11 @@
             <section>
                 <div class="ewk_cont_banner">
                     <div class="ewk_sombra">
-                        <h1 class="text-center">Formulario de Creación de Mueble</h1>
-                        <form>
-                            Nombre Mueble <br>
-                            <input class="form-control" class="text-center" type="text" name="nombre" required><br>
-                            Precio: <br>
-                            <input class="form-control" class="text-center" type="text" name="precio" required><br>
-                            <input id="agregar" class="btn btn-primary" class="text-center" type="submit" name="accion" value="Crear Mueble"><br>
-                        </form>
+                        <h1 class="text-center">ERROR</h1>
+                        <p class="text-center">Ya existe un mueble con el mismo nombre en la base de datos</p>
+                            <div class="ewk_cont_banner_link">
+                            <a class="ewk_banner_link" href="Servlet-Mueble?accion=listar">REGRESAR</a>
+                            </div>
                     </div>
                 </div>
             </section>
