@@ -106,7 +106,7 @@ public class CargaDatos extends HttpServlet {
         }
 
          // salta a message.jsp
-        request.getServletContext().getRequestDispatcher("/message.jsp").forward(request, response);
+        request.getServletContext().getRequestDispatcher("/subir.jsp").forward(request, response);
     }
 
 
