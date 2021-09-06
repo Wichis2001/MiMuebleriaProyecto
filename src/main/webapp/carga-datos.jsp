@@ -9,10 +9,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Insert title here</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
-        
+    <h1> Carga del archivo de prueba </ h1>
+        <form action="Carga-Datos" method="post" enctype="multipart/form-data" >
+            <input type='file' name='fileName' />
+            <input type = "submit" value = "upload" />
+        </form>
     </body>
 </html>
