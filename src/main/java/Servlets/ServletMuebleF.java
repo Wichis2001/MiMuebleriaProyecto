@@ -31,6 +31,7 @@ public class ServletMuebleF extends HttpServlet {
     String errormr="muebles/error-mueble-repetido.jsp";
     String errormn="muebles/error-mueble-numero.jsp";
     String errop="muebles/error-pieza-repetida.jsp";
+    String errorpn="muebles/error-pieza-numero.jsp";
     CrearMuebleDAO dao= new CrearMuebleDAO();
     Mueble mueble= new Mueble();
     EnsamblePiezas ensamblaje= new EnsamblePiezas();
@@ -49,7 +50,7 @@ public class ServletMuebleF extends HttpServlet {
                 String nombre=request.getParameter("nombre");
                 Double precio=Double.parseDouble(request.getParameter("precio"));
                 if(dao.verificar(nombre)==true){
-                    acceso=errop;
+                    acceso=errormr;
                 } else {
                     mueble.setNombre_mueble_ensamble(nombre);
                     mueble.setPrecio(precio);
@@ -69,7 +70,7 @@ public class ServletMuebleF extends HttpServlet {
                 String tipo=request.getParameter("tipo");
                 int cantidad=Integer.parseInt(request.getParameter("cantidad"));
                 if(dao.verificarPieza(tipo)==true){
-                    acceso=errormr;
+                    acceso=errop;
                 } else {
                     ensamblaje.setPieza_tipo(tipo);
                     ensamblaje.setCantidad(cantidad);
@@ -77,7 +78,7 @@ public class ServletMuebleF extends HttpServlet {
                     acceso= crearp;
                 }
             } catch(NumberFormatException e){
-                acceso=errormn;
+                acceso=errorpn;
             } catch(Exception e){
                 System.err.print(e);
             }

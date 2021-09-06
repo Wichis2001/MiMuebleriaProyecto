@@ -1,20 +1,19 @@
 <%-- 
-    Document   : crear-piezas
-    Created on : 5/09/2021, 04:27:33 PM
+    Document   : error-pieza-numero
+    Created on : 5/09/2021, 07:21:00 PM
     Author     : luis
 --%>
 
-<%@page import="Mueble.Pieza"%>
-<%@page import="Mysql.modelos.CrearMuebleDAO"%>
-<%@page import="Servlets.ServletMuebleF"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 <%@page import="Mueble.Mueble"%>
 <%@page import="Mysql.modelos.ConstruirMuebleDAO"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="Trabajadores.Usuario"%>
 <%@page import="java.util.List"%>
 <%@page import="Mysql.modelos.UsuarioFDAO"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<%@page import="Mysql.modelos.PiezaDAO"%>
+<%@page import="Mueble.Pieza"%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -26,7 +25,7 @@
         <link href="./../resources/libraries/sweetalert/sweetalert.css" rel="stylesheet" type="text/css"/>
         <link href="./../resources/libraries/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="./../resources/css/style-general.css"/>
-        <title>CREAR MUEBLES</title>
+            <title>Error</title>
     </head>
     
     <body>
@@ -70,29 +69,11 @@
             <section>
                 <div class="ewk_cont_banner">
                     <div class="ewk_sombra">
-                        <h1 class="text-center">Asignar Instrucciones del Mueble</h1>
-                        <form>
-                            <input type="hidden" name="txtTipo" value ="<%=ServletMuebleF.nombreMueble%>"required><br>
-                            Tipo Pieza: <br>
-                            <select onchange="this.form['valor'].value=this.value" name="tipo" class="form-control" required> 
-                               <option >Desplegar Opciones</option>
-                                <%
-                                        //Creamos un nuevo dao de mueble para poder agregar todos nuestros objetos de muebles que pueden llegar a ser fabricados dentro de nuestra tabla
-                                        CrearMuebleDAO dao= new CrearMuebleDAO();
-                                        List<Pieza>list=dao.listar();
-                                        Iterator<Pieza>iter=list.iterator();
-                                        Pieza pieza=null;
-                                        while(iter.hasNext()){
-                                            pieza=iter.next();
-                                %>
-                                <option><%=pieza.getTipo()%></option>
-                                <%}%>      
-                            </select>
-                            Cantidad: <br>
-                            <input class="form-control" class="text-center" type="number" name="cantidad"><br>
-                            <input id="agregar" class="btn btn-primary" class="text-center" type="submit" name="accion" value="Establecer Ensamblaje"><br>
-                            <input id="agregar" class="btn btn-warning" class="text-center" type="submit" name="accion" value="Terminar Ensamblaje"><br>
-                        </form>
+                        <h1 class="text-center">ERROR</h1>
+                        <p class="text-center">No has ingresado un valor númerico en campo 'Cantidad'</p>
+                            <div class="ewk_cont_banner_link">
+                            <a class="ewk_banner_link" href="Servlet-Mueble?accion=crearem">REGRESAR</a>
+                            </div>
                     </div>
                 </div>
             </section>

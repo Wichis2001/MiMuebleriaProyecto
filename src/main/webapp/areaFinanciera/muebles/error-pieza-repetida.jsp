@@ -70,9 +70,9 @@
                 <div class="ewk_cont_banner">
                     <div class="ewk_sombra">
                         <h1 class="text-center">ERROR</h1>
-                        <p class="text-center">Ya has asignado esta instruccion con este tipod de pieza</p>
+                        <p class="text-center">Ya has asignado esta instruccion con este tipo de pieza</p>
                             <div class="ewk_cont_banner_link">
-                            <a class="ewk_banner_link" href="Servlet-Mueble?accion=crearp">REGRESAR</a>
+                            <a class="ewk_banner_link" href="Servlet-Mueble?accion=crearem">REGRESAR</a>
                             </div>
                     </div>
                 </div>
