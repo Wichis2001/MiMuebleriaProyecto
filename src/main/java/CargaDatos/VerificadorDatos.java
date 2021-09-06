@@ -51,6 +51,24 @@ public class VerificadorDatos {
         return retornar;
     }
     
+    public boolean verificadorEnsamblajePieza(String nombre, String pieza){
+        boolean retornar=true;
+        //Establecemos la query a buscar
+        String sql="SELECT * FROM ensamble_piezas WHERE UPPER(mueble_nombre)=UPPER('"+nombre+"') AND UPPER(pieza_tipo)=UPPER('"+pieza+"');";
+        try{
+            //Nos conectamos a la base
+            con=conexion.getConnection();
+            ps=con.prepareStatement(sql);
+            rs=ps.executeQuery();
+            while(rs.next()){
+                retornar=false;
+            }
+        } catch(SQLException e){
+            System.err.print(e);
+        }
+        return retornar;
+    }
+    
     public boolean verificadorContraseña(String contraseña){
         boolean retornar=false;
         if(contraseña.length()>=6){
@@ -313,6 +331,14 @@ public class VerificadorDatos {
        return retornar;
     }
     
+    public boolean verificarTamañoEntradaClientePequeño(String nit, String direccion,String nombre){
+       boolean retornar=false;
+       if(nit.length()<=12&&direccion.length()<=100&&nombre.length()<=45){
+           retornar=true;
+       }
+       return retornar;
+    }
+    
     public boolean verificarGuiones(String nit){
         char caracter;
         boolean retornar=true;
@@ -323,5 +349,23 @@ public class VerificadorDatos {
             }
         }
        return retornar;
+    }
+    
+    public boolean verificadorCliente(String nit){
+        boolean retornar=true;
+        //Establecemos la query a buscar
+        String sql="SELECT * FROM cliente WHERE UPPER(nit)=UPPER('"+nit+"')";
+        try{
+            //Nos conectamos a la base
+            con=conexion.getConnection();
+            ps=con.prepareStatement(sql);
+            rs=ps.executeQuery();
+            while(rs.next()){
+                retornar=false;
+            }
+        } catch(SQLException e){
+            System.err.print(e);
+        }
+        return retornar;
     }
 }

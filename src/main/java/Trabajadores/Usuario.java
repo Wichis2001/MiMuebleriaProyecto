@@ -33,10 +33,18 @@ public class Usuario implements Serializable{
         this.tipo_usuario = tipo_usuario;
     }
 
+    /**
+     * Este metodo me devuelve el tipo de usuario en caracteres
+     * @return
+     */
     public String getTipo_usuario_S() {
         return tipo_usuario_S;
     }
 
+    /**
+     * Este metodo me permite cambair el tipo de usuario en caracteres
+     * @param tipo_usuario_S
+     */
     public void setTipo_usuario_S(String tipo_usuario_S) {
         this.tipo_usuario_S = tipo_usuario_S;
     }

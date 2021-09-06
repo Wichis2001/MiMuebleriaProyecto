@@ -29,8 +29,10 @@
                             <%
                                 //Recorremos el array de errores y los asignamos a un parrafo
                                 for (int i = 0; i < HiloCargadeDatos.errores.size(); i++) {
+                                    String error="";
+                                    error=HiloCargadeDatos.errores.get(i);
                             %>
-                            <p><%=HiloCargadeDatos.errores.get(i)%></p>
+                            <h2><%="Error: "+ error%></h2>                    
                             <%}%>
                             <a class="ewk_banner_link" href="inicio-sesion.jsp">Iniciar Sesión</a>
                         </div>

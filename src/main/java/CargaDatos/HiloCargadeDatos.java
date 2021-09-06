@@ -7,7 +7,6 @@ import Mysql.Conexion;
 import Mysql.Insert;
 import Mysql.modelos.CrearMuebleDAO;
 import Mysql.modelos.PiezaDAO;
-import Servlets.ServletUsuario;
 import Trabajadores.Usuario;
 import java.io.File;
 import java.io.*;
@@ -18,7 +17,6 @@ import java.sql.SQLException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -147,7 +145,7 @@ public class HiloCargadeDatos extends Thread{
                     //En caso que este comience con la palabra aerolinea procedemos a guardar el archivo a la base de datos
                     case PIEZA:
                         //Verificamos que el valor de la pieza tenga el tamaño de caracteres aceptados
-                        if(verificador.verificarTamañoEntradaPieza(datos[0])==true){
+                        if(verificador.verificarTamañoEntradaPieza(quitarComillas(datos[0]))==true){
                             //Verificamos que esta pieza no exista para poder crear una
                             if(pdao.verificar(quitarComillas(datos[0]), Double.parseDouble(datos[1]), 1)==false){
                                 //Establecemos un objeto pieza y asignamos atributos
@@ -188,29 +186,34 @@ public class HiloCargadeDatos extends Thread{
                             if(verificador.verificadorMueble2(quitarComillas(datos[0]))==true){
                                 //Verificamos que la pieza exista
                                 if(verificador.verificadorPieza(quitarComillas(datos[1]))==true){
-                                    String sql="INSERT INTO ensamble_piezas (mueble_nombre,pieza_tipo,cantidad) VALUES(?,?,?)";
-                                    try{
-                                        //Establecemos una conexin la base de datos
-                                        con=conexion.getConnection();
-                                        con.setAutoCommit(false);
-                                        //Realizamos un insert de un mueble a travez de enviar un parametro
-                                        ps=con.prepareStatement(sql);
-                                        ps.setString(1, quitarComillas(datos[0]));
-                                        ps.setString(2, quitarComillas(datos[1]));
-                                        ps.setInt(3, Integer.parseInt(datos[2]));
-                                        ps.executeUpdate();
-                                        con.commit();
-                                        //Error SQL al momento de agregar una pieza
-                                    } catch(SQLException e){
-                                        System.err.print(e);
-                                        try {
-                                            //Regresamos el rollback
-                                            con.rollback();
-                                        } catch (SQLException ex) {
-                                            //Error SQL al momento de hacer un roll back
-                                            Logger.getLogger(PiezaDAO.class.getName()).log(Level.SEVERE, null, ex);
+                                    if(verificador.verificadorEnsamblajePieza(quitarComillas(datos[0]), quitarComillas(datos[1]))){
+                                        String sql="INSERT INTO ensamble_piezas (mueble_nombre,pieza_tipo,cantidad) VALUES(?,?,?)";
+                                        try{
+                                            //Establecemos una conexin la base de datos
+                                            con=conexion.getConnection();
+                                            con.setAutoCommit(false);
+                                            //Realizamos un insert de un mueble a travez de enviar un parametro
+                                            ps=con.prepareStatement(sql);
+                                            ps.setString(1, quitarComillas(datos[0]));
+                                            ps.setString(2, quitarComillas(datos[1]));
+                                            ps.setInt(3, Integer.parseInt(datos[2]));
+                                            ps.executeUpdate();
+                                            con.commit();
+                                            //Error SQL al momento de agregar una pieza
+                                        } catch(SQLException e){
+                                            System.err.print(e);
+                                            try {
+                                                //Regresamos el rollback
+                                                con.rollback();
+                                            } catch (SQLException ex) {
+                                                //Error SQL al momento de hacer un roll back
+                                                Logger.getLogger(PiezaDAO.class.getName()).log(Level.SEVERE, null, ex);
+                                            }
                                         }
+                                    } else {
+                                        errores.add("Esta instruccion ya esta hecha en: "+auxiliarUno+auxiliarDos);
                                     }
+                                    
                                 } else {
                                     errores.add("La pieza ingresada no existe: "+auxiliarUno+auxiliarDos);
                                 }
@@ -223,16 +226,16 @@ public class HiloCargadeDatos extends Thread{
                     break;
                     //En caso que este comience con la palabra ensamblar mueble procedemos a guardar el mismo en la base de datos
                     case ENSAMBLARMUEBLE:
-                        //Procedemos a darle un formato date a las fechas que se nos da como atributos en en ensamblaje del mueble
+//                        Procedemos a darle un formato date a las fechas que se nos da como atributos en en ensamblaje del mueble
                         Date fecha = DarFormatoaFecha(quitarComillas(datos[2]));
-                        //Verificamos que el tamaño de los caracteres sea aceptados por la base de datos
+//                        Verificamos que el tamaño de los caracteres sea aceptados por la base de datos
                         if(verificador.verificarTamañoEntradaEnsamblarMueble(quitarComillas(datos[0]),quitarComillas(datos[1]))==true){
                             //Verificamos la existencia del mueble
                             if(verificador.verificadorMueble2(quitarComillas(datos[0]))==true){
                                 //Verificamos la existencia del usuario
                                 if(verificador.verificadorUsuario2(quitarComillas(datos[1]))==true){
                                     //Asignamos el mueble
-                                    MuebleEnsamblado muebleE=new MuebleEnsamblado(fecha.toLocalDate(),verificador.precioMueble(quitarComillas(datos[0])),3,quitarComillas(datos[1]),quitarComillas(datos[1]));
+                                    MuebleEnsamblado muebleE=new MuebleEnsamblado(fecha.toLocalDate(), verificador.precioMueble(quitarComillas(datos[0])), quitarComillas(datos[1]), quitarComillas(datos[0]));
                                     verificador.add(muebleE);
                                 } else{
                                     errores.add("El usuario no esta registrado en la base de datos"+auxiliarUno+auxiliarDos);
@@ -246,38 +249,88 @@ public class HiloCargadeDatos extends Thread{
                     break;
                     //En caso que este comience con la palabra cliente procedemos a guardar este en la base de datos
                     case CLIENTE:
-                        //Verificamos si la cad
-                        if(verificador.verificarTamañoEntradaCliente(quitarComillas(datos[1]), quitarComillas(datos[2]), quitarComillas(datos[3]), quitarComillas(datos[4]), quitarComillas(datos[0]))==true){
-                            //Verificamos que el nit no posea guiones
-                            if(verificador.verificarGuiones(quitarComillas(datos[1]))==true){
-                                try{
-                                    //Establecemos una conexin la base de datos
-                                    con=conexion.getConnection();
-                                    con.setAutoCommit(false);
-                                    //Realizamos un insert de Cliente pieza a travez de enviar un parametro
-                                    ps=con.prepareStatement(Insert.INSERTCLIENTE);
-                                    ps.setString(1, String.valueOf(quitarComillas(datos[1])));
-                                    ps.setString(2, String.valueOf(quitarComillas(datos[2])));
-                                    ps.setString(3, String.valueOf(quitarComillas(datos[3])));
-                                    ps.setString(4, String.valueOf(quitarComillas(datos[4])));
-                                    ps.setString(5, String.valueOf(quitarComillas(datos[0])));
-                                    ps.executeUpdate();
-                                    con.commit();
-                                    //Error SQL al momento de agregar una pieza
-                                } catch(SQLException e){
-                                    System.err.print(e);
-                                    try {
-                                        //Regresamos el rollback
-                                        con.rollback();
-                                    } catch (SQLException ex) {
-                                        //Error SQL al momento de hacer un roll back
-                                        Logger.getLogger(PiezaDAO.class.getName()).log(Level.SEVERE, null, ex);
+                        if(datos.length==3){
+                            //Verificamos si la cad
+                            if(verificador.verificarTamañoEntradaClientePequeño(quitarComillas(datos[1]), quitarComillas(datos[2]), quitarComillas(datos[0]))==true){
+                                //Verificamos que el nit no posea guiones
+                                if(verificador.verificarGuiones(quitarComillas(datos[1]))==true){
+                                    if(verificador.verificadorCliente(quitarComillas(datos[1]))==true){
+                                        try{
+                                            //Establecemos una conexin la base de datos
+                                            con=conexion.getConnection();
+                                            con.setAutoCommit(false);
+                                            //Realizamos un insert de Cliente pieza a travez de enviar un parametro
+                                            ps=con.prepareStatement(Insert.INSERTCLIENTE);
+                                            ps.setString(1, String.valueOf(quitarComillas(datos[1])));
+                                            ps.setString(2, String.valueOf(quitarComillas(datos[2])));
+                                            ps.setString(3, String.valueOf(""));
+                                            ps.setString(4, String.valueOf(""));
+                                            ps.setString(5, String.valueOf(quitarComillas(datos[0])));
+                                            ps.executeUpdate();
+                                            con.commit();
+                                            //Error SQL al momento de agregar una pieza
+                                        } catch(SQLException e){
+                                            System.err.print(e);
+                                            try {
+                                                //Regresamos el rollback
+                                                con.rollback();
+                                            } catch (SQLException ex) {
+                                                //Error SQL al momento de hacer un roll back
+                                                Logger.getLogger(PiezaDAO.class.getName()).log(Level.SEVERE, null, ex);
+                                            }
+                                        }
+                                    } else{
+                                        errores.add("El NIT del cliente ya esta puesto en la base de datos"+auxiliarUno+auxiliarDos);
                                     }
+
+                                } else{
+                                    errores.add("No se puede asignar un cliente el cual contenga guiones en su NIT"+auxiliarUno+auxiliarDos);
                                 }
-                            }
-                        } else{
-                            errores.add("Los caracteres en la instruccion cliente exceden los limites aceptados: "+auxiliarUno+auxiliarDos);
+                            } else{
+                                errores.add("Los caracteres en la instruccion cliente exceden los limites aceptados: "+auxiliarUno+auxiliarDos);
+                            }   
+                        }else{
+                            //Verificamos si la cad
+                            if(verificador.verificarTamañoEntradaCliente(quitarComillas(datos[1]), quitarComillas(datos[2]), quitarComillas(datos[3]), quitarComillas(datos[4]), quitarComillas(datos[0]))==true){
+                                //Verificamos que el nit no posea guiones
+                                if(verificador.verificarGuiones(quitarComillas(datos[1]))==true){
+                                    if(verificador.verificadorCliente(quitarComillas(datos[1]))==true){
+                                        try{
+                                            //Establecemos una conexin la base de datos
+                                            con=conexion.getConnection();
+                                            con.setAutoCommit(false);
+                                            //Realizamos un insert de Cliente pieza a travez de enviar un parametro
+                                            ps=con.prepareStatement(Insert.INSERTCLIENTE);
+                                            ps.setString(1, String.valueOf(quitarComillas(datos[1])));
+                                            ps.setString(2, String.valueOf(quitarComillas(datos[2])));
+                                            ps.setString(3, String.valueOf(quitarComillas(datos[3])));
+                                            ps.setString(4, String.valueOf(quitarComillas(datos[4])));
+                                            ps.setString(5, String.valueOf(quitarComillas(datos[0])));
+                                            ps.executeUpdate();
+                                            con.commit();
+                                            //Error SQL al momento de agregar una pieza
+                                        } catch(SQLException e){
+                                            System.err.print(e);
+                                            try {
+                                                //Regresamos el rollback
+                                                con.rollback();
+                                            } catch (SQLException ex) {
+                                                //Error SQL al momento de hacer un roll back
+                                                Logger.getLogger(PiezaDAO.class.getName()).log(Level.SEVERE, null, ex);
+                                            }
+                                        }
+                                    } else{
+                                        errores.add("El NIT del cliente ya esta puesto en la base de datos"+auxiliarUno+auxiliarDos);
+                                    }
+
+                                } else{
+                                    errores.add("No se puede asignar un cliente el cual contenga guiones en su NIT"+auxiliarUno+auxiliarDos);
+                                }
+                            } else{
+                                errores.add("Los caracteres en la instruccion cliente exceden los limites aceptados: "+auxiliarUno+auxiliarDos);
+                            }   
                         }
+                        
                     break;
                     default:
                     //Establecemos que esta tiene un formato invalido para poder ser asignado en la carga de archivos
@@ -294,7 +347,7 @@ public class HiloCargadeDatos extends Thread{
 
             try{
                 //Dormimos el hilo para que se pueda apreciar la carga del archivo
-                Thread.sleep(10);
+                Thread.sleep(1);
                 //Error de carga de archivos interrumpida
             } catch(InterruptedException e){
                 System.out.println(e);

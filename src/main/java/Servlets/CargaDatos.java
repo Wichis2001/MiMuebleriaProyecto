@@ -21,7 +21,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
- *
+ * Este Servlet me permite manejar la carga de archivos a traves de un jsp 
  * @author luis
  */
 @WebServlet(name = "CargaDatos", urlPatterns = {"/Carga-Datos"})
@@ -37,7 +37,11 @@ public class CargaDatos extends HttpServlet {
     HiloCargadeDatos hilo;    
         
     /**
-      * Cargar datos y guardar archivos
+     * Cargar datos y guardar archivos
+     * @param request
+     * @param response
+     * @throws javax.servlet.ServletException
+     * @throws java.io.IOException
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
                     throws ServletException, IOException {
@@ -105,7 +109,7 @@ public class CargaDatos extends HttpServlet {
                  request.setAttribute ("mensaje", "Mensaje de error:" + ex.getMessage ());
         }
 
-         // salta a message.jsp
+         // Nos redirigimos a la página para que nos muestre los errores
         request.getServletContext().getRequestDispatcher("/subir.jsp").forward(request, response);
     }
 
